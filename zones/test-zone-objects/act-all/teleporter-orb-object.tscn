@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/teleporter-orb/teleporter-orb.png" type="Texture" id=1]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/gimmicks-scripts/teleporter-orb-object.gd" type="Script" id=2]
+[ext_resource path="res://game-assets/audio/sfx/charge.wav" type="AudioStream" id=3]
+[ext_resource path="res://game-assets/audio/sfx/warp.wav" type="AudioStream" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0416
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer:playback_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+length = 0.5
+loop = true
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "increment_anim_speed"
+} ]
+}
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.996932 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.5 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.243523, 1 )
+colors = PoolColorArray( 0.501961, 0.878431, 0.752941, 1, 1, 1, 1, 0 )
+
+[node name="VerticalTeleporter" type="Node2D"]
+script = ExtResource( 2 )
+position_to_go = -200.0
+
+[node name="Static" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Static"]
+position = Vector2( 0, 4 )
+polygon = PoolVector2Array( -24, -12, -18, -12, -6, -15, 6, -15, 18, -12, 24, -12, 24, 12, -24, 12 )
+
+[node name="Sensor" type="Area2D" parent="."]
+position = Vector2( 0, -4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/RESET = SubResource( 2 )
+anims/start = SubResource( 3 )
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="ShootPosition" type="Position2D" parent="."]
+position = Vector2( 0, -60 )
+
+[node name="charge" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="warp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2( 0, -4 )
+emitting = false
+amount = 40
+speed_scale = 2.0
+emission_shape = 1
+emission_sphere_radius = 12.0
+gravity = Vector2( 0, -98 )
+scale_amount = 2.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 4 )
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_Sensor_body_entered"]

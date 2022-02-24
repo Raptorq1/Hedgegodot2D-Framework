@@ -14,10 +14,6 @@ func step(host : PlayerPhysics, delta: float):
 	host.gsp -= min(abs(host.gsp), host.FRC) * sign(host.gsp)
 	if !host.is_grounded:
 		return 'OnAir'
-	if crouched:
-		if Input.is_action_just_pressed('ui_jump_i%d' % host.player_index) && (host.spinDash || host.selected_character.spin_dash_override):
-			return 'SpinDash'
-		return
 	if host.gsp != 0:
 		return 'Rolling'
 
@@ -47,3 +43,9 @@ func _on_animation_finished(host, anim_name):
 
 func _exit_tree() -> void:
 	animation_frame = 0.0
+
+func state_input(host, event):
+	if crouched:
+		if Input.is_action_just_pressed('ui_jump_i%d' % host.player_index) && (host.spinDash || host.selected_character.spin_dash_override):
+			return 'SpinDash'
+		return

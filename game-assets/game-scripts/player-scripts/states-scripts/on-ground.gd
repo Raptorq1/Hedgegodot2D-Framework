@@ -33,16 +33,6 @@ func step(host, delta):
 	
 	if host.constant_roll:
 		return 'Rolling'
-	else:
-		if host.direction.y != 0:
-			if host.direction.y > 0:
-				if abs_gsp > 61.875:
-					return "Rolling"
-				elif host.ground_mode == 0:
-					if host.spinDash || host.selected_character.get("spin_dash_override"):
-							if Input.is_action_just_pressed("ui_jump_i%d" % host.player_index):
-								return 'SpinDash'
-					return "Crouch"
 	
 	var ground_angle = host.ground_angle();
 	slope = -host.SLP
@@ -171,5 +161,18 @@ func _on_CharAnimation_animation_finished(anim_name):
 	pass # Replace with function host.
 
 func state_input(host, event):
-	if Input.is_action_just_pressed("ui_jump_i%d" % host.player_index):
+	if host.direction.y != 0:
+		var abs_gsp = abs(host.gsp)
+		if host.direction.y > 0:
+			if abs_gsp > 61.875:
+				return "Rolling"
+			elif host.ground_mode == 0:
+				if host.spinDash || host.selected_character.get("spin_dash_override"):
+					if event.is_action_pressed("ui_jump_i%d" % host.player_index):
+						return 'SpinDash'
+				return "Crouch"
+		elif host.direction.y < 0 and abs_gsp <= 61.875 and host.ground_mode ==0:
+			return "LookUp"
+			
+	if event.is_action_pressed("ui_jump_i%d" % host.player_index):
 		return host.jump()

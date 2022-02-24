@@ -8,6 +8,7 @@ func enter(host, prev_state):
 	idle_anim = 'Rolling'
 	host.snap_margin = host.snaps
 	host.suspended_jump = false
+	host.audio_player.play("spin")
 	
 
 func step(host, delta):
@@ -53,11 +54,16 @@ func step(host, delta):
 	host.gsp += slope * sin(ground_angle)
 	abs_gsp = abs(host.gsp)
 	if !host.control_locked:
-		if host.direction.x != 0:
-			if host.direction.x == -gsp_dir:
-				if abs_gsp > 0 :
-					var braking_dec : float = host.ROLLDEC
-					host.gsp += braking_dec * host.direction.x
+		if host.direction.x != 0 and host.direction.x == -gsp_dir:
+			if abs_gsp > 0 :
+				var braking_dec : float = host.ROLLDEC
+				host.gsp += braking_dec * host.direction.x
+		else:
+			host.gsp -= min(abs_gsp, host.FRC / 2.0) * gsp_dir
+			abs_gsp = abs(host.gsp)
+	
+	if abs_gsp <=61.875:
+		return "OnGround"
 	
 	if host.is_wall_right && host.gsp > 0 || host.is_wall_left && host.gsp < 0:
 		return "OnGround"
@@ -102,5 +108,5 @@ func _on_CharAnimation_animation_finished(anim_name):
 	pass
 
 func state_input(host, event):
-	if Input.is_action_just_pressed("ui_jump_i%d" % host.player_index):
+	if event.is_action_pressed("ui_jump_i%d" % host.player_index):
 		return host.jump()

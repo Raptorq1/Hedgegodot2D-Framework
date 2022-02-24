@@ -25,6 +25,3 @@ func _on_animation_finished(host:PlayerPhysics, anim_name: String):
 	match anim_name:
 		'UpToIdle':
 			host.fsm.change_state('Idle')
-
-func state_input(host, event):
-	var sub_state = host.selected_character.states[state_machine.current_state].state_input(host, event, self)

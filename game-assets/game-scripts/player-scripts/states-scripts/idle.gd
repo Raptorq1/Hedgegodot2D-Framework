@@ -13,18 +13,15 @@ func step(host : PlayerPhysics, delta):
 	slope = -host.SLP
 	host.gsp += slope * sin(ground_angle)
 	host.gsp -= min(abs(host.gsp), host.FRC) * sign(host.gsp)
+	if host.constant_roll:
+		return 'Rolling'
 	if host.gsp != 0:
-		if host.direction.y >0:
+		if host.direction.y > 0:
 			return 'Rolling'
 		return 'OnGround'
 	if host.direction != Vector2.ZERO:
 		if host.direction.x != 0:
 			return 'OnGround'
-		if host.direction.y != 0:
-			if host.direction.y > 0:
-				return 'Crouch'
-			else:
-				return 'LookUp'
 	
 	if host.ground_mode != 0 or !host.is_grounded:
 		return 'OnAir'
@@ -36,5 +33,10 @@ func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta:floa
 	animator.animate('Idle', 1.0, true)
 
 func state_input(host, event):
-	if Input.is_action_just_pressed('ui_jump_i%d' % host.player_index):
+	if host.direction.y != 0:
+		if host.direction.y > 0:
+			return 'Crouch'
+		else:
+			return 'LookUp'
+	if event.is_action_pressed('ui_jump_i%d' % host.player_index):
 		return host.jump()

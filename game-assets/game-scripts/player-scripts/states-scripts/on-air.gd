@@ -46,19 +46,17 @@ func enter(host, prev_state):
 		has_jumped = false
 		has_rolled = false
 	
-	if has_jumped:
-		host.sprite.offset = Vector2(-15, -10)
-	host.characters.rotation = 0.0 if roll_jump else host.characters.rotation
+	
 	host.has_jumped = false
 	host.spring_loaded = false;
 	host.is_floating = false;
 	host.spring_loaded_v = false
 	roll_jump = has_jumped && has_rolled
-	#print(host.has_jumped)
-	if host.selected_character.states.has(name):
-		var to_return = host.selected_character.states[name].exit(host, prev_state, self)
-		if to_return:
-			return to_return
+	
+	var is_animation_roll = roll_jump or has_jumped or has_rolled
+	if is_animation_roll:
+		host.sprite.offset = Vector2(-15, -10)
+		host.characters.rotation = 0.0
 
 func step(host: PlayerPhysics, delta):
 	if host.ground_normal:

@@ -22,7 +22,8 @@ func play(audio_name : String, from : float = 0.0, audio_2d:bool = false, positi
 		stream.play(from)
 
 func stop(audio_name : String):
-	instantied_players[audio_name].stop()
+	if instantied_players.has(audio_name):
+		instantied_players[audio_name].stop()
 	delete_stream(audio_name)
 
 func get_player(audio_name : String) -> AudioStream:

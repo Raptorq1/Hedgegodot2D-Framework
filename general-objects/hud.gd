@@ -7,8 +7,8 @@ signal can_play
 onready var color_rect : ColorRect = $ColorRect
 onready var transition : ColorRect = $Transition
 var action : int
-onready var zone_name : Label = $TitleCard/NormalBg/Bg/Text/ZoneName
-onready var act_num : Label = $TitleCard/NormalBg/Bg/Text/ActContainer/ActNum
+onready var zone_name : Label = $TitleCard/Sort/NormalBg/Bg/Text/ZoneName
+onready var act_num : Label = $TitleCard/Sort/NormalBg/Bg/Text/ActContainer/ActNum
 
 func _ready() -> void:
 	var parent = get_parent()
@@ -18,7 +18,7 @@ func _ready() -> void:
 			get_tree().get_root().set_disable_input(true)
 			zone_name.text = parent.zone_name
 			act_num.text = String(parent.act)
-			transition.color.a = int(get_parent().continue_last_transition)
+			transition.color.a = float(get_parent().continue_last_transition)
 		else:
 			transition.color.a = 0.0
 	set_process(false)

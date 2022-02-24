@@ -21,8 +21,9 @@ func set_players(val : Array) -> void:
 func _physics_process(delta):
 	for i in players:
 		var p : PlayerPhysics = i
-		p.speed.x += cos(1.309) * p.GRV/2
-		p.speed.y += sin(1.309) * p.GRV/2
+		var angle = deg2rad(63)
+		p.speed.x += cos(angle) * p.GRV/2
+		p.speed.y += sin(angle) * p.GRV/2
 
 func _on_Area2D_body_exited(body):
 	if body is PlayerPhysics:

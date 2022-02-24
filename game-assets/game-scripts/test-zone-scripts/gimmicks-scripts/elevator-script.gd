@@ -96,9 +96,24 @@ func _physics_process(delta: float) -> void:
 			if abs(p.global_position.x - global_position.x) < 1:
 				p.global_position.x = global_position.x
 			return
+	var abs_speed = abs(speed)
+	var abs_grab_pos = abs(grab_position)
 	
-	speed += direction*2 * delta
-	_set_grab_position(grab_position + (speed * delta))
+	var top_pos = min(grab_position_from, grab_position_to)
+	var bottom_pos = max(grab_position_from, grab_position_to)
+	
+	var half_pos = abs(top_pos - bottom_pos)
+	var max_speed = 300
+	if ((abs_grab_pos > half_pos and direction < 0) or (abs_grab_pos <= half_pos and direction > 0)) or !to_top:
+		
+		speed += direction*2 * delta
+		
+	elif (abs_grab_pos <= half_pos and to_top and direction < 0) or (abs_grab_pos > half_pos and to_top and direction > 0):
+		speed = (grab_position_to - grab_position) * 2
+		if abs(speed) < 0.3:
+			speed = 0.3 * sign((grab_position_to - grab_position))
+	speed = clamp(speed, -max_speed, max_speed)
+	_set_grab_position(clamp(grab_position + (speed * delta), top_pos, bottom_pos))
 	
 	for p in players:
 		if p.global_position.x != global_position.x:
@@ -109,9 +124,6 @@ func _physics_process(delta: float) -> void:
 				p.player_camera.global_position.y += (p.global_position.y - p.player_camera.global_position.y) * delta * 10
 		else:
 			players.remove(players.find(p))
-	
-	var top_pos = min(grab_position_from, grab_position_to)
-	var bottom_pos = max(grab_position_from, grab_position_to)
 	
 	if (grab_position <= top_pos and direction < 0) or (grab_position >= bottom_pos and direction > 0):
 		set_physics_process(false)

@@ -8,3 +8,5 @@ func enter(host, prev_state):
 	host.characters.rotation = 0
 	host.constant_roll = false
 	host.sprite.offset = Vector2(-15, -15)
+	host.spring_loaded = false
+	host.spring_loaded_v = false

@@ -11,6 +11,7 @@ export var rotate : bool = false setget _set_rotate
 export var rotation_speed : float = 1.0
 export var editor_process : bool = false setget _set_editor_process
 export var default_angle : float = 0 setget _set_dangle
+var container : Node2D
 var process_angle = default_angle
 
 func _ready() -> void:
@@ -55,42 +56,47 @@ func _clear() -> void:
 func _set_rotate(val : bool) -> void:
 	rotate = val
 	if val:
-		set_process(editor_process)
+		set_physics_process(editor_process)
 	else:
-		set_process(false)
+		set_physics_process(false)
 		_update_rings_pos(default_angle)
 
 func _set_editor_process (val : bool) -> void:
 	editor_process = val
 	if !editor_process:
+		set_physics_process(false)
 		_update_rings_pos(default_angle)
+		return
 	if rotate:
-		set_physics_process(val)
+		set_physics_process(editor_process)
 
 func _spawn_objects(count : int, angle : float = 0, blanks : String = "") -> void:
 	_clear()
 	var angle_step = 2*PI
 	var m_angle = angle
+	container = Node2D.new()
+	container.position = Vector2.ZERO
+	add_child(container)
 	for i in count:
 		if blank_position.length() > i && blank_position[i] == "0":
 			m_angle += angle_step / object_count
 			var obj : Node2D = Node2D.new()
 			obj.position = Vector2.RIGHT.rotated(angle)
-			add_child(obj)
+			container.add_child(obj)
 			continue
 		var scene_obj : Node2D = scene.instance(PackedScene.GEN_EDIT_STATE_INSTANCE)
 		var direction = Vector2(cos(m_angle), sin(m_angle))
 		var pos = (scene_offset + Vector2.ZERO) + (direction * radius)
 		if scene_obj != null:
 			scene_obj.set_position(pos)
-			add_child(scene_obj)
+			container.add_child(scene_obj)
 		m_angle += angle_step / object_count
 
 func _update_rings_pos(angle : float) -> void:
-	var angle_step = 2*PI
+	var angle_step = TAU
 	#print(container.get_children())
 	var b : int = 0
-	for i in get_children():
+	for i in container.get_children():
 		#print(b < blank_position.length() && blank_position[b] == "0")
 		if b < blank_position.length() && blank_position[b] == "0":
 			b += 1
@@ -108,18 +114,13 @@ func _physics_process(delta: float) -> void:
 		process_angle = default_angle
 		return
 	process_angle += delta * rotation_speed
-	process_angle = fmod(process_angle, PI*2)
-	var p_angle : float = process_angle
-	var angle_step : float = 2 * PI
-	for i in get_children():
-		var direction = Vector2(cos(p_angle), sin(p_angle))
-		var pos = scene_offset + direction * radius
-		i.position = pos
-		p_angle += angle_step / object_count
-		p_angle = fmod(p_angle, TAU)
-		if p_angle < 0:
-			p_angle = TAU-p_angle
-
+	process_angle = fmod(process_angle, TAU)
+	var angle_p = process_angle
+	var angle_step = TAU / object_count
+	for i in container.get_children():
+		var direction = Vector2(cos(angle_p), sin(angle_p)) * radius
+		i.position = scene_offset + direction
+		angle_p += angle_step
 
 func _draw() -> void:
 	if Engine.editor_hint:

@@ -47,10 +47,10 @@ onready var characters = $Characters
 onready var sprite
 var char_default_collision
 var char_roll_collision
-onready var animation
+onready var animation : CharacterAnimator
 onready var audio_player = $AudioPlayer
 onready var main_scene = get_tree().current_scene
-var snaps : float = 5
+var snaps : float = 10
 var snap_margin = snaps
 
 var ring_scene = preload("res://general-objects/ring-object.tscn")
@@ -182,7 +182,7 @@ func physics_step(delta):
 	
 	ground_ray = get_ground_ray()
 	is_ray_colliding = ground_ray != null
-	if ground_ray and is_ray_colliding:
+	if ground_ray and is_ray_colliding and is_on_floor():
 		if Utils.is_collider_oneway(ground_ray, ground_ray.get_collider()) && ground_mode != 0:
 			ground_normal = ground_ray.get_collision_normal()
 			ground_mode = 0
@@ -204,7 +204,6 @@ func physics_step(delta):
 	
 
 func _step_setup(delta : float) -> void:
-	#print(speed)
 	roll_anim = animation.current_animation == 'Rolling'
 	if "animation_roll" in selected_character:
 		if selected_character.animation_roll is Array:
@@ -245,15 +244,16 @@ func step_wall_collision(wall_sensors : Array) -> bool:
 		var collider = rs.get_collider()
 		if collider:
 			var one_way = Utils.is_collider_oneway(rs, collider)
-			var coll_angle = abs(floor(rad2deg(rs.get_collision_normal().angle())))
+			var coll_angle = abs(floor(rs.get_collision_normal().angle()))
 			#print(angle)
 			var grounded_wall : bool = \
-				((coll_angle != 180 && coll_angle != 0) && is_grounded)
+				(is_equal_approx(coll_angle, PI) && (is_equal_approx(coll_angle, 0)) && is_grounded)
 			
 			var air_wall = \
 				(abs(rotation) > deg2rad(15) && fsm.current_state == 'OnAir')
 			
 			if one_way or grounded_wall or air_wall:
+				print("oneway")
 				continue
 			to_return = to_return or rs.is_colliding()
 	return to_return
@@ -457,6 +457,10 @@ func move_and_slide_preset() -> Vector2:
 		deg2rad(76),
 		true
 	)
+
+func play_specific_anim_temp(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true) -> void:
+	specific_animation_temp = true
+	animation.animate(animation_name, custom_speed, can_loop)
 
 func jump() -> String:
 	snap_margin = 0

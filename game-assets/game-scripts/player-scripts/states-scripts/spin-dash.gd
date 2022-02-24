@@ -8,13 +8,6 @@ func enter(host, prev_state):
 	host.audio_player.play('spin_dash_charge')
 
 func step(host, delta):
-	if Input.is_action_just_released("ui_down"):
-		return 'Rolling'
-	
-	if Input.is_action_just_pressed("ui_jump_i%d" % host.player_index):
-		p += 120
-		host.animation.stop(true)
-		host.audio_player.play('spin_dash_charge')
 	
 	host.characters.rotation = 0
 	
@@ -30,3 +23,12 @@ func exit(host, next_state):
 func animation_step(host, animator, delta):
 	animator.animate('SpinDashCharge', 3.0, false)
 	pass
+
+func state_input(host, event):
+	if event.is_action_released("ui_down"):
+		return 'Rolling'
+	
+	if event.is_action_pressed("ui_jump_i%d" % host.player_index):
+		p += 120
+		host.animation.stop(true)
+		host.audio_player.play('spin_dash_charge')

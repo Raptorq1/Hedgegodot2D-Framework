@@ -16,13 +16,11 @@ func step(host: PlayerPhysics, delta: float):
 	if host.direction.x != 0:
 		var left = host.direction.x < 0 && host.suspended_can_left
 		var right = host.direction.x > 0 && host.suspended_can_right
-		if left || right:
-			#print('l: %s, r: %s' % [left, right])
-			#print('sl: %s, sr: %s' % [host.suspended_can_right, right])
+		if left or right:
 			if target_pos == null:
 				
 				target_pos = host.global_position.x + (24 * host.direction.x)
-				host.speed.x = (target_pos - host.global_position.x) * delta * 160
+				host.speed.x = (target_pos - host.global_position.x) * host.fsm.get_physics_process_delta_time() * 160
 				host.characters.scale.x = sign(host.speed.x)
 				side = sign(host.speed.x)
 		else:
@@ -40,18 +38,6 @@ func step(host: PlayerPhysics, delta: float):
 			if host.direction.x == 0:
 				side = 0
 			host.speed.x = 0
-	
-	if Input.is_action_just_pressed('ui_jump_i%d' % host.player_index):
-		host.has_jumped = true
-		host.speed.y -= host.JMP
-		host.is_grounded = false
-		host.spring_loaded = false
-		host.is_floating = false
-		host.has_jumped = true
-		host.snap_margin = 0
-		host.audio_player.play('jump')
-		host.suspended_jump = true
-		return 'OnAir'
 
 func exit(host: PlayerPhysics, next_state:String):
 	target_pos = null
@@ -77,3 +63,16 @@ func get_class():
 
 func is_class(name:String):
 	return get_class() == name || .is_class(name)
+
+func state_input(host, event):
+	if event.is_action_pressed('ui_jump_i%d' % host.player_index):
+		host.has_jumped = true
+		host.speed.y -= host.JMP
+		host.is_grounded = false
+		host.spring_loaded = false
+		host.is_floating = false
+		host.has_jumped = true
+		host.snap_margin = 0
+		host.audio_player.play('jump')
+		host.suspended_jump = true
+		return 'OnAir'

@@ -30,7 +30,7 @@ func _prepare():
 
 func setInitAngle(value:float):
 	initial_angle = fmod(value, 360);
-	var sp_p = get_node_or_null('SpPlat')
+	var sp_p = get_node_or_null('./SpPlat')
 	if sp_p:
 		sp_p.rotation_degrees = initial_angle;
 		#print(sp_p)
@@ -45,7 +45,7 @@ func getFinalAngle():
 	return final_angle
 
 func setShowTrigger():
-	if has_node("ShowTrigger"):
+	if has_node("./ShowTrigger"):
 		showTrigger = $ShowTrigger;
 
 func setTriggerPos(value: Vector2):
