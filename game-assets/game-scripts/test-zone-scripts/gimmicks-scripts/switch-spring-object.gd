@@ -6,7 +6,7 @@ const push_force = 700
 export var length : int = 1 setget set_length
 var shape:CollisionShape2D
 var sprite:Sprite
-onready var sfx : AudioPlayer = get_tree().get_current_scene().get_node('LevelSFX') if !Engine.editor_hint else null
+onready var sfx : AudioPlayer = get_tree().get_current_scene().get_node('ActContainer/Act1/LevelSFX') if !Engine.editor_hint else null
 
 func set_side(val : int) -> void:
 	side = max(0, min(val, 3))
@@ -22,8 +22,8 @@ func set_length(val : int) -> void:
 		shape.shape.extents.y = (32 * length)/2
 		shape.shape.extents.x = 8
 	else:
-		sprite = Utils.get_node_by_type(self, 'Sprite')
-		shape = Utils.get_node_by_type(self, 'CollisionShape2D')
+		sprite = Utils.Nodes.get_node_by_type(self, 'Sprite')
+		shape = Utils.Nodes.get_node_by_type(self, 'CollisionShape2D')
 		shape.shape = RectangleShape2D.new()
 		set_length(val)
 

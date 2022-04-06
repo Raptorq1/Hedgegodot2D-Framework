@@ -4,7 +4,7 @@ extends Node2D
 const ACTIONS = preload("res://addons/tile_spawner/tile_spawner_action.gd")
 
 export(NodePath) var source_tilemap = null setget set_source_tilemap_path
-export(String, FILE, "*.tres") var mapping
+export(Resource) var mapping
 export(bool) var clear_children_before_baking = true
 export(bool) var spawn_at_runtime = false
 export(NodePath) var target_node = "." setget set_target_node_path

@@ -52,6 +52,7 @@ __meta__ = {
 }
 separation = 4
 min_scroll = -184
+max_scroll = 1728
 dynamic_scroll_size = true
 
 [node name="SaveSelectButton2" parent="ButtonSelector" instance=ExtResource( 4 )]
@@ -67,24 +68,16 @@ anchor_bottom = 0.0
 margin_top = 76.0
 margin_right = 280.0
 margin_bottom = 148.0
-rect_min_size = Vector2( 0, 0 )
-option_values = [ {
-"character_id": 0,
-"enabled": true
-}, {
-"character_id": 0,
-"enabled": false
-}, {
-"character_id": 0,
-"enabled": false
-}, {
-"character_id": 0,
-"enabled": false
-}, {
-"character_id": 0,
-"enabled": false
-}, {
-"character_id": 0,
-"enabled": false
-} ]
+rect_min_size = Vector2( 280, 72 )
 text = "No save"
+
+[node name="BackButton" type="Button" parent="."]
+anchor_right = 0.0958333
+anchor_bottom = 0.074
+margin_bottom = 0.0200005
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="pressed" from="BackButton" to="." method="back"]

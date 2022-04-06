@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/minor-boss0.ogg-a7b650f41954b92501a70f32910e3c4f.oggstr"
+
+[deps]
+
+source_file="res://game-assets/audio/musics/minor-boss0.ogg"
+dest_files=[ "res://.import/minor-boss0.ogg-a7b650f41954b92501a70f32910e3c4f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

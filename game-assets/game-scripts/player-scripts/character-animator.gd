@@ -5,16 +5,13 @@ class_name CharacterAnimator
 var previous_animation : String
 var previous_anim_back : bool
 
-func _ready():
-	connect("animation_finished", self, "_on_MainAnimator_animation_finished")
-
-func animate(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true):
+func animate(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true, from_end: bool = false):
 	if can_loop and animation_name == previous_animation and !previous_anim_back:
 		return
 	
-	play(animation_name, -1, custom_speed)
+	play(animation_name, -1, custom_speed, from_end)
 	previous_animation = animation_name
-	previous_anim_back = false
+	previous_anim_back = from_end
 	
 
 func animate_from_end(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true):

@@ -3,6 +3,8 @@ tool
 
 class_name PlayerCamera
 
+export(bool) var enabled = true
+
 export(float) var vertical_offset setget _set_ver_offset
 export(float) var horizontal_offset setget _set_hor_offset
 

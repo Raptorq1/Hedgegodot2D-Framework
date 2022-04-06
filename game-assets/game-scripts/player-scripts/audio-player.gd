@@ -9,7 +9,10 @@ func play(audio_name : String, from : float = 0.0, audio_2d:bool = false, positi
 		#print(audios[audio_name], audio_name)
 		var stream
 		if !instantied_players.has(audio_name):
-			stream = AudioStreamPlayer.new() if !audio_2d else AudioStreamPlayer2D.new()
+			if audio_2d:
+				stream = AudioStreamPlayer2D.new()
+			else:
+				stream = AudioStreamPlayer.new()
 			if stream is AudioStreamPlayer2D:
 				stream.position = position
 			stream.set_stream(audios[audio_name])

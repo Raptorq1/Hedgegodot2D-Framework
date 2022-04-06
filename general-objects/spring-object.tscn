@@ -4,6 +4,10 @@
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/general-sprites/YellowSprings.png" type="Texture" id=2]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/general-sprites/RedSprings.png" type="Texture" id=3]
 
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 0, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 32, 32 )
@@ -32,22 +36,22 @@ region = Rect2( 160, 0, 32, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 192, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
-region = Rect2( 224, 0, 32, 32 )
-
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": false,
-"name": "Push",
-"speed": 35.0
-}, {
 "frames": [ SubResource( 8 ) ],
 "loop": false,
 "name": "Normal",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": false,
+"name": "Push",
+"speed": 35.0
 } ]
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 224, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 2 )
@@ -77,21 +81,17 @@ region = Rect2( 160, 0, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 224, 0, 32, 32 )
-
 [sub_resource type="SpriteFrames" id=18]
 animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
-"loop": false,
-"name": "Push",
-"speed": 35.0
-}, {
 "frames": [ SubResource( 17 ) ],
 "loop": false,
 "name": "Normal",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": false,
+"name": "Push",
+"speed": 35.0
 } ]
 
 [sub_resource type="Animation" id=19]
@@ -209,7 +209,7 @@ frames = SubResource( 18 )
 animation = "Push"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("/root/EditorNode/@@580/@@581/@@589/@@591/@@595/@@599/@@600/@@601/@@617/@@618/@@627/@@628/@@6060/@@5899/@@5900/@@5901/@@5902/@@5903/RedSpring/Types/Red")
+root_node = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/RedSpring/Types/Red")
 playback_speed = 3.0
 anims/Push = SubResource( 19 )
 anims/Stop = SubResource( 20 )

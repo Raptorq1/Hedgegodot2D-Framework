@@ -1,4 +1,4 @@
-extends '../state.gd'
+extends State
 
 var was_damaged : bool
 var has_jumped : bool
@@ -16,13 +16,11 @@ var roll_on_snap_ground : bool = false
 func enter(host, prev_state):
 	host.snap_margin = 0
 	can_snap = 0
-	host.ray_collider.set_deferred("disabled", true)
-	
 	#print(prev_state)
 	host.ground_sensors_container.rotation = 0
-	if host.has_jumped || host.spring_loaded || host.fsm.is_current_state("Rolling"):
-		host.characters.rotation = 0;
-	was_damaged = host.was_damaged;
+	if host.spring_loaded || host.roll_anim:
+		host.character.rotation = 0;
+	was_damaged = host.was_damaged
 	#print(was_damaged)
 	if host.throwed:
 		was_throwed = true
@@ -36,7 +34,7 @@ func enter(host, prev_state):
 		spring_loaded_v = host.spring_loaded_v
 		if !spring_loaded:
 			has_jumped = host.has_jumped
-			has_rolled = host.fsm.is_current_state("Rolling")
+			has_rolled = prev_state == "Rolling"
 			spring_loaded_v = false
 		else:
 			has_jumped = false
@@ -53,20 +51,17 @@ func enter(host, prev_state):
 	host.spring_loaded_v = false
 	roll_jump = has_jumped && has_rolled
 	
-	var is_animation_roll = roll_jump or has_jumped or has_rolled
+	var is_animation_roll = host.roll_anim
 	if is_animation_roll:
 		host.sprite.offset = Vector2(-15, -10)
-		host.characters.rotation = 0.0
+	host.rotation = 0
 
 func step(host: PlayerPhysics, delta):
-	if host.ground_normal:
-		host.ground_sensors_container.global_rotation = 0
-	else:
-		host.characters.rotation = -host.rotation
-		host.rotation = 0
-		host.ground_sensors_container.rotation = 0
-	#print(host.rotation, 'air')
-	host.characters.rotation += (-host.rotation - host.characters.rotation) / (0.5/delta)
+	var delta_final = delta * 75
+	var is_animation_roll = host.roll_anim
+	if is_animation_roll:
+		host.sprite.offset = Vector2(-15, -10)
+	host.character.rotation = lerp_angle(host.character.rotation, 0, 0.25)
 	if host.is_floating:
 		has_jumped = false
 		spring_loaded = false
@@ -102,8 +97,6 @@ func step(host: PlayerPhysics, delta):
 	host.speed.x = 0 if host.is_wall_right && host.speed.x > 0 else host.speed.x
 
 	var can_move = true if !host.control_locked else false
-	var no_rotation = has_jumped or has_rolled
-	host.rotation_degrees = int(lerp(host.rotation_degrees, 0, .2)) if !no_rotation else 0
 	
 	#print(prev_frame_state)
 	if host.is_grounded:
@@ -112,22 +105,19 @@ func step(host: PlayerPhysics, delta):
 			host.spring_loaded = false
 			host.snap_margin = host.snaps
 			if was_damaged:
-				return 'Idle'
+				finish('Idle')
 			if roll_on_snap_ground:
-				return 'Rolling'
-			return 'OnGround'
+				finish('Rolling')
+			finish('OnGround')
 	
 	can_snap += delta
 	#print(can_snap)
 	#print(prev_frame_state)
 	
 	
-	if host.direction.x < 0 && can_move:
-		if host.speed.x > -host.TOP:
-			host.speed.x -= host.AIR
-	elif host.direction.x > 0 && can_move:
-		if host.speed.x < host.TOP:
-			host.speed.x += host.AIR;
+	if host.direction.x != 0 && can_move:
+		if abs(host.speed.x) < host.top:
+			host.speed.x += host.air * host.direction.x * delta_final
 	if !spring_loaded:
 		if has_jumped:
 			var ui_jump = "ui_jump_i%d" % host.player_index
@@ -138,15 +128,9 @@ func step(host: PlayerPhysics, delta):
 				if host.speed.y < jmp_release: # set min jump height
 					host.speed.y = jmp_release
 	if host.speed.y < 0 and host.speed.y > -240:
-		host.speed.x -= int(host.speed.x / 7.5) /15360
+		host.speed.x -= (host.speed.x/0.125)/435 * delta_final
 	
-	host.speed.y += host.GRV
-	
-	if host.selected_character.states.has(name):
-		var to_return = host.selected_character.states[name].step(host, delta, self)
-		if to_return:
-			return to_return
-	#print(host.speed)
+	host.speed.y += host.grv * (delta * 60)
 
 func exit(host, next_state):
 	can_snap = 0
@@ -186,17 +170,18 @@ func animation_step(host, animator, delta):
 			else:
 				if has_jumped or has_rolled:
 					anim_name = 'Rolling';
-					host.characters.rotation = 0
+					host.character.rotation = 0
 					anim_speed = max(-((5.0 / 60.0) - (abs(host.gsp) / 120.0)), 1.0);
 	
-	if host.selected_character.states.has(name):
-		var dic = host.selected_character.states[name].animation_step(host, animator, delta, self, [anim_name, anim_speed])
-		if dic:
-			anim_name = dic.anim_name
-			anim_speed = dic.anim_speed
+	host.character.scale.x = host.direction.x if host.direction.x != 0 else host.character.scale.x
 	
-	host.characters.scale.x = host.direction.x if host.direction.x != 0 else host.characters.scale.x
-	animator.animate(anim_name, anim_speed, true)
+	if _can_animate:
+		animator.animate(anim_name, anim_speed, true)
+	
+	
+	
+	animate_again()
+
 
 func _on_animation_finished(host, anim_name) -> void:
 	match anim_name:
@@ -204,6 +189,3 @@ func _on_animation_finished(host, anim_name) -> void:
 			if was_throwed && !is_floating:
 				was_throwed = false
 				host.animation.current_animation = 'Walking'
-
-func when_pushed_by_spring():
-	spring_loaded = true;

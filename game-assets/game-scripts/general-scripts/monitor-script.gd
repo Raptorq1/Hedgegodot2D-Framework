@@ -9,7 +9,7 @@ var explode : PackedScene = preload('res://general-objects/item-boxes/item-box-e
 onready var base_sprite = $base
 onready var object_sprite = $Display/ObjectIndicator
 onready var explode_area = $ExplodeArea
-onready var cshape : CollisionShape2D = Utils.get_node_by_type(self, 'CollisionShape2D')
+onready var cshape : CollisionShape2D = Utils.Nodes.get_node_by_type(self, 'CollisionShape2D')
 
 func _ready() -> void:
 	set_physics_process(false)

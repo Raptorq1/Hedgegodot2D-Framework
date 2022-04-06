@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://icon-new-flat.svg" type="Texture" id=1]
+[ext_resource path="res://game-assets/game-scripts/general-scripts/debug-menu-popup.gd" type="Script" id=2]
+[ext_resource path="res://game-assets/game-fonts/options-common-button-text.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+border_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_bottom_right = 331
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 20.0
+bg_color = Color( 0.12, 0.4, 0.55, 0.8 )
+
+[sub_resource type="StyleBoxLine" id=4]
+color = Color( 1, 1, 1, 1 )
+thickness = 4
+
+[node name="DebugMenuPopup" type="PopupMenu"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+custom_styles/labeled_separator_left = SubResource( 2 )
+custom_styles/labeled_separator_right = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
+custom_styles/separator = SubResource( 4 )
+items = [ "Debug menu", null, 0, false, false, 0, 0, null, "", true, "Item transformation", null, 1, false, false, 1, 0, null, "", false, "Free move", null, 1, false, false, 2, 0, null, "", false, "Set spawn position", null, 0, false, false, 3, 0, null, "", false, "Reset", null, 0, false, false, 4, 0, null, "", false, "Next act", null, 0, false, false, 5, 0, null, "", false ]
+hide_on_checkable_item_selection = false
+allow_search = true
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.911
+margin_left = -94.0
+margin_top = -52.0
+margin_right = 94.0
+margin_bottom = 22.03
+mouse_filter = 2
+
+[node name="Icon-new-flat" type="TextureRect" parent="CenterContainer"]
+modulate = Color( 1, 1, 1, 0.1 )
+margin_left = 138.0
+margin_top = 37.0
+margin_right = 338.0
+margin_bottom = 229.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="index_pressed" from="." to="." method="_on_DebugMenuPopup_index_pressed"]
+[connection signal="popup_hide" from="." to="." method="_on_DebugMenuPopup_popup_hide"]

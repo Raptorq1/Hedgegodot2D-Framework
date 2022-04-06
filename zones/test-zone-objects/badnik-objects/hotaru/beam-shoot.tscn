@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/bosses-sprites/minor-boss/mini-hotarus/charging-sprite-sheet.png" type="Texture" id=1]
+[ext_resource path="res://addons/sprite_trail/SpriteTrail.gd" type="Script" id=2]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/hotaru/beam-shoot.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 24, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 24, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=32]
+animations = [ {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="CircleShape2D" id=33]
+radius = 12.0
+
+[node name="HotaruBeam" type="Area2D"]
+position = Vector2( 61, 47 )
+collision_layer = 9
+collision_mask = 9
+monitorable = false
+audio_bus_name = "SFX"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="beam-shoot" type="AnimatedSprite" parent="."]
+frames = SubResource( 32 )
+frame = 4
+playing = true
+
+[node name="SpriteTrail" type="Node2D" parent="beam-shoot"]
+show_behind_parent = true
+script = ExtResource( 2 )
+active = true
+life_time = 0.1
+copy_period = 0.01
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 33 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_hotarubeamshoot_body_entered"]
+[connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]

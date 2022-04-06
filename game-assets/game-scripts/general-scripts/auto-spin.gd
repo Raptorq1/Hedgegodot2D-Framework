@@ -18,9 +18,9 @@ func _on_AutoSpin_body_entered(body):
 		if impulse:
 			if !player.constant_roll:
 				if by_scale:
-					player.gsp += 300 * player.characters.scale.x
+					player.gsp += 300 * player.side
 				else:
-					player.gsp += 300 * Utils.sign_bool(right)
+					player.gsp += 300 * Utils.Math.bool_sign(right)
 		if spin:
 			var type = {
 				ActivateType.TOGGLE: !player.constant_roll,

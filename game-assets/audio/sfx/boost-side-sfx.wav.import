@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boost-side-sfx.wav-0a259ed9ca4923c6aede94a09af94c16.sample"
+
+[deps]
+
+source_file="res://game-assets/audio/sfx/boost-side-sfx.wav"
+dest_files=[ "res://.import/boost-side-sfx.wav-0a259ed9ca4923c6aede94a09af94c16.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

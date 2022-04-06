@@ -35,10 +35,9 @@ func _input(event: InputEvent) -> void:
 	if !parent.can_control:
 		press_direction = 0
 		return
-	press_direction =  (-Input.get_action_strength('ui_left') + Input.get_action_strength('ui_right'))
+	press_direction = Input.get_axis("ui_left_i%d" % player.player_index, "ui_right_i%d" % player.player_index)
 
 func _explode() -> void:
-	emit_signal('exploded')
 	
 	parent.animator.play('Idle')
 	
@@ -51,13 +50,15 @@ func _explode() -> void:
 			player.player_camera.follow_player = true
 	speed = 0.0
 	rotation = 0
-	position = Vector2.ZERO
 	set_physics_process(false)
 	set_process_input(false)
 	$RocketHitBox/CollisionShape2D.set_deferred("disabled", true)
 	player = null
 	yield(get_tree(), "idle_frame")
 	$RocketHitBox/CollisionShape2D.set_deferred("disabled", false)
+	
+	emit_signal('exploded')
+	position = Vector2.ZERO
 
 func _on_RocketHitBox_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	match body.get_class():
@@ -76,7 +77,8 @@ func _on_RocketHitBox_body_shape_entered(body_rid, body, body_shape_index, local
 			player.set_visible(false)
 			player.has_jumped = true
 			player.global_position = global_position
-			player.fsm.change_state('Stateless')
+			player.fsm.do_not_process_state_until(self, "exploded")
+			player.erase_state()
 			return
 		"CollisionObject2D":
 			var co2D : CollisionObject2D = body

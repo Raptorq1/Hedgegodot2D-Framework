@@ -5,9 +5,6 @@ anchor_right = 0.219
 anchor_bottom = 0.13
 margin_right = -0.120003
 margin_bottom = -0.100002
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Left" type="VSeparator" parent="."]
 margin_right = 4.0

@@ -1,27 +1,27 @@
 extends StateChar
 
-export(float) var DASH_SPEED = 720
-export(float) var CHARGE_TIME = 1
+export(float) var dash_speed = 720
+export(float) var charge_time = 1
 
 var charge_timer : float
 var animation_speed : float
 
 func enter(host: PlayerPhysics, prev_state, main_state = null):
-	charge_timer = CHARGE_TIME
+	charge_timer = charge_time
 	animation_speed = 1.0
 	host.audio_player.play('peel_out_charge')
 
 func step(host: PlayerPhysics, delta, main_state = null):
 	charge_timer -= delta
-	animation_speed += (720.0 / pow(CHARGE_TIME, 2.0)) * delta
+	animation_speed += (720.0 / pow(charge_time, 2.0)) * delta
 	animation_speed = min(animation_speed, 720.0)
 	
-	if Input.is_action_just_released("ui_up"):
-		return 'OnGround'
+	if Input.is_action_just_released("ui_up_i%d" % host.player_index):
+		finish("OnGround")
 
 func exit(host: PlayerPhysics, next_stage:String, main_state = null):
 	if charge_timer <= 0:
-		host.gsp = DASH_SPEED * host.characters.scale.x
+		host.gsp = dash_speed * host.character.scale.x * host.fsm.get_physics_process_delta_time() * 60
 		host.audio_player.play('peel_out_release')
 		host.player_camera.delay(0.25)
 	else:

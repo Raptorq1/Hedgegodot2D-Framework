@@ -21,11 +21,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "Catch2",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 12 ), ExtResource( 6 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 18 ) ],
 "loop": true,
 "name": "Catch1",
@@ -34,7 +29,12 @@ animations = [ {
 "frames": [ ExtResource( 9 ), ExtResource( 12 ), ExtResource( 4 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 3 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 17 ), ExtResource( 4 ), ExtResource( 12 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "HyperCatch",
-"speed": 30.0
+"speed": 24.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Catch2",
+"speed": 20.0
 } ]
 
 [node name="RingSparkle" type="Node2D"]
@@ -43,7 +43,6 @@ script = ExtResource( 8 )
 [node name="Anim" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "HyperCatch"
-frame = 7
-playing = true
+frame = 1
 
 [connection signal="animation_finished" from="Anim" to="." method="_on_Anim_animation_finished"]

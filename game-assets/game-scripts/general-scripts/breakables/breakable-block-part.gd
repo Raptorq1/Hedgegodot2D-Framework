@@ -2,42 +2,41 @@ extends Node2D
 
 
 export(Vector2) var speed;
-export(bool) var active;
-onready var sprite = get_child(0);
-var canFall:bool = true;
-var timer:Timer;
+export(bool) var active = true
+export var can_rotate:bool = true
+onready var sprite = Utils.Nodes.get_node_by_type(self, "Sprite")
+var canFall:bool = true
+onready var distance_meter = $DistanceMeter
 
-var spawnpoint:Vector2;
+var spawnpoint:Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if active:
 		set_physics_process(true);
+		spawnpoint = global_position
+		distance_meter.position_d = spawnpoint
+		distance_meter.max_distance = 2000
+		distance_meter.set_active(true)
 	else:
 		queue_free()
 
 func delay(sec:float):
 	canFall = false;
-	timer = Timer.new();
-	add_child(timer);
-	timer.connect("timeout", self, "canFall");
-	timer.start(sec);
+	yield(get_tree().create_timer(sec), "timeout")
+	canFall = true
 
-func canFall():
-	timer.stop();
-	remove_child(timer);
-	canFall = true;
 
 func _physics_process(delta):
-	var distance_max = 2000
-	if position.x - distance_max >= spawnpoint.x || position.y - distance_max >= spawnpoint.y ||\
-		position.x + distance_max <= spawnpoint.x || position.y + distance_max <= spawnpoint.y:
-		queue_free()
-	if (canFall):
-		sprite.rotation += (0 - sprite.rotation) / 10
+	if canFall:
+		if can_rotate:
+			sprite.rotation += (0 - sprite.rotation) / 10
 		if (abs(speed.x) > 50):
 			speed.x += -sign(speed.x) * 250 * delta;
 		if (speed.y < 5000):
 			speed.y += 1000 * delta;
 		move_local_x(speed.x * delta);
 		move_local_y(speed.y * delta);
-	pass
+
+
+func _on_DistanceMeter_distance_achieved():
+	queue_free()

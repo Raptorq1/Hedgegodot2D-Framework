@@ -5,7 +5,7 @@
 [ext_resource path="res://game-assets/game-classes/damage-box-script.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 3 )
+extents = Vector2( 15, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 15 )
@@ -26,7 +26,9 @@ script = ExtResource( 3 )
 
 [node name="DamageBox" type="CollisionShape2D" parent="Damage"]
 modulate = Color( 0.901961, 0.588235, 0.101961, 1 )
+position = Vector2( 0, 3 )
 shape = SubResource( 1 )
+one_way_collision = true
 
 [node name="Body" type="StaticBody2D" parent="."]
 

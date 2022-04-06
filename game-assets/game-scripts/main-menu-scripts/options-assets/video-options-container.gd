@@ -75,6 +75,9 @@ func _input(event : InputEvent):
 		if selected_node.can_change_value:
 			
 			selected_node.change_value(Input.get_axis(value_back, value_next))
-	
 	if event.is_action_pressed("ui_accept"):
-		get_child(selected).on_accept()
+		accept()
+	
+
+func accept():
+	get_child(selected).on_accept()

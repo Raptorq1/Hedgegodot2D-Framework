@@ -8,7 +8,7 @@ func enter(host: PlayerPhysics, prev_state:String):
 	host.speed = Vector2.ZERO
 	host.audio_player.play('grab')
 	host.rotation = 0
-	host.characters.rotation = 0
+	host.character.rotation = 0
 	host.snap_margin = 0
 
 func step(host: PlayerPhysics, delta: float):
@@ -18,11 +18,10 @@ func step(host: PlayerPhysics, delta: float):
 		var right = host.direction.x > 0 && host.suspended_can_right
 		if left or right:
 			if target_pos == null:
-				
 				target_pos = host.global_position.x + (24 * host.direction.x)
-				host.speed.x = (target_pos - host.global_position.x) * host.fsm.get_physics_process_delta_time() * 160
-				host.characters.scale.x = sign(host.speed.x)
-				side = sign(host.speed.x)
+				host.speed.x = (target_pos - host.global_position.x) * delta * 160
+				host.side = sign(host.speed.x)
+				side = host.side
 		else:
 			side = 0
 	else:
@@ -67,7 +66,7 @@ func is_class(name:String):
 func state_input(host, event):
 	if event.is_action_pressed('ui_jump_i%d' % host.player_index):
 		host.has_jumped = true
-		host.speed.y -= host.JMP
+		host.speed.y -= host.jmp
 		host.is_grounded = false
 		host.spring_loaded = false
 		host.is_floating = false
@@ -75,4 +74,4 @@ func state_input(host, event):
 		host.snap_margin = 0
 		host.audio_player.play('jump')
 		host.suspended_jump = true
-		return 'OnAir'
+		finish("OnAir")

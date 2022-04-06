@@ -152,7 +152,7 @@ __meta__ = {
 
 [node name="ObjectContainer" type="AnimatedSprite" parent="Display"]
 frames = SubResource( 1 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="ObjectIndicator" type="Sprite" parent="Display"]
@@ -162,7 +162,7 @@ vframes = 5
 
 [node name="Snow" type="AnimatedSprite" parent="Display"]
 frames = SubResource( 2 )
-frame = 26
+frame = 18
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -172,6 +172,7 @@ shape = SubResource( 3 )
 [node name="ExplodeArea" type="Area2D" parent="."]
 modulate = Color( 0.713726, 0.129412, 0.537255, 1 )
 position = Vector2( 0, -2 )
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeArea"]
 position = Vector2( 0, 6 )

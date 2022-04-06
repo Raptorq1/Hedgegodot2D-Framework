@@ -154,6 +154,7 @@ tracks/2/keys = {
 }
 
 [node name="PlasmaBall" type="Area2D"]
+monitorable = false
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -198,7 +199,3 @@ anims/main = SubResource( 26 )
 [node name="PlasmaSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 bus = "SFX"
-
-[node name="PlayerControllersContainer" type="Node" parent="."]
-
-[connection signal="body_entered" from="." to="." method="_on_TeslaBall_body_entered"]

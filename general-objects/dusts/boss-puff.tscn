@@ -72,15 +72,15 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "free"
+"method": "queue_free"
 } ]
 }
 
 [node name="BossPuff" type="AnimatedSprite"]
 position = Vector2( 95, 64 )
 frames = SubResource( 1 )
-frame = 2
-offset = Vector2( 0, -8 )
+frame = 12
+offset = Vector2( 6, -17 )
 
 [node name="animator" type="AnimationPlayer" parent="."]
 autoplay = "default"

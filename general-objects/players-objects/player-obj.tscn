@@ -1,16 +1,16 @@
-[gd_scene load_steps=227 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/spin-dash.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/on-air.gd" type="Script" id=2]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/on-ground.gd" type="Script" id=3]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/character-animator.gd" type="Script" id=4]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/state-machine.gd" type="Script" id=5]
+[ext_resource path="res://general-objects/players-objects/characters-scene/sonic-character-object.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/player-state-machine.gd" type="Script" id=5]
 [ext_resource path="res://game-assets/audio/sfx/spin.wav" type="AudioStream" id=6]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/character-vfx.gd" type="Script" id=7]
 [ext_resource path="res://game-assets/audio/sfx/peel-out-charge.wav" type="AudioStream" id=8]
 [ext_resource path="res://game-assets/audio/sfx/spin-dash-charge.wav" type="AudioStream" id=9]
 [ext_resource path="res://game-assets/audio/sfx/spin-dash-release.wav" type="AudioStream" id=10]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/super-peel-out.gd" type="Script" id=11]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/collision-handler.gd" type="Script" id=11]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/player-physics.gd" type="Script" id=12]
 [ext_resource path="res://game-assets/audio/sfx/insta-shield.wav" type="AudioStream" id=13]
 [ext_resource path="res://game-assets/audio/sfx/peel-out-release.wav" type="AudioStream" id=14]
@@ -19,176 +19,20 @@
 [ext_resource path="res://game-assets/game-scripts/player-scripts/audio-player.gd" type="Script" id=17]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/trail.gd" type="Script" id=18]
 [ext_resource path="res://game-assets/game-sprites/player-sprites/VFX/spin-dash-dust.png" type="Texture" id=19]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/stateless-state.gd" type="Script" id=20]
-[ext_resource path="res://game-assets/game-classes/improved-sprite-frames-scripts.gd" type="Script" id=21]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-02.png" type="Texture" id=22]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-06.png" type="Texture" id=23]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-01.png" type="Texture" id=24]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-04.png" type="Texture" id=25]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-05.png" type="Texture" id=26]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/parado.png" type="Texture" id=27]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#3.png" type="Texture" id=28]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-07.png" type="Texture" id=29]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#12.png" type="Texture" id=30]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#15.png" type="Texture" id=31]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-03.png" type="Texture" id=32]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#7.png" type="Texture" id=33]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#5.png" type="Texture" id=34]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#3.png" type="Texture" id=35]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#7.png" type="Texture" id=36]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#1.png" type="Texture" id=37]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#7.png" type="Texture" id=38]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#4.png" type="Texture" id=39]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-08.png" type="Texture" id=40]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-10.png" type="Texture" id=41]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-11.png" type="Texture" id=42]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-12.png" type="Texture" id=43]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/andando/sonic-walking-anim-09.png" type="Texture" id=44]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#11.png" type="Texture" id=45]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#8.png" type="Texture" id=46]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#1.png" type="Texture" id=47]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/abaixar/abaixar#3.png" type="Texture" id=48]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#5.png" type="Texture" id=49]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#6.png" type="Texture" id=50]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#3.png" type="Texture" id=51]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#4.png" type="Texture" id=52]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#9.png" type="Texture" id=53]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#5.png" type="Texture" id=54]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/abaixar/abaixar#1.png" type="Texture" id=55]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#4.png" type="Texture" id=56]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#2.png" type="Texture" id=57]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/abaixar/abaixar#2.png" type="Texture" id=58]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#2.png" type="Texture" id=59]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#16.png" type="Texture" id=60]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#4.png" type="Texture" id=61]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#3.png" type="Texture" id=62]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#1.png" type="Texture" id=63]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#8.png" type="Texture" id=64]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/abaixar/abaixar#4.png" type="Texture" id=65]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#6.png" type="Texture" id=66]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo/pulo#2.png" type="Texture" id=67]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/jogging/andando#10.png" type="Texture" id=68]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#6.png" type="Texture" id=69]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#8.png" type="Texture" id=70]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo/correndo#8.png" type="Texture" id=71]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#2.png" type="Texture" id=72]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/olhando para cima/oc#7.png" type="Texture" id=73]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#12.png" type="Texture" id=74]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#14.png" type="Texture" id=75]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#6.png" type="Texture" id=76]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#16.png" type="Texture" id=77]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#2.png" type="Texture" id=78]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#4.png" type="Texture" id=79]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#1.png" type="Texture" id=80]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#8.png" type="Texture" id=81]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/spin dash/spin dash#10.png" type="Texture" id=82]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/retorno#3.png" type="Texture" id=83]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#2.png" type="Texture" id=84]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#6.png" type="Texture" id=85]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#8.png" type="Texture" id=86]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#1.png" type="Texture" id=87]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/retorno#2.png" type="Texture" id=88]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#5.png" type="Texture" id=89]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#3.png" type="Texture" id=90]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#7.png" type="Texture" id=91]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#4.png" type="Texture" id=92]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/freiando#9.png" type="Texture" id=93]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/freiando/retorno#1.png" type="Texture" id=94]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#10.png" type="Texture" id=95]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#9.png" type="Texture" id=96]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#8.png" type="Texture" id=97]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash##1.png" type="Texture" id=98]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#5.png" type="Texture" id=99]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#6.png" type="Texture" id=100]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#7.png" type="Texture" id=101]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#2.png" type="Texture" id=102]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash##2.png" type="Texture" id=103]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/drop dash/drop dash#3.png" type="Texture" id=104]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/velocidade maxima/vm#5.png" type="Texture" id=105]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/velocidade maxima/vm#3.png" type="Texture" id=106]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/velocidade maxima/vm#4.png" type="Texture" id=107]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/velocidade maxima/vm#2.png" type="Texture" id=108]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/characters-scripts/character-values.gd" type="Script" id=20]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/state.gd" type="Script" id=21]
 [ext_resource path="res://game-assets/audio/sfx/drop-dash.wav" type="AudioStream" id=109]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#7.png" type="Texture" id=110]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#6.png" type="Texture" id=111]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#2.png" type="Texture" id=112]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#4.png" type="Texture" id=113]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#8.png" type="Texture" id=114]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#3.png" type="Texture" id=115]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#10.png" type="Texture" id=116]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#9.png" type="Texture" id=117]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#5.png" type="Texture" id=118]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pulo de mola/pdm#1.png" type="Texture" id=119]
 [ext_resource path="res://game-assets/audio/sfx/spring-push.wav" type="AudioStream" id=120]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#7.png" type="Texture" id=121]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#3.png" type="Texture" id=122]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#4.png" type="Texture" id=123]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#5.png" type="Texture" id=124]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#1.png" type="Texture" id=125]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#2.png" type="Texture" id=126]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#6.png" type="Texture" id=127]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#8.png" type="Texture" id=128]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#9.png" type="Texture" id=129]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/empurrando/empurrando#10.png" type="Texture" id=130]
 [ext_resource path="res://game-assets/audio/sfx/ring-catch.wav" type="AudioStream" id=131]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#19.png" type="Texture" id=132]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#15.png" type="Texture" id=133]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#13.png" type="Texture" id=134]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#10.png" type="Texture" id=135]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#11.png" type="Texture" id=136]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#23.png" type="Texture" id=137]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#6.png" type="Texture" id=138]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#7.png" type="Texture" id=139]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#20.png" type="Texture" id=140]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#9.png" type="Texture" id=141]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#8.png" type="Texture" id=142]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#24.png" type="Texture" id=143]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#17.png" type="Texture" id=144]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#22.png" type="Texture" id=145]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#21.png" type="Texture" id=146]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#18.png" type="Texture" id=147]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#16.png" type="Texture" id=148]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#12.png" type="Texture" id=149]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#5.png" type="Texture" id=150]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#14.png" type="Texture" id=151]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#1.png" type="Texture" id=152]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#2.png" type="Texture" id=153]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#4.png" type="Texture" id=154]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/correndo espiral 1/ce1#3.png" type="Texture" id=155]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/dano/dano#5.png" type="Texture" id=156]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/dano/dano#4.png" type="Texture" id=157]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/dano/dano#2.png" type="Texture" id=158]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/dano/dano#3.png" type="Texture" id=159]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/dano/dano#1.png" type="Texture" id=160]
 [ext_resource path="res://game-assets/audio/sfx/spike-hurt.wav" type="AudioStream" id=161]
 [ext_resource path="res://game-assets/audio/sfx/hurt.wav" type="AudioStream" id=162]
 [ext_resource path="res://game-assets/audio/sfx/lose-rings.wav" type="AudioStream" id=163]
 [ext_resource path="res://game-assets/audio/sfx/hyper-ring.wav" type="AudioStream" id=164]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#6.png" type="Texture" id=165]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#7.png" type="Texture" id=166]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#2.png" type="Texture" id=167]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#3.png" type="Texture" id=168]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurando#8.png" type="Texture" id=169]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#4.png" type="Texture" id=170]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#1.png" type="Texture" id=171]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/pindurado#5.png" type="Texture" id=172]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#13.png" type="Texture" id=173]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#9.png" type="Texture" id=174]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#10.png" type="Texture" id=175]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#14.png" type="Texture" id=176]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#20.png" type="Texture" id=177]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#15.png" type="Texture" id=178]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#17.png" type="Texture" id=179]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#12.png" type="Texture" id=180]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#18.png" type="Texture" id=181]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#16.png" type="Texture" id=182]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#11.png" type="Texture" id=183]
-[ext_resource path="res://game-assets/game-sprites/player-sprites/characters-sprites/sonic-sprites/pindurado/movendo-se/pindurado#19.png" type="Texture" id=184]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/suspended.gd" type="Script" id=185]
 [ext_resource path="res://game-assets/audio/sfx/grab.wav" type="AudioStream" id=186]
 [ext_resource path="res://general-objects/players-objects/player-camera.tscn" type="PackedScene" id=187]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/idle.gd" type="Script" id=188]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/crounch.gd" type="Script" id=189]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/crouch.gd" type="Script" id=189]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/look-up.gd" type="Script" id=190]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/spinning.gd" type="Script" id=191]
 [ext_resource path="res://game-assets/audio/sfx/jump.wav" type="AudioStream" id=192]
@@ -231,1189 +75,34 @@ tracks/0/keys = {
 offsets = PoolRealArray( 0, 0.95, 1 )
 colors = PoolColorArray( 0.00392157, 0.709804, 0.694118, 0, 0.24, 1, 0.987333, 1, 0.192157, 1, 0.980392, 0.227451 )
 
-[sub_resource type="GDScript" id=4]
-script/source = "extends Node2D
-
-export(float) var ACC = 4.6875
-export(float) var DEC = 30
-export(float) var ROLLDEC = 7.5
-export(float) var FRC = 4.6875
-export(float) var SLP = 7.5
-export(float) var SLPROLLUP = 4.6875
-export(float) var SLPROLLDOWN = 18.75
-export(float) var TOP = 460
-export(float) var TOPROLL = 960
-export(float) var JMP = 390
-export(float) var FALL = 150
-export(float) var AIR = 9.3750
-export(float) var GRV = 13.125
-
-export(float) var DRPSPD = 480
-export(float) var DRPMAX = 560
-
-export(bool) var instaShield = true;
-export(bool) var superPeelOut = true;
-export(bool) var dropDash = true;
-export(bool) var spin_dash_override = true
-var animation_roll = \"DropCharge\"
-
-var states : Dictionary = {}
-
-func _ready() -> void:
-	for i in $CharStates.get_children():
-		states[i.name] = i
-"
-
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ ExtResource( 55 ), ExtResource( 58 ), ExtResource( 48 ), ExtResource( 65 ) ],
-"loop": true,
-"name": "Down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 24 ), ExtResource( 22 ), ExtResource( 32 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 29 ), ExtResource( 40 ), ExtResource( 44 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ) ],
-"loop": true,
-"name": "Walking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 37 ), ExtResource( 67 ), ExtResource( 35 ), ExtResource( 39 ), ExtResource( 38 ), ExtResource( 46 ), ExtResource( 45 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 60 ) ],
-"loop": true,
-"name": "Jumping_Rolling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 87 ), ExtResource( 84 ), ExtResource( 90 ), ExtResource( 92 ), ExtResource( 89 ), ExtResource( 85 ), ExtResource( 91 ) ],
-"loop": true,
-"name": "Braking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 102 ), ExtResource( 104 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 97 ), ExtResource( 96 ), ExtResource( 95 ), ExtResource( 98 ), ExtResource( 103 ) ],
-"loop": true,
-"name": "DropCharge",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 171 ), ExtResource( 167 ), ExtResource( 168 ), ExtResource( 170 ), ExtResource( 172 ), ExtResource( 165 ), ExtResource( 166 ), ExtResource( 169 ) ],
-"loop": true,
-"name": "Suspended",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 152 ), ExtResource( 153 ), ExtResource( 155 ), ExtResource( 154 ), ExtResource( 150 ), ExtResource( 138 ), ExtResource( 139 ), ExtResource( 142 ), ExtResource( 141 ), ExtResource( 135 ), ExtResource( 136 ), ExtResource( 149 ), ExtResource( 134 ), ExtResource( 151 ), ExtResource( 133 ), ExtResource( 148 ), ExtResource( 144 ), ExtResource( 147 ), ExtResource( 132 ), ExtResource( 140 ), ExtResource( 146 ), ExtResource( 145 ), ExtResource( 137 ), ExtResource( 143 ) ],
-"loop": true,
-"name": "Rotating",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 86 ), ExtResource( 93 ) ],
-"loop": true,
-"name": "BrakeLoop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 63 ), ExtResource( 57 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 34 ), ExtResource( 50 ), ExtResource( 36 ), ExtResource( 64 ), ExtResource( 53 ), ExtResource( 68 ) ],
-"loop": true,
-"name": "Jogging",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 119 ), ExtResource( 112 ), ExtResource( 115 ), ExtResource( 113 ), ExtResource( 118 ), ExtResource( 111 ), ExtResource( 110 ), ExtResource( 114 ), ExtResource( 117 ), ExtResource( 116 ) ],
-"loop": true,
-"name": "SpringJump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 174 ), ExtResource( 175 ), ExtResource( 183 ), ExtResource( 180 ), ExtResource( 173 ), ExtResource( 176 ), ExtResource( 178 ), ExtResource( 182 ), ExtResource( 179 ), ExtResource( 181 ), ExtResource( 184 ), ExtResource( 177 ) ],
-"loop": true,
-"name": "SuspendedMove",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 80 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 76 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 77 ) ],
-"loop": true,
-"name": "Spindash",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 160 ), ExtResource( 158 ), ExtResource( 159 ), ExtResource( 157 ), ExtResource( 156 ) ],
-"loop": true,
-"name": "Hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 94 ), ExtResource( 88 ), ExtResource( 83 ) ],
-"loop": true,
-"name": "ReturnPostBraking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 125 ), ExtResource( 126 ), ExtResource( 122 ), ExtResource( 123 ), ExtResource( 124 ), ExtResource( 127 ), ExtResource( 121 ), ExtResource( 128 ), ExtResource( 129 ), ExtResource( 130 ) ],
-"loop": true,
-"name": "Pushing",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 108 ), ExtResource( 106 ), ExtResource( 107 ), ExtResource( 105 ) ],
-"loop": true,
-"name": "SuperPeelOut",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 59 ), ExtResource( 62 ), ExtResource( 61 ), ExtResource( 54 ), ExtResource( 66 ), ExtResource( 33 ), ExtResource( 71 ) ],
-"loop": true,
-"name": "Running",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ), ExtResource( 70 ) ],
-"loop": true,
-"name": "UpToIdle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 72 ), ExtResource( 28 ), ExtResource( 56 ), ExtResource( 49 ), ExtResource( 69 ) ],
-"loop": true,
-"name": "LookUp",
-"speed": 5.0
-} ]
-script = ExtResource( 21 )
-frame_offset = Vector2( 0, 0 )
-
-[sub_resource type="Animation" id=6]
-length = 0.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "BrakeLoop" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( -13, -17 ), Vector2( -16, -16 ) ]
-}
-
-[sub_resource type="Animation" id=7]
-length = 0.7
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Braking" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -15, -18 ), Vector2( -15, -18 ), Vector2( -15, -17 ), Vector2( -16, -17 ), Vector2( -18, -17 ), Vector2( -18, -17 ), Vector2( -15, -17 ) ]
-}
-
-[sub_resource type="Animation" id=8]
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Down" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -11, -17 ), Vector2( -8, -13 ), Vector2( -9, -12 ), Vector2( -10, -7 ) ]
-}
-
-[sub_resource type="Animation" id=9]
-length = 1.6
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ "DropCharge", "DropCharge" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 8, 1, 9, 2, 8, 3, 9, 4, 8, 5, 9, 6, 8, 7, 9 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -14, -11 ), Vector2( -15, -11 ), Vector2( -15, -10 ), Vector2( -15, -11 ), Vector2( -14, -11 ), Vector2( -15, -11 ), Vector2( -15, -10 ), Vector2( -15, -11 ), Vector2( -14, -11 ), Vector2( -15, -11 ), Vector2( -15, -10 ), Vector2( -15, -11 ), Vector2( -14, -11 ), Vector2( -15, -11 ), Vector2( -15, -10 ), Vector2( -15, -11 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ "Hurt", "Hurt" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2, 3 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -15, -11 ), Vector2( -15, -11 ), Vector2( -17, -10 ), Vector2( -18, -10 ), Vector2( -18, -10 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Idle" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( -15, -20 ) ]
-}
-
-[sub_resource type="Animation" id=12]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Jogging" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -21, -18 ), Vector2( -20, -18 ), Vector2( -17, -17 ), Vector2( -19, -17 ), Vector2( -20, -18 ), Vector2( -16, -18 ), Vector2( -16, -17 ), Vector2( -19, -17 ), Vector2( -19, -17 ) ]
-}
-
-[sub_resource type="Animation" id=13]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "LookUp" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -15, -21 ), Vector2( -16, -22 ), Vector2( -15, -22 ) ]
-}
-
-[sub_resource type="Animation" id=14]
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "ReturnPostBraking" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( -13, -17 ) ]
-}
-
-[sub_resource type="Animation" id=15]
-length = 1.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Pushing" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.6, 0.7, 1, 1.1, 1.2, 1.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.6, 0.7, 1.1, 1.2, 1.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -18, -17 ), Vector2( -18, -17 ), Vector2( -17, -18 ), Vector2( -13, -18 ), Vector2( -17, -16 ), Vector2( -17, -17 ), Vector2( -16, -18 ), Vector2( -13, -18 ), Vector2( -18, -16 ) ]
-}
-
-[sub_resource type="Animation" id=16]
-length = 2.7
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Jumping_Rolling" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 0, 1, 3, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9 ]
-}
-
-[sub_resource type="Animation" id=17]
-length = 2.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Rotating" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -15, -18 ), Vector2( -15, -16 ), Vector2( -17, -18 ), Vector2( -17, -16 ), Vector2( -17, -18 ), Vector2( -17, -19 ), Vector2( -16, -18 ), Vector2( -16, -20 ), Vector2( -17, -17 ), Vector2( -18, -13 ), Vector2( -17, -15 ), Vector2( -16, -15 ), Vector2( -16, -16 ) ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("CharAnimation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 2.2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "animation_finished", "Rotating" ],
-"method": "emit_signal"
-} ]
-}
-
-[sub_resource type="Animation" id=18]
-length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Running" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -20, -16 ), Vector2( -20, -17 ), Vector2( -18, -17 ), Vector2( -19, -16 ), Vector2( -20, -17 ), Vector2( -19, -17 ) ]
-}
-
-[sub_resource type="Animation" id=19]
-length = 1.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Spindash" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( -11, -8 ) ]
-}
-
-[sub_resource type="Animation" id=20]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "SpringJump" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -11, -20 ), Vector2( -14, -20 ), Vector2( -10, -20 ), Vector2( -9, -20 ), Vector2( -9, -20 ), Vector2( -15, -20 ), Vector2( -15, -20 ), Vector2( -10, -20 ), Vector2( -12, -20 ) ]
-}
-
-[sub_resource type="Animation" id=21]
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "SuperPeelOut" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -22, -13 ), Vector2( -22, -14 ), Vector2( -22, -13 ), Vector2( -22, -14 ) ]
-}
-
-[sub_resource type="Animation" id=22]
-length = 1.3
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ "Suspended", "Suspended" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 1.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -17, -14 ), Vector2( -17, -14 ), Vector2( -17, -14 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:frame")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 1, 1.1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 1, 2, 3, 4, 5, 6, 7, 0 ]
-}
-
-[sub_resource type="Animation" id=23]
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ "SuspendedMove", "SuspendedMove" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -19, -14 ), Vector2( -20, -13 ), Vector2( -19, -13 ), Vector2( -21, -13 ), Vector2( -18, -13 ), Vector2( -19, -13 ), Vector2( -18, -14 ), Vector2( -18, -14 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:frame")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8 ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("../../../AudioPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.249, 0.83 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "grab", 0.0 ],
-"method": "play"
-}, {
-"args": [ "grab", 0.0 ],
-"method": "play"
-} ]
-}
-
-[sub_resource type="Animation" id=24]
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ "SuspendedMove", "SuspendedMove" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -15, -13 ), Vector2( -14, -13 ), Vector2( -15, -12 ), Vector2( -15, -13 ), Vector2( -2, -1 ), Vector2( -2, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:frame")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 10, 11, 0, 1, 2, 3, 3 ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("../../../AudioPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "garb", 0.0 ],
-"method": "play"
-} ]
-}
-
-[sub_resource type="Animation" id=25]
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ "SuspendedMove", "SuspendedMove" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, -1 ), Vector2( -1, -1 ), Vector2( -2, -1 ), Vector2( -2, -1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:frame")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 4, 5, 6, 7, 8, 9, 9 ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("../../../AudioPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "grab", 0.0 ],
-"method": "play"
-} ]
-}
-
-[sub_resource type="Animation" id=26]
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "UpToIdle" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( -16, -22 ), Vector2( -16, -19 ) ]
-}
-
-[sub_resource type="Animation" id=27]
-length = 1.08
-loop = true
-step = 0.09
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63, 0.72, 0.81, 0.9, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63, 0.72, 0.81, 0.9, 0.99 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -15, -19 ), Vector2( -14, -18 ), Vector2( -19, -18 ), Vector2( -20, -19 ), Vector2( -19, -19 ), Vector2( -19, -19 ), Vector2( -14, -19 ), Vector2( -16, -18 ), Vector2( -19, -18 ), Vector2( -20, -19 ), Vector2( -17, -19 ), Vector2( -16, -19 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Walking" ]
-}
-
-[sub_resource type="GDScript" id=29]
-resource_local_to_scene = true
-script/source = "extends StateChar
-
-var dropPress : bool;
-var dropCharging : bool
-var dropDust : PackedScene = preload(\"res://general-objects/players-objects/drop-dash-dust.tscn\");
-var dropTimer
-var can_attack : bool = false
-var attacked : bool = false
-
-func enter(host, prev_statem, state = null):
-	dropPress = true
-	dropCharging = false
-
-func step(host, delta, state = null):
-	if host.spring_loaded:
-		cancel_drop(state)
-
-func exit(host, next_state, state = null) -> void:
-	if next_state == \"OnGround\" or next_state == \"Rolling\" or next_state == \"Idle\":
-		if dropCharging:
-			var dust:Node2D = dropDust.instance();
-			add_child(dust);
-			dust.position = host.position;
-			dust.get_child(0).scale.x = host.characters.scale.x
-			if host.player_camera:
-				host.player_camera.delay(0.1);
-			if abs(host.gsp) < character.DRPMAX:
-				#print(host.gsp)
-				host.gsp = (host.gsp / 4) if (sign(host.characters.scale.x) == sign(host.gsp)) else host.gsp / 2
-				host.gsp += character.DRPSPD * host.characters.scale.x;
-				host.gsp = min(host.gsp, character.DRPMAX)
-				host.gsp = max(host.gsp, -character.DRPMAX)
-				
-			host.audio_player.play(\"spin_dash_release\")
-	cancel_drop(state)
-	attacked = false
-	can_attack = false
-
-func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta, state = null, args=[]):
-	var anim_name = args[0]
-	var anim_speed = args[1]
-	if !state:
-		return
-	if state.has_jumped or state.has_rolled:
-		if dropCharging:
-			anim_name = 'DropCharge';
-			anim_speed = 4.5;
-	
-	var inst = host.player_vfx.vfx['InstaShield'] as AnimationPlayer
-	return {
-		\"anim_name\": anim_name,
-		\"anim_speed\": anim_speed
-	}
-
-func _dropTimeOut(host, state) -> void:
-	dropCharging = true;
-	host.audio_player.play('drop_dash_charge');
-	dropTimer.queue_free()
-	dropTimer = null
-	state.roll_on_snap_ground = true
-
-func cancel_drop(state) -> void:
-	dropPress = false;
-	dropCharging = false;
-	if dropTimer:
-		dropTimer.queue_free()
-		dropTimer = null
-	state.roll_on_snap_ground = false
-
-func state_input(host, event, state=null):
-	var ui_jump = \"ui_jump_i%d\" % host.player_index
-	if state.has_jumped:
-		if !host.spring_loaded:
-			if character.instaShield:
-				if Input.is_action_just_released(ui_jump) && state.has_jumped:
-					if !attacked:
-						can_attack = state.has_jumped
-				if Input.is_action_just_pressed(ui_jump) and\\
-				can_attack:
-					attacked = true
-					host.invulnerable_for_sec(0.15)
-					host.player_vfx.play('InstaShield', true)
-					host.audio_player.play('insta_shield')
-					can_attack = false
-					state.roll_jump = false
-		if character.dropDash:
-			if !Input.is_action_pressed(ui_jump):
-				dropPress = false
-			if Input.is_action_just_pressed(ui_jump) && !dropPress:
-				dropPress = true
-				dropTimer = Timer.new()
-				add_child(dropTimer)
-				dropTimer.start(0.325)
-				dropTimer.connect(\"timeout\", self, \"_dropTimeOut\", [host,state])
-			if Input.is_action_just_released(ui_jump):
-				cancel_drop(state)
-"
-
-[sub_resource type="GDScript" id=30]
-script/source = "extends StateChar
-
-
-
-func state_input(host : PlayerPhysics, event: InputEvent, main_state:State = null):
-	if event is InputEvent && event.is_pressed():
-		if event.is_action_pressed('ui_jump_i%d' % host.player_index):
-			main_state.state_machine.change_state('SuperPeelOut')
-"
-
-[sub_resource type="RectangleShape2D" id=35]
-extents = Vector2( 10, 16 )
-
-[sub_resource type="RectangleShape2D" id=36]
-extents = Vector2( 10, 13 )
+[sub_resource type="Resource" id=32]
+script = ExtResource( 20 )
+acc = 4.6875
+dec = 30.0
+roll_dec = 7.5
+frc = 4.6875
+slp = 0.0
+slp_roll_up = 4.6875
+slp_roll_down = 18.75
+top = 460.0
+top_roll = 960.0
+jmp = 390.0
+fall = 150.0
+air = 9.375
+grv = 13.125
+spin_dash = true
 
 [sub_resource type="RectangleShape2D" id=31]
 extents = Vector2( 3, 3 )
 
-[sub_resource type="RayShape2D" id=32]
-
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Players"]]
 z_index = 1
 collision_layer = 993
 collision_mask = 993
-collision/safe_margin = 0.01
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -1445,8 +134,11 @@ script = ExtResource( 190 )
 [node name="Global" type="Node" parent="StateMachine"]
 script = ExtResource( 193 )
 
-[node name="Stateless" type="Node" parent="StateMachine"]
-script = ExtResource( 20 )
+[node name="VictoryPose" type="Node" parent="StateMachine"]
+script = ExtResource( 21 )
+
+[node name="CollisionHandler" type="Node" parent="."]
+script = ExtResource( 11 )
 
 [node name="VFX" type="Node2D" parent="."]
 position = Vector2( 0, -4 )
@@ -1467,7 +159,6 @@ modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( 0, 9 )
 texture = ExtResource( 16 )
 hframes = 7
-frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="VFX/InstaShield"]
 anims/InstaShield = SubResource( 2 )
@@ -1481,68 +172,14 @@ end_cap_mode = 2
 script = ExtResource( 18 )
 max_length = 20
 
-[node name="Characters" type="Node2D" parent="."]
+[node name="Character" type="Node2D" parent="."]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="Sonic" type="Node2D" parent="Characters"]
-script = SubResource( 4 )
-
-[node name="Sprite" type="AnimatedSprite" parent="Characters/Sonic"]
-frames = SubResource( 5 )
-animation = "Jumping_Rolling"
-centered = false
-offset = Vector2( -22, -13 )
-
-[node name="CharAnimation" type="AnimationPlayer" parent="Characters/Sonic/Sprite"]
-anims/BrakeLoop = SubResource( 6 )
-anims/Braking = SubResource( 7 )
-anims/Down = SubResource( 8 )
-anims/DropCharge = SubResource( 9 )
-anims/Hurt = SubResource( 10 )
-anims/Idle = SubResource( 11 )
-anims/Jogging = SubResource( 12 )
-anims/LookUp = SubResource( 13 )
-anims/PostBrakReturn = SubResource( 14 )
-anims/Pushing = SubResource( 15 )
-anims/Rolling = SubResource( 16 )
-anims/Rotating = SubResource( 17 )
-anims/Running = SubResource( 18 )
-anims/SpinDashCharge = SubResource( 19 )
-anims/SpringJump = SubResource( 20 )
-anims/SuperPeelOut = SubResource( 21 )
-anims/Suspended = SubResource( 22 )
-anims/SuspendedMove = SubResource( 23 )
-anims/SuspendedMoveLeft = SubResource( 24 )
-anims/SuspendedMoveRight = SubResource( 25 )
-anims/UpToIdle = SubResource( 26 )
-anims/Walking = SubResource( 27 )
-script = ExtResource( 4 )
-
-[node name="CharStates" type="Node" parent="Characters/Sonic"]
-
-[node name="OnAir" type="Node" parent="Characters/Sonic/CharStates"]
-script = SubResource( 29 )
-
-[node name="SuperPeelOut" type="Node" parent="Characters/Sonic/CharStates"]
-script = ExtResource( 11 )
-
-[node name="LookUp" type="Node" parent="Characters/Sonic/CharStates"]
-script = SubResource( 30 )
-
-[node name="CollisionContainer" type="Node2D" parent="Characters/Sonic"]
-
-[node name="DefaultBox" type="CollisionShape2D" parent="Characters/Sonic/CollisionContainer"]
-modulate = Color( 0.0941176, 0.839216, 0.737255, 1 )
-position = Vector2( 0, 3 )
-shape = SubResource( 35 )
-
-[node name="RollBox" type="CollisionShape2D" parent="Characters/Sonic/CollisionContainer"]
-modulate = Color( 0.470588, 0, 0.658824, 1 )
-position = Vector2( 0, 6 )
-shape = SubResource( 36 )
+[node name="Sonic" parent="Character" instance=ExtResource( 4 )]
+character_values = SubResource( 32 )
 
 [node name="AudioPlayer" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -1566,12 +203,8 @@ audios = {
 }
 
 [node name="MainCollider" type="CollisionShape2D" parent="."]
-modulate = Color( 0.741176, 0, 1, 1 )
+visible = false
 shape = SubResource( 31 )
-
-[node name="RayCollider" type="CollisionShape2D" parent="."]
-modulate = Color( 0.741176, 0, 1, 1 )
-shape = SubResource( 32 )
 
 [node name="RightWallSensor" type="RayCast2D" parent="."]
 enabled = true
@@ -1598,7 +231,6 @@ collision_mask = 481
 [node name="ControlLockTimer" type="Timer" parent="."]
 
 [node name="GroundSensors" type="Node2D" parent="."]
-visible = false
 
 [node name="LeftGroundSensor" type="RayCast2D" parent="GroundSensors"]
 modulate = Color( 0.0901961, 1, 0.0117647, 1 )
@@ -1617,9 +249,33 @@ position = Vector2( 9, 0 )
 enabled = true
 collision_mask = 33
 
-[node name="PlayerCamera" parent="." instance=ExtResource( 187 )]
+[node name="AttackBox" type="Area2D" parent="."]
 visible = false
+collision_layer = 8
+collision_mask = 8
+monitoring = false
+monitorable = false
 
+[node name="hitbox" type="CollisionShape2D" parent="AttackBox"]
+modulate = Color( 1, 0.870588, 0, 1 )
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 8
+monitorable = false
+
+[node name="hitbox" type="CollisionShape2D" parent="HitBox"]
+modulate = Color( 0.0392157, 0.960784, 0.788235, 1 )
+
+[node name="CameraSpace" type="Node" parent="."]
+
+[node name="PlayerCamera" parent="CameraSpace" instance=ExtResource( 187 )]
+position = Vector2( 0, 0 )
+
+[connection signal="character_changed" from="." to="StateMachine" method="_on_Player_character_changed"]
 [connection signal="damaged" from="." to="." method="blink" binds= [ 2 ]]
-[connection signal="animation_finished" from="Characters/Sonic/Sprite/CharAnimation" to="StateMachine" method="_on_CharAnimation_animation_finished"]
+[connection signal="draw" from="." to="StateMachine" method="_on_Player_draw"]
 [connection signal="timeout" from="ControlLockTimer" to="." method="_on_ControlLockTimer_timeout"]
+[connection signal="body_entered" from="AttackBox" to="CollisionHandler" method="_on_AttackBox_body_entered"]
+[connection signal="body_entered" from="HitBox" to="CollisionHandler" method="_on_HitBox_body_entered"]

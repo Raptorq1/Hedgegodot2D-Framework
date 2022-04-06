@@ -1,28 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/general-scripts/breakables/breakable-block-part.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/speed-booster-bullet-sprite.png" type="Texture" id=2]
 [ext_resource path="res://game-assets/audio/sfx/speed-booster.wav" type="AudioStream" id=3]
-
-
-
-
-
-
-
-
-
-
-
+[ext_resource path="res://game-assets/game-classes/distance-meter.gd" type="Script" id=4]
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 active = true
 
 [node name="Bullet" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_rect = Rect2( 1032, 1777, 16, 6 )
 
+[node name="DistanceMeter" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 autoplay = true
+
+[connection signal="distance_achieved" from="DistanceMeter" to="." method="_on_DistanceMeter_distance_achieved"]

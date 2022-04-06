@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://general-objects/ring-object.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/CircleObjectManipulator/ObjectsCircle.gd" type="Script" id=2]
+[ext_resource path="res://addons/CircleObjectManipulator/objects-circle.gd" type="Script" id=2]
 
 [node name="CircleObjects" type="Node2D"]
 script = ExtResource( 2 )

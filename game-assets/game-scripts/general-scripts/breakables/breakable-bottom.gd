@@ -9,7 +9,7 @@ func _on_Trigger_body_entered(body):
 		player = body
 		if player.speed.y > 0:
 			return
-		var speed = body.speed.y
+		var speed = player.speed.y
 		global_sounds.play('CliffBreaking')
 		global_sounds.play('WallBreak')
 		for i in positions.get_children():

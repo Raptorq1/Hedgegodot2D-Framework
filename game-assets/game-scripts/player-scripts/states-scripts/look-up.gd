@@ -1,20 +1,21 @@
 extends State
 
 func enter(host : PlayerPhysics, prev_state : String):
+	host.gsp = 0
 	host.speed = Vector2.ZERO
 
 func step(host : PlayerPhysics, delta: float):
 	var ground_angle = host.ground_angle()
-	var slope = -host.SLPROLLDOWN
+	var slope = -host.slp_roll_down
 	host.gsp += slope * sin(ground_angle)
-	host.gsp -= min(abs(host.gsp), host.FRC) * sign(host.gsp)
+	host.gsp -= min(abs(host.gsp), host.frc) * sign(host.gsp)
 	if host.gsp > .1:
-		return 'OnGround'
+		emit_signal("finished", "OnGround")
 	if !host.is_grounded:
-		return 'OnAir'
+		emit_signal("finished", "OnAir")
 
 func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta:float):
-	var play_speed = 1.25
+	var play_speed = 1.5
 	var animation = 'LookUp'
 	if host.direction.y > -1:
 		animation = 'UpToIdle'
@@ -24,4 +25,4 @@ func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta:floa
 func _on_animation_finished(host:PlayerPhysics, anim_name: String):
 	match anim_name:
 		'UpToIdle':
-			host.fsm.change_state('Idle')
+			emit_signal("finished", "Idle")

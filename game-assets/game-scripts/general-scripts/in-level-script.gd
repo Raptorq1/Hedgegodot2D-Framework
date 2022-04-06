@@ -6,18 +6,25 @@ var milliseconds:float;
 var minutes:float;
 var rings:int = 100 setget set_ring;
 var time:String;
+onready var act_container = $ActContainer
 onready var HUD = get_node_or_null("./HUD")
 onready var HUD_count = HUD.get_node_or_null("./Separate/STRCounters/Count")
-onready var global : = $"/root/GlobalScript"
+onready var global : = get_tree().get_root().get_node("GlobalScript")
 onready var players = $Players
 export var zone_name : String
-export var act : int
-export var continue_last_transition = true
 export var show_title_card: bool = false
+export var next_level : PackedScene
+onready var act_clear_music : AudioStreamPlayer = $ActClear
+onready var act_score_total : AudioStreamPlayer = $ScoreTotal
+onready var act_score_add : AudioStreamPlayer = $ScoreAdd
 
 func _ready():
 	players.set_owner(self)
 	set_ring(rings)
+	if show_title_card:
+		HUD.show_title_card()
+	else:
+		HUD.transition.color.a = 0.0
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func set_ring(value:int):
@@ -43,3 +50,6 @@ func _process(delta):
 func _unhandled_key_input(event: InputEventKey) -> void:
 	if Input.is_action_just_pressed("ui_full_screen"):
 		OS.window_fullscreen = !OS.window_fullscreen
+
+func get_current_act() -> int:
+	return act_container.current_act

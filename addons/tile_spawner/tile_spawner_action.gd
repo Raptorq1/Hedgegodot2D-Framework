@@ -37,7 +37,7 @@ static func spawn_from_tilemap(tree, tile_spawner):
 		# Make sure the mapping file opened
 	#	print("Error: Could not open the mapping file for TileSpawner!")
 	#	return
-	var mapping_res:TileSpawnerResource = ResourceLoader.load(tile_spawner.mapping)
+	var mapping_res:TileSpawnerResource = tile_spawner.mapping
 	#mapping_file.close()
 	if !mapping_res is TileSpawnerResource:
 		# Make sure the mapping file is formatted correctly

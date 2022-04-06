@@ -2,12 +2,12 @@ tool
 extends Node2D
 class_name MovingPlatformObject
 
-onready var path : Path2D = Utils.get_node_by_type(self, 'Path2D')
+onready var path : Path2D = Utils.Nodes.get_node_by_type(self, 'Path2D')
 
 export var loop : bool = false setget set_loop
 export var speed : float = 1.0
 export var pause_timer : float = 1.0
-onready var platform : KinematicBody2D = Utils.get_node_by_type(self, 'KinematicBody2D')
+onready var platform : KinematicBody2D = Utils.Nodes.get_node_by_type(self, 'KinematicBody2D')
 onready var positions = (path as Path2D).curve.get_baked_points()
 var path_follow : PathFollow2D = PathFollow2D.new()
 var remote_t : RemoteTransform2D = RemoteTransform2D.new()
@@ -47,7 +47,7 @@ func get_size() -> Vector2:
 
 func _physics_process(delta: float) -> void:
 	#print(int(right) * delta)
-	unit_pos += Utils.sign_bool(right) * delta * speed
+	unit_pos += Utils.Math.bool_sign(right) * delta * speed
 	unit_pos = max(0, min(1, unit_pos))
 	#print(Utils.sign_bool(right) * delta * speed)
 	path_follow.unit_offset = unit_pos
@@ -55,11 +55,9 @@ func _physics_process(delta: float) -> void:
 		if (path_follow.unit_offset >= 1 || path_follow.unit_offset <= 0):
 			right = !right
 			if pause_timer > 0.0:
-				var timer = Timer.new()
-				add_child(timer)
-				timer.connect('timeout', self, '_timer_timeout', [timer])
-				timer.start(pause_timer)
 				set_physics_process(false)
+				yield(get_tree().create_timer(pause_timer), "timeout")
+				set_physics_process(true)
 	
 
 func _get_configuration_warning() -> String:
@@ -85,8 +83,3 @@ func _get_configuration_warning() -> String:
 			text = "This node must contain at least one Path2D"
 	
 	return text
-
-func _timer_timeout(timer : Timer):
-	if !Engine.editor_hint:
-		set_physics_process(true)
-	timer.queue_free()

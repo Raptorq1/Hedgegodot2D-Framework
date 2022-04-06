@@ -10,7 +10,7 @@ onready var jump_collide = $JumpArea/JumpCollide
 onready var animplayer:AnimationPlayer = $AnimationPlayer
 export(Springs) var spring_presset:int setget _set_spring_presset
 const _pressets = {
-	Springs.YELLOW: [500, "Yellow"],
+	Springs.YELLOW: [600, "Yellow"],
 	Springs.RED: [700, "Red"]
 }
 
@@ -87,7 +87,7 @@ func _on_JumpArea_body_entered(body):
 			else:
 				player.speed.x = push_force * 1.5 * sin(deg2rad(my_rotation));
 		player.spring_loaded = true
-		player.speed = player.move_and_slide(player.speed)
+		player.speed = player.move_and_slide_preset()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	animplayer.play("Stop");

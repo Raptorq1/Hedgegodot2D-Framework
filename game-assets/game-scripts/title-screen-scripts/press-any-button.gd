@@ -24,7 +24,8 @@ func toogle():
 	if count <= 0:
 		timer.queue_free()
 		set_visible(true)
-func _unhandled_key_input(event):
+
+func _input(event):
 	if can_start && event.is_pressed():
 		can_count = true
 		if count >= 10:

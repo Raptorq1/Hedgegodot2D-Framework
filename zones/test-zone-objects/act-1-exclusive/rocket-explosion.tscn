@@ -4,18 +4,12 @@
 [ext_resource path="res://game-assets/audio/sfx/Explosion.wav" type="AudioStream" id=4]
 
 [node name="RocketExplosion" type="Node2D"]
-position = Vector2( 244, 143 )
+position = Vector2( 166.579, 86.9367 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.05
-autostart = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Timer"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

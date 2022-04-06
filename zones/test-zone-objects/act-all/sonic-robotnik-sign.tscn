@@ -8,6 +8,7 @@
 extents = Vector2( 10, 32 )
 
 [node name="SonicRobotnikSign" type="Area2D"]
+monitorable = false
 
 [node name="Sprite" type="ViewportContainer" parent="."]
 anchor_left = 0.5

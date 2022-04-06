@@ -31,7 +31,7 @@ func _on_GrabTopArea_body_shape_entered(body_rid: RID, body: Node, body_shape_in
 			p.fsm.change_state('Suspended')
 			var grab = get_node_or_null('GrabTopArea')
 			var snap : Vector2
-			snap.y = global_position.y + Utils.get_height_of_shape(p.main_collider.shape) + 10
+			snap.y = global_position.y + Utils.Collision.get_height_of_shape(p.main_collider.shape) + 10
 			var size = (global_position.x + (24*(length-1))) -  global_position.x
 			var diff = round((p.global_position.x - global_position.x)/24)*24
 			snap.x = diff + global_position.x

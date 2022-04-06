@@ -18,6 +18,9 @@ objects = {
 "scene": "res://general-objects/spring-object.tscn"
 },
 "Ring": {
+"properties": {
+"physical": false
+},
 "scene": "res://general-objects/ring-object.tscn"
 },
 "SpeedBooster": {

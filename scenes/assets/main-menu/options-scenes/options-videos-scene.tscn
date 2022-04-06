@@ -13,9 +13,6 @@ light_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 hue_value = 15
 
 [node name="Header" type="TextureRect" parent="."]

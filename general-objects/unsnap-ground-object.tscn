@@ -3,9 +3,10 @@
 [ext_resource path="res://game-assets/game-scripts/general-scripts/unsnap-ground.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2, 15 )
+extents = Vector2( 15, 2 )
 
 [node name="UnsnapGround" type="Area2D"]
+rotation = -6.28319
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

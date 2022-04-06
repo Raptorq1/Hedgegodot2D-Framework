@@ -8,7 +8,7 @@ onready var vfx = {
 var effect_to_stop
 
 func _process(delta):
-	scale = $'../Characters'.scale
+	scale = $'../Character'.scale
 	if effect_to_stop != null:
 		if !vfx[effect_to_stop].is_playing():
 			stop(effect_to_stop)

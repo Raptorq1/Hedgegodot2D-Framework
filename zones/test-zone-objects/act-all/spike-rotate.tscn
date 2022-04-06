@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game-assets/game-scripts/general-scripts/line-objects-rotate.gd" type="Script" id=1]
+[ext_resource path="res://game-assets/game-classes/hurtable-area.gd" type="Script" id=2]
+[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-hazards/spike-ball-rotate/spike-ball.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[node name="SpikeRotate" type="Node2D"]
+script = ExtResource( 1 )
+speed = 1.5
+editor_process = false
+length = 4
+rotate_direction = 1
+
+[node name="SpikeBall" type="Area2D" parent="."]
+position = Vector2( 52, 0 )
+monitorable = false
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="SpikeBall"]
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( -11, -11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpikeBall"]
+shape = SubResource( 1 )

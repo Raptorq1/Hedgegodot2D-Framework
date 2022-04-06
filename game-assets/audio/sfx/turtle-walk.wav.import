@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/turtle-walk.wav-657540ee08c7c1f3223262e1ca0d7b9b.sample"
+
+[deps]
+
+source_file="res://game-assets/audio/sfx/turtle-walk.wav"
+dest_files=[ "res://.import/turtle-walk.wav-657540ee08c7c1f3223262e1ca0d7b9b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

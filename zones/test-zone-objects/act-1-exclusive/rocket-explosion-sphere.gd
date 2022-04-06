@@ -1,18 +1,18 @@
 extends AnimatedSprite
 
-signal explosion_gen_end
+signal explosion_gen_end(sph)
 
 const explosion = preload('res://general-objects/explosions/boss-explosion-object.tscn')
-onready var timer : Timer = $Timer
 export var speed : Vector3 = Vector3(0, 0, 0)
 const GRAV : float = 1000.0
 var friction : float = 40
 var z_pos = 0.0
+var time_explode_preset = 0.015
 
 func _ready() -> void:
-	timer.connect('timeout', self, "_on_Timer_timeout", [timer])
 	if speed.z == 0 || z_index == 0:
 		z_index = 10
+	start_explode()
 
 func _physics_process(delta: float) -> void:
 	speed.x += -sign(speed.x) * delta
@@ -25,28 +25,22 @@ func _physics_process(delta: float) -> void:
 	scale = scale if scale > Vector2.ZERO else Vector2.ZERO
 	z_index = int(z_pos*100)
 	#print(timer.time_left)
-	if timer.time_left >= 0.08:
-		emit_signal("explosion_gen_end")
+	if time_explode_preset >= 0.08:
+		emit_signal("explosion_gen_end", self)
 
 func _on_ScreenSensor_screen_exited() -> void:
-	if timer.time_left < 0.08:
-		return
-	var timer : Timer = Timer.new()
-	timer.connect('timeout', self, 'queue_free_time', [timer])
-	add_child(timer)
-	timer.start()
-	emit_signal('explosion_gen_end')
-
-func queue_free_time(timer:Timer) -> void:
-	timer.queue_free()
+	yield(get_tree().create_timer(3.0), "timeout")
+	emit_signal("explosion_gen_end", self)
 	queue_free()
 
-func _on_Timer_timeout(timer : Timer) -> void:
-	var explosion_obj : AnimatedSprite = explosion.instance()
-	explosion_obj.position = position
-	explosion_obj.z_index = z_index-1
-	explosion_obj.z_as_relative = false
-	explosion_obj.scale = scale
-	get_parent().add_child(explosion_obj)
-	timer.wait_time += 0.0015
-	speed_scale -= 0.1
+func start_explode() -> void:
+	while true:
+		var explosion_obj : AnimatedSprite = explosion.instance()
+		explosion_obj.position = position
+		explosion_obj.z_index = z_index-1
+		explosion_obj.z_as_relative = false
+		explosion_obj.scale = scale
+		get_parent().add_child(explosion_obj)
+		time_explode_preset += 0.0015
+		speed_scale -= 0.1
+		yield(get_tree().create_timer(time_explode_preset),"timeout")

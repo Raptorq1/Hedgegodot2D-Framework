@@ -9,22 +9,32 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "ActInfo",
+"language": "GDScript",
+"path": "res://game-assets/game-scripts/general-scripts/act-script.gd"
+}, {
 "base": "Node",
 "class": "AudioPlayer",
 "language": "GDScript",
 "path": "res://game-assets/game-scripts/player-scripts/audio-player.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Hurtable",
 "class": "Badnik",
 "language": "GDScript",
 "path": "res://game-assets/game-classes/badnik-script.gd"
+}, {
+"base": "Node2D",
+"class": "BadnikContainer",
+"language": "GDScript",
+"path": "res://game-assets/game-classes/badnik-container.gd"
 }, {
 "base": "Node2D",
 "class": "BlockGen",
 "language": "GDScript",
 "path": "res://game-assets/game-scripts/general-scripts/block-generator-script.gd"
 }, {
-"base": "Node2D",
+"base": "KinematicBody2D",
 "class": "Boss",
 "language": "GDScript",
 "path": "res://game-assets/game-scripts/general-scripts/boss-class.gd"
@@ -54,6 +64,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game-assets/game-scripts/general-scripts/camera-triggers.gd"
 }, {
+"base": "Node",
+"class": "CharFSM",
+"language": "GDScript",
+"path": "res://game-assets/game-scripts/player-scripts/char-state-machine.gd"
+}, {
+"base": "Node2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://game-assets/game-classes/Player/character.gd"
+}, {
 "base": "AnimationPlayer",
 "class": "CharacterAnimator",
 "language": "GDScript",
@@ -64,10 +84,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game-assets/game-scripts/player-scripts/char_script.gd"
 }, {
+"base": "Resource",
+"class": "CharacterValuesResource",
+"language": "GDScript",
+"path": "res://game-assets/game-scripts/player-scripts/characters-scripts/character-values.gd"
+}, {
 "base": "Node2D",
 "class": "CircleObjects",
 "language": "GDScript",
-"path": "res://addons/CircleObjectManipulator/ObjectsCircle.gd"
+"path": "res://addons/CircleObjectManipulator/objects-circle.gd"
 }, {
 "base": "Node2D",
 "class": "CircleVisualEffect",
@@ -84,10 +109,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game-assets/game-classes/data-persistance.gd"
 }, {
+"base": "Node2D",
+"class": "DistanceMeter2D",
+"language": "GDScript",
+"path": "res://game-assets/game-classes/distance-meter.gd"
+}, {
 "base": "Node",
 "class": "FSM",
 "language": "GDScript",
-"path": "res://game-assets/game-scripts/player-scripts/state-machine.gd"
+"path": "res://game-assets/game-scripts/general-scripts/state-machine.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Hurtable",
+"language": "GDScript",
+"path": "res://game-assets/game-classes/hurtable.gd"
+}, {
+"base": "Area2D",
+"class": "HurtableArea2DVariation",
+"language": "GDScript",
+"path": "res://game-assets/game-classes/hurtable-area.gd"
 }, {
 "base": "SpriteFrames",
 "class": "ImprovedSpriteFrames",
@@ -204,7 +244,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rect-extent/rect-manipulate-2d.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "RigidBody2D",
 "class": "Ring",
 "language": "GDScript",
 "path": "res://game-assets/game-classes/ring-script.gd"
@@ -319,6 +359,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rmsmartshape/vertex_properties.gd"
 }, {
+"base": "Container",
+"class": "SetterSelButton",
+"language": "GDScript",
+"path": "res://game-assets/game-scripts/main-menu-scripts/online-mode-scripts/input-selection-button.gd"
+}, {
+"base": "Node2D",
+"class": "SpriteSVG",
+"language": "GDScript",
+"path": "res://addons/SvgNode/svg-node.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -345,8 +395,10 @@ _global_script_classes=[ {
 "path": "res://addons/Utils/utils.gd"
 } ]
 _global_script_class_icons={
+"ActInfo": "",
 "AudioPlayer": "",
 "Badnik": "",
+"BadnikContainer": "",
 "BlockGen": "",
 "Boss": "",
 "BossArea": "",
@@ -354,13 +406,19 @@ _global_script_class_icons={
 "ButtonOptions": "",
 "ButtonSelector": "",
 "CameraTrigger": "",
+"CharFSM": "",
+"Character": "",
 "CharacterAnimator": "",
 "CharacterProperties": "",
+"CharacterValuesResource": "",
 "CircleObjects": "",
 "CircleVisualEffect": "",
 "DamageBox2D": "",
 "DataPersistance": "",
+"DistanceMeter2D": "",
 "FSM": "",
+"Hurtable": "",
+"HurtableArea2DVariation": "",
 "ImprovedSpriteFrames": "",
 "ItemBox": "",
 "JsonDock": "",
@@ -407,6 +465,8 @@ _global_script_class_icons={
 "SS2D_Shape_Render": "",
 "SS2D_Strings": "",
 "SS2D_VertexProperties": "",
+"SetterSelButton": "",
+"SpriteSVG": "",
 "State": "",
 "StateChar": "",
 "StaticNode2D": "",
@@ -421,7 +481,7 @@ stdout/verbose_stdout=true
 [application]
 
 config/name="HedgeGodot"
-run/main_scene="res://main.tscn"
+run/main_scene="res://zones/test-zone.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="HedgeGodotData"
 boot_splash/image="res://splash.png"
@@ -434,11 +494,17 @@ config/icon="res://icon-new.png"
 AdvancedBackgroundLoader="*res://addons/Advanced Background Loader/background_load.gd"
 GlobalSounds="*res://game-assets/game-scripts/general-scripts/global-sounds.gd"
 GlobalScript="*res://game-assets/game-classes/global-script.gd"
+Client="*res://game-assets/game-scripts/multiplayer-scripts/client-script.gd"
+Server="*res://game-assets/game-scripts/multiplayer-scripts/server-script.gd"
 
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true
 gdscript/warnings/unused_class_variable=true
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
 shapes/collision/shape_color=Color( 1, 1, 1, 0.501961 )
 
 [display]
@@ -454,7 +520,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/sprite_trail/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
 
 [importer_defaults]
 
@@ -597,6 +663,7 @@ file_logging/max_log_files=1
 [rendering]
 
 quality/driver/driver_name="GLES2"
+2d/snapping/use_gpu_pixel_snap=true
 vram_compression/import_etc=true
 quality/filters/anisotropic_filter_level=1
 environment/default_clear_color=Color( 0.301961, 0.301961, 0.301961, 1 )

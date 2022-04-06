@@ -31,8 +31,8 @@ func explode():
 	parent.traffic_animator.play("ToRed")
 	player.global_position = global_position
 	player.speed.x = speed * 0.5
-	player.speed.y = -player.JMP
-	player.characters.scale.x = scale.x
+	player.speed.y = -player.jmp
+	player.side = scale.x
 	player.fsm.change_state("OnAir")
 	player.specific_animation_temp = true
 	player.animation.animate("Hurt", 2.0)
@@ -48,7 +48,7 @@ func _on_CartArea_body_entered(body : Node):
 		"PlayerPhysics":
 			if is_physics_processing() or player: return
 			player = body
-			player.fsm.change_state("Stateless")
+			player.erase_state()
 			parent.player_sprite.visible = true
 			player.visible = false
 			player.global_position = global_position

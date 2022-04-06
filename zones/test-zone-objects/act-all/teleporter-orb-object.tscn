@@ -98,8 +98,6 @@ hframes = 4
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )
 
-[node name="Controllers" type="Node" parent="."]
-
 [node name="ShootPosition" type="Position2D" parent="."]
 position = Vector2( 0, -60 )
 
@@ -122,5 +120,9 @@ gravity = Vector2( 0, -98 )
 scale_amount = 2.0
 scale_amount_curve = SubResource( 5 )
 color_ramp = SubResource( 4 )
+
+[node name="Drawer" type="Node2D" parent="."]
+position = Vector2( 0, -4 )
+z_index = 10
 
 [connection signal="body_entered" from="Sensor" to="." method="_on_Sensor_body_entered"]

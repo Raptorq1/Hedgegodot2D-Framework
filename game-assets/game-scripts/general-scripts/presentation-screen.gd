@@ -6,8 +6,7 @@ var loaded : bool = false
 onready var loader : Control = get_node('/root/AdvancedBackgroundLoader')
 func _enter_tree() -> void:
 	var global = $"/root/GlobalScript"
-	global.loaded_data = DataPersistance.load_game()
-	print(global.loaded_data)
+	global.insert_loaded_data(DataPersistance.load_game())
 	var lo = get_node('/root/AdvancedBackgroundLoader')
 	lo.SIMULATED_DELAY_SEC = 0.001
 	lo.connect('can_change', self, '_on_Loader_can_change')

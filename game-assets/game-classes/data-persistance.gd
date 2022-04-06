@@ -33,5 +33,5 @@ static func save_game(slot : int, character:int , zone: int, emeralds: int):
 	var json_save_game = to_json(save_game_dict)
 	var bytes_data = json_save_game.to_ascii()
 	data.open(get_slot_path(slot), File.WRITE)
-	data.store_line(bytes_data)
+	data.store_line(bytes_data.get_string_from_ascii())
 	data.close()

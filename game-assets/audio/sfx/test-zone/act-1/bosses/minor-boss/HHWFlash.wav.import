@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/HHWFlash.wav-3ee885d6224fffc470be02f119a35711.sample"
+
+[deps]
+
+source_file="res://game-assets/audio/sfx/test-zone/act-1/bosses/minor-boss/HHWFlash.wav"
+dest_files=[ "res://.import/HHWFlash.wav-3ee885d6224fffc470be02f119a35711.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

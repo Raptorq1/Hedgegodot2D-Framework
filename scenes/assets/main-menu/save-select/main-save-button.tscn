@@ -230,30 +230,7 @@ anchor_right = 0.583333
 anchor_bottom = 0.266667
 margin_right = 0.000152588
 margin_bottom = -9.15527e-05
-rect_min_size = Vector2( 280, 72 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-option_values = [ {
-"character_id": 1,
-"enabled": true
-}, {
-"character_id": 1,
-"enabled": false
-}, {
-"character_id": 2,
-"enabled": false
-}, {
-"character_id": 3,
-"enabled": false
-}, {
-"character_id": 4,
-"enabled": false
-}, {
-"character_id": 5,
-"enabled": false
-} ]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true
@@ -324,3 +301,10 @@ anims/select = SubResource( 6 )
 [node name="Focused" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/hovering = SubResource( 4 )
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

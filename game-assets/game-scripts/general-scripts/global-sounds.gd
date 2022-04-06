@@ -9,4 +9,5 @@ func _enter_tree() -> void:
 		'AlternativeMenuAccept': preload("res://game-assets/audio/sfx/sonic-2-turning-supersonic.wav"),
 		'MenuBleep': preload('res://game-assets/audio/sfx/MenuBleep.wav'),
 		'MenuWoosh': preload('res://game-assets/audio/sfx/MenuWoosh.wav'),
+		'Flash': preload('res://game-assets/audio/sfx/test-zone/act-1/bosses/minor-boss/HHWFlash.wav')
 	}

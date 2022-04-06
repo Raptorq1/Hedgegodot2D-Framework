@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if enabled:
-		point = get_parent().get_parent().characters.global_position
+		point = get_parent().get_parent().character.global_position
 		add_point(point)
 		while get_point_count() > max_length:
 			remove_point(0)

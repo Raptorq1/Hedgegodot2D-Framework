@@ -1,8 +1,15 @@
 extends Node
 
-onready var character = get_parent().get_parent()
-
 class_name StateChar
+
+signal finished(next_state)
+var character
+
+func _post_ready():
+	character.owner.fsm.setup_sub_state(self)
+
+func _exit_tree():
+	character.owner.fsm.shutdown_sub_state(self)
 
 func enter(host: PlayerPhysics, prev_state:String, main_state:State = null):
 	return
@@ -18,7 +25,10 @@ func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta : fl
 
 func state_input(host : PlayerPhysics, event: InputEvent, main_state:State = null):pass
 
-func _on_animation_finished(anim_name: String):
+func _on_animation_finished(host:PlayerPhysics, anim_name: String, state:State):
+	pass
+
+func draw(host: PlayerPhysics, state:State):
 	pass
 
 func get_class():
@@ -26,3 +36,6 @@ func get_class():
 
 func is_class(name:String):
 	return get_class() == name || .is_class(name)
+
+func finish(next_state: String):
+	emit_signal("finished", next_state)

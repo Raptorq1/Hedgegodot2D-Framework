@@ -24,7 +24,7 @@ pressed = ExtResource( 1 )
 shape = SubResource( 1 )
 shape_visible = false
 passby_press = true
-action = "ui_up"
+action = "ui_up_i0"
 visibility_mode = 1
 
 [node name="right" type="TouchScreenButton" parent="."]
@@ -35,7 +35,7 @@ pressed = ExtResource( 1 )
 shape = SubResource( 1 )
 shape_visible = false
 passby_press = true
-action = "ui_right"
+action = "ui_right_i0"
 visibility_mode = 1
 
 [node name="down" type="TouchScreenButton" parent="."]
@@ -46,7 +46,7 @@ pressed = ExtResource( 1 )
 shape = SubResource( 1 )
 shape_visible = false
 passby_press = true
-action = "ui_down"
+action = "ui_down_i0"
 visibility_mode = 1
 
 [node name="left" type="TouchScreenButton" parent="."]
@@ -57,5 +57,5 @@ pressed = ExtResource( 1 )
 shape = SubResource( 1 )
 shape_visible = false
 passby_press = true
-action = "ui_left"
+action = "ui_left_i0"
 visibility_mode = 1

@@ -65,7 +65,7 @@ func _on_Collision_body_shape_entered(body_rid: RID, body: Node, body_shape: int
 			if !p.fsm.is_current_state('Suspended'):
 				p.global_position.x = grab.global_position.x
 			p.fsm.change_state('Suspended')
-			p.global_position.y = grab.global_position.y + Utils.get_height_of_shape(p.main_collider.shape) + 10
+			p.global_position.y = grab.global_position.y + Utils.Collision.get_height_of_shape(p.main_collider.shape) + 10
 			p.player_camera.followUp = false
 			p.player_camera.followDown = false
 			set_physics_process(true)
@@ -88,7 +88,7 @@ func _on_Collision_body_shape_exited(body_id: RID, body: Node, body_shape: int, 
 			
 
 func _physics_process(delta: float) -> void:
-	var direction = Utils.sign_bool(to_top) * Utils.sign_2_bool(grab_position_from>=grab_position_to, grab_position_from<grab_position_to)
+	var direction = Utils.Math.bool_sign(to_top) * Utils.Math.bools_sign(grab_position_from>=grab_position_to, grab_position_from<grab_position_to)
 	
 	for p in players:
 		if p.global_position.x != global_position.x:
@@ -105,9 +105,7 @@ func _physics_process(delta: float) -> void:
 	var half_pos = abs(top_pos - bottom_pos)
 	var max_speed = 300
 	if ((abs_grab_pos > half_pos and direction < 0) or (abs_grab_pos <= half_pos and direction > 0)) or !to_top:
-		
 		speed += direction*2 * delta
-		
 	elif (abs_grab_pos <= half_pos and to_top and direction < 0) or (abs_grab_pos > half_pos and to_top and direction > 0):
 		speed = (grab_position_to - grab_position) * 2
 		if abs(speed) < 0.3:
@@ -119,7 +117,7 @@ func _physics_process(delta: float) -> void:
 		if p.global_position.x != global_position.x:
 			return
 		if p.fsm.current_state == "Suspended":
-			p.global_position.y = coll.global_position.y + Utils.get_height_of_shape(p.main_collider.shape) + 10
+			p.global_position.y = coll.global_position.y + Utils.Collision.get_height_of_shape(p.main_collider.shape) + 10
 			if p.player_camera.global_position.y != p.global_position.y:
 				p.player_camera.global_position.y += (p.global_position.y - p.player_camera.global_position.y) * delta * 10
 		else:

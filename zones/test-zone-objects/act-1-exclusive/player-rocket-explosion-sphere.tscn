@@ -15,16 +15,13 @@ animations = [ {
 [node name="Animation" type="AnimatedSprite"]
 z_as_relative = false
 frames = SubResource( 1 )
+frame = 1
 speed_scale = 5.0
 playing = true
 script = ExtResource( 3 )
 
 [node name="ScreenSensor" type="VisibilityNotifier2D" parent="."]
-position = Vector2( -1.66893e-06, 2.38419e-06 )
-scale = Vector2( 0.8, 0.8 )
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.05
-autostart = true
+position = Vector2( -10, -10 )
+rect = Rect2( 0, 0, 20, 20 )
 
 [connection signal="screen_exited" from="ScreenSensor" to="." method="_on_ScreenSensor_screen_exited"]

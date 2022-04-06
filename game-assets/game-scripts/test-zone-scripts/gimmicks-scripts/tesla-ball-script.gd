@@ -1,70 +1,60 @@
 extends Node2D
 onready var radius : float = 50
 onready var plasma_sound : AudioStreamPlayer2D = $PlasmaSound
-onready var player_controllers_container = $PlayerControllersContainer
+var players_activated : Array
 
-class PlayerController extends Node:
-	var player : PlayerPhysics
+class PlasmaBallState extends State:
 	var rotation_border : float
 	var rotation_z : float
 	var prev_position : Vector2
 	var side = -1
+	var plasma_ball : Area2D
 	
-	func _ready():
-		set_physics_process(true)
-	
-	func _physics_process(delta):
+	func step(host, delta):
 		var cos_zrotation = cos(rotation_z)
-		var rad_zrot = owner.radius * cos_zrotation
-		prev_position = player.position
-		player.position.x = -cos(rotation_border) * rad_zrot
-		player.position.y = sin(rotation_border) * rad_zrot
+		var rad_zrot = plasma_ball.radius * cos_zrotation
+		prev_position = host.position
+		host.position.x = -cos(rotation_border) * rad_zrot
+		host.position.y = sin(rotation_border) * rad_zrot
 		
-		rotation_border -= player.direction.x * delta * 2
+		rotation_border -= host.direction.x * delta * 2
 		rotation_z -= delta * 6.0
-		side = player.z_index
+		side = host.z_index
 		if rotation_z <= 0:
 			rotation_z = TAU
-		player.z_index = 1 if rotation_z < PI else -1
-		player.position = (owner.global_position - player.position) 
+		host.z_index = 1 if rotation_z < PI else -1
+		host.position = (plasma_ball.global_position - host.position) 
 	
-	func _input(event):
-		if Input.is_action_just_pressed("ui_jump_i%d" % player.player_index):
+	func state_input(host, event):
+		if Input.is_action_just_pressed("ui_jump_i%d" % host.player_index):
 			var cos_zrotation = cos(rotation_z)
-			var pos: Vector2 = ((prev_position - owner.global_position) - (player.position - owner.global_position)) / owner.radius * 12
-			var rot = player.get_angle_to(owner.global_position)
-			player.speed.x = -player.JMP * pos.x
-			player.speed.y = -player.JMP * pos.y
-			player.fsm.change_state("OnAir")
-			player.z_index = 1
-			queue_free()
+			var pos: Vector2 = ((prev_position - plasma_ball.global_position) - (host.position - plasma_ball.global_position)) / plasma_ball.radius * 12
+			var rot = host.get_angle_to(plasma_ball.global_position)
+			host.speed.x = -host.jmp * pos.x
+			host.speed.y = -host.jmp * pos.y
+			host.z_index = 1
+			host.fsm.erase_state(self)
+			var p_array : Array = plasma_ball.players_activated
+			p_array.remove(p_array.find(host))
 
 func _ready():
-	if player_controllers_container.get_children().empty():
-		set_physics_process(false)
+	connect("body_entered", self, "_on_TeslaBall_body_entered")
 
 func _on_TeslaBall_body_entered(body):
 	if body is PlayerPhysics:
-		body.fsm.change_state("Stateless")
+		body.erase_state()
 		body.specific_animation_temp = true
 		body.animation.animate("Rolling")
-		var controller_to_add = PlayerController.new()
-		controller_to_add.rotation_border = -body.get_angle_to(global_position)
-		controller_to_add.rotation_z = PI
-		controller_to_add.player = body
-#		players_rotations[body] = {
-#			"rotationR": -body.get_angle_to(global_position),
-#			"rotationZ": PI,
-#			"side": -1,
-#			"prev_position": null
-#		}
-		player_controllers_container.add_child(controller_to_add)
-		controller_to_add.set_owner(self)
+		players_activated.append(body)
+		var state_to_add = PlasmaBallState.new()
+		state_to_add.rotation_border = -body.get_angle_to(global_position)
+		state_to_add.rotation_z = PI
+		body.fsm.insert_state(state_to_add)
+		state_to_add.plasma_ball = self
 		play_plasma()
 
 func play_plasma():
-	if player_controllers_container.get_children().empty():
-		return
+	if players_activated.empty():return
 	plasma_sound.play()
 	get_tree().create_timer(0.5).connect("timeout", self, "play_plasma")
 
