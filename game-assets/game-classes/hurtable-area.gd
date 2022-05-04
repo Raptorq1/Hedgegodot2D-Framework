@@ -9,6 +9,7 @@ func on_player_damage(player:PlayerPhysics):
 
 func push_player(player:PlayerPhysics):
 	var direction = global_position.direction_to(player.global_position).sign()
+	direction.y = -1
 	player.damage(direction);
 	on_player_damage(player)
 

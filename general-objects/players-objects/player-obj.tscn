@@ -20,7 +20,7 @@
 [ext_resource path="res://game-assets/game-scripts/player-scripts/trail.gd" type="Script" id=18]
 [ext_resource path="res://game-assets/game-sprites/player-sprites/VFX/spin-dash-dust.png" type="Texture" id=19]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/characters-scripts/character-values.gd" type="Script" id=20]
-[ext_resource path="res://game-assets/game-scripts/player-scripts/state.gd" type="Script" id=21]
+[ext_resource path="res://game-assets/game-scripts/player-scripts/states-scripts/damage.gd" type="Script" id=22]
 [ext_resource path="res://game-assets/audio/sfx/drop-dash.wav" type="AudioStream" id=109]
 [ext_resource path="res://game-assets/audio/sfx/spring-push.wav" type="AudioStream" id=120]
 [ext_resource path="res://game-assets/audio/sfx/ring-catch.wav" type="AudioStream" id=131]
@@ -78,10 +78,10 @@ colors = PoolColorArray( 0.00392157, 0.709804, 0.694118, 0, 0.24, 1, 0.987333, 1
 [sub_resource type="Resource" id=32]
 script = ExtResource( 20 )
 acc = 4.6875
-dec = 30.0
+dec = 50.0
 roll_dec = 7.5
 frc = 4.6875
-slp = 0.0
+slp = 7.5
 slp_roll_up = 4.6875
 slp_roll_down = 18.75
 top = 460.0
@@ -134,10 +134,10 @@ script = ExtResource( 190 )
 [node name="Global" type="Node" parent="StateMachine"]
 script = ExtResource( 193 )
 
-[node name="VictoryPose" type="Node" parent="StateMachine"]
-script = ExtResource( 21 )
+[node name="Damage" type="Node" parent="StateMachine"]
+script = ExtResource( 22 )
 
-[node name="CollisionHandler" type="Node" parent="."]
+[node name="CollHandler" type="Node" parent="."]
 script = ExtResource( 11 )
 
 [node name="VFX" type="Node2D" parent="."]
@@ -228,8 +228,6 @@ enabled = true
 cast_to = Vector2( -12, 0 )
 collision_mask = 481
 
-[node name="ControlLockTimer" type="Timer" parent="."]
-
 [node name="GroundSensors" type="Node2D" parent="."]
 
 [node name="LeftGroundSensor" type="RayCast2D" parent="GroundSensors"]
@@ -273,9 +271,12 @@ modulate = Color( 0.0392157, 0.960784, 0.788235, 1 )
 [node name="PlayerCamera" parent="CameraSpace" instance=ExtResource( 187 )]
 position = Vector2( 0, 0 )
 
+[node name="ControlUnlockTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="character_changed" from="." to="StateMachine" method="_on_Player_character_changed"]
 [connection signal="damaged" from="." to="." method="blink" binds= [ 2 ]]
 [connection signal="draw" from="." to="StateMachine" method="_on_Player_draw"]
-[connection signal="timeout" from="ControlLockTimer" to="." method="_on_ControlLockTimer_timeout"]
-[connection signal="body_entered" from="AttackBox" to="CollisionHandler" method="_on_AttackBox_body_entered"]
-[connection signal="body_entered" from="HitBox" to="CollisionHandler" method="_on_HitBox_body_entered"]
+[connection signal="body_entered" from="AttackBox" to="CollHandler" method="_on_AttackBox_body_entered"]
+[connection signal="body_entered" from="HitBox" to="CollHandler" method="_on_HitBox_body_entered"]
+[connection signal="timeout" from="ControlUnlockTimer" to="." method="_on_ControlUnlockTimer_timeout"]

@@ -14,7 +14,6 @@ func enter(host, prev_state):
 func step(host, delta):
 	var gsp_dir = sign(host.gsp)
 	var abs_gsp = abs(host.gsp)
-	var delta_final = delta*75
 	
 	if abs_gsp == 0 && host.direction.x == 0:
 		finish("Idle")
@@ -39,10 +38,9 @@ func step(host, delta):
 	if host.constant_roll:
 		if host.boost_constant_roll:
 			if abs_gsp < 300:
-				host.gsp += ((host.top_roll - host.gsp) * delta_final) * host.side * host.acc
+				host.gsp += (host.top_roll - host.gsp) * host.side * host.acc
 				host.gsp = clamp(host.gsp, -300, 300)
-		host.control_locked = true
-		host.control_unlock_timer = 0.5
+		host.lock_control()
 	
 	var ground_angle = host.ground_angle();
 	#print(rad2deg(ground_angle))
@@ -56,15 +54,15 @@ func step(host, delta):
 		slope = -host.slp_roll_down
 	
 	
-	host.gsp += slope * sin(ground_angle)  * delta_final
+	host.gsp += slope * sin(ground_angle)
 	abs_gsp = abs(host.gsp)
 	if !host.control_locked:
 		if host.direction.x != 0 and host.direction.x == -gsp_dir:
 			if abs_gsp > 0 :
-				var braking_dec : float = host.roll_dec * delta_final
+				var braking_dec : float = host.roll_dec
 				host.gsp += braking_dec * host.direction.x
 		else:
-			host.gsp -= min(abs_gsp, host.frc / 2.0) * gsp_dir * delta_final
+			host.gsp -= min(abs_gsp, host.frc / 2.0) * gsp_dir
 			abs_gsp = abs(host.gsp)
 	
 	if abs_gsp <=61.875:

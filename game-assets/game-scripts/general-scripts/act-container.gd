@@ -19,8 +19,11 @@ func get_current_act_node() -> ActInfo:
 
 func _ready() -> void:
 	if instance_act_on_ready:
+		for i in get_children(): i.queue_free()
 		var first_act = get_current_act_scene().instance()
 		add_child(first_act)
+	var cur_act = get_current_act_node()
+	cur_act.call_deferred("act_ready");
 
 func go_to_next_act():
 	reset_bonuses()
@@ -34,6 +37,7 @@ func go_to_next_act():
 	boss_music = next_act.get_node("BossMusic")
 	get_tree().get_root().set_disable_input(false)
 	add_child(next_act)
+	next_act.act_ready()
 	get_parent().HUD.show_title_card()
 
 func connect_and_mute(node, method, binds = []):
@@ -53,4 +57,4 @@ func reset_bonuses():
 
 func set_current_act(val : int):
 	current_act = clamp(val, 1, acts_to_load.size()+1)
-	
+

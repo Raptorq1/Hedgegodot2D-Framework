@@ -1,7 +1,7 @@
 extends State
 
 var times : int = TIMES_PRESET
-const TIMES_PRESET : int = 3
+const TIMES_PRESET : int = 4
 
 func enter(host, prev_state):
 	host.speed = Vector2.ZERO
@@ -14,10 +14,11 @@ func wait(host):
 	if times <= 1 and times > 0:
 		host.charging = true
 		time_to_wait = 1.25
-	if times <= 0:
+	elif times <= 0:
 		times = TIMES_PRESET + 1
 		next_state = "UpScreen"
-	yield(get_tree().create_timer(time_to_wait), "timeout")
+	var hp_fract = host.hp /25
+	yield(get_tree().create_timer(time_to_wait-hp_fract), "timeout")
 	finish(next_state)
 
 func animation_step(host, animator, delta):

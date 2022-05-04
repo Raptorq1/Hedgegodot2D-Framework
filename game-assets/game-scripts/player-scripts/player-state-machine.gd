@@ -19,9 +19,6 @@ func get_current_state_node():
 func is_current_state(name:String) -> bool:
 	return current_state == name
 
-func collision_process(delta):
-	host.collision_handler.step_collision(host, delta)
-
 func physics_process_ext(delta):
 	var cur_state = get_current_state_node()
 	if !host.specific_animation_temp:
@@ -33,6 +30,8 @@ func physics_process_ext(delta):
 		cur_state = get_current_state_node()
 		if !host.specific_animation_temp:
 			sub_state.animation_step(host, host.animation, delta, cur_state)
+	
+	host.coll_handler.update_collision(host, delta)
 	
 	if host.player_camera:
 		if !host.robot:
@@ -115,6 +114,7 @@ func setup_sub_state(obj:Node):
 	state.sub_state = obj
 
 func shutdown_sub_state(obj:Node):
+	if !states.has(obj.name):return
 	var state = states[obj.name]
 	state.sub_state = null
 
@@ -136,6 +136,13 @@ func set_actived(val : bool) -> void:
 	set_process_input(activated)
 	emit_signal("activate_switch", activated)
 
+func play_specific_anim_temp(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true, time_to_stop = null) -> void:
+	host.specific_animation_temp = true
+	host.animation.animate(animation_name, custom_speed, can_loop)
+	print(animation_name)
+	if time_to_stop != null and time_to_stop is float:
+		yield(get_tree().create_timer(time_to_stop), "timeout")
+		host.specific_animation_temp = false
 
 func _on_Player_draw():
 	var state = get_current_state_node()

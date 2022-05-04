@@ -22,4 +22,4 @@ func change_push_position(host):
 			host.target_h = false
 		else:
 			host.target_h = true
-	finish("Pushing")
+	finish("Blowing")

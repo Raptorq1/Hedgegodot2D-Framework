@@ -489,6 +489,10 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.0578, 0.11016, 0.17, 1 )
 config/icon="res://icon-new.png"
 
+[audio]
+
+driver="ALSA"
+
 [autoload]
 
 AdvancedBackgroundLoader="*res://addons/Advanced Background Loader/background_load.gd"
@@ -509,18 +513,18 @@ shapes/collision/shape_color=Color( 1, 1, 1, 0.501961 )
 
 [display]
 
-window/size/width=480
-window/size/height=270
+window/size/width=424
+window/size/height=240
 window/size/always_on_top=true
-window/size/test_width=960
-window/size/test_height=540
+window/size/test_width=848
+window/size/test_height=480
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode="2d"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/sprite_trail/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/codeandweb.texturepacker/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/sprite_trail/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
 
 [importer_defaults]
 
@@ -648,8 +652,12 @@ ui_jump_i1={
 
 [layer_names]
 
-2d_render/layer_1="Player1 Layer"
-2d_physics/layer_1="Player1 Layer"
+2d_render/layer_1="Common"
+2d_render/layer_4="Enemies"
+2d_render/layer_8="Breakables"
+2d_physics/layer_1="Common"
+2d_physics/layer_4="Enemies"
+2d_physics/layer_8="Breakables"
 
 [locale]
 
@@ -665,6 +673,5 @@ file_logging/max_log_files=1
 quality/driver/driver_name="GLES2"
 2d/snapping/use_gpu_pixel_snap=true
 vram_compression/import_etc=true
-quality/filters/anisotropic_filter_level=1
 environment/default_clear_color=Color( 0.301961, 0.301961, 0.301961, 1 )
 environment/default_environment="res://default_env.tres"

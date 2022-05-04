@@ -13,5 +13,5 @@ func set_rotation_degrees (val : float) -> void:
 
 func set_rotation( val : float) -> void:
 	var val_deg = rad2deg(val)
-	var final_value : float = abs(fmod(round(val_deg / 90.0), 4)) * 90
+	var _final_value : float = abs(fmod(round(val_deg / 90.0), 4)) * 90
 	.set_rotation(deg2rad(val))

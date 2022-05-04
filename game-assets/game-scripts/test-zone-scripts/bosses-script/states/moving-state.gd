@@ -3,9 +3,12 @@ extends State
 var point : Vector2
 func enter(host, prev_state):
 	point = host.give_point_to_go()
-	var min_dist = 125 if !host.shoot else 250
-	while host.position.distance_to(point) < min_dist:
-		point = host.give_point_to_go()
+	if !host.shoot:
+		var min_dist = 125
+		while host.position.distance_to(point) < min_dist:
+			point = host.give_point_to_go()
+	if prev_state == "Idle" and host.fsm.states[prev_state].times < 2:
+		point.x = 150 if abs(150 - host.position.x) > abs(-150 - host.position.x) else -150
 
 func step(host, delta):
 	var direction:Vector2 = (point - host.position).normalized()

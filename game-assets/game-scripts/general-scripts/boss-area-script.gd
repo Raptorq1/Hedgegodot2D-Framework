@@ -17,8 +17,7 @@ var default_cam_limit : Dictionary = {
 	"limit_right": 0,
 	"limit_bottom": 0,
 }
-const SIGN = preload("res://game-assets/game-scripts/general-scripts/act-sign.gd")
-var sign_obj: SIGN
+var sign_obj
 
 var rect_size : CollisionShape2D
 
@@ -46,7 +45,7 @@ func _on_BossArea_body_shape_entered(body_rid: RID, body: Node, body_shape: int,
 	if body is PlayerPhysics:
 		pass
 		var p : PlayerPhysics = body
-		var pc : PlayerCamera = p.player_camera
+		var pc = p.player_camera
 		if boss_defeated: 
 			set_player_area_to(post_boss_area, p)
 			return
@@ -96,14 +95,14 @@ func _on_Boss_died(node) -> void:
 func _reset_PlayerCamera() -> void:
 	for i in players:
 		var p : PlayerPhysics = i
-		var pc : PlayerCamera = p.player_camera
+		var pc = p.player_camera
 		for prop in default_cam_limit:
 			#print(prop)
 			pc.camera.set(prop, default_cam_limit[prop])
 
 func set_player_area_to(val : Rect2, player: PlayerPhysics = null):
 	if player:
-		var pc :PlayerCamera = player.player_camera
+		var pc = player.player_camera
 		set_pc(player, val)
 		return
 	for i in players:
@@ -111,7 +110,7 @@ func set_player_area_to(val : Rect2, player: PlayerPhysics = null):
 		
 
 func set_pc(p:PlayerPhysics, val : Rect2):
-	var pc :PlayerCamera = p.player_camera
+	var pc = p.player_camera
 	if pc.camera.limit_left != (global_position.x + val.position.x):
 		pc.camera.limit_left = (global_position.x + val.position.x) - 500
 	if pc.camera.limit_right != (global_position.x + val.position.x) + val.size.x:

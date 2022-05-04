@@ -11,7 +11,7 @@
 [ext_resource path="res://game-assets/game-sprites/hud-sprites/controller-sprites/a-button.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 30, 25 )
+extents = Vector2( 40, 30 )
 
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 15.0
@@ -76,6 +76,7 @@ func _process(delta):
 
 func _draw():
 	var color : Color = parent.color if parent else Color.red
+	if lines.size() < 3: return
 	draw_colored_polygon(lines, color)
 
 func set_editor_process(val : bool) -> void:
@@ -199,7 +200,7 @@ tracks/7/keys = {
 "values": [ 0.2 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("TitleCard:visible")
+tracks/8/path = NodePath("TitleCard/Bands/Tails:anchor_right")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -207,11 +208,11 @@ tracks/8/enabled = true
 tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ -1.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("TitleCard/Bands/Tails:anchor_right")
+tracks/9/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -223,7 +224,7 @@ tracks/9/keys = {
 "values": [ -1.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
+tracks/10/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -235,7 +236,7 @@ tracks/10/keys = {
 "values": [ -1.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
+tracks/11/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -247,7 +248,7 @@ tracks/11/keys = {
 "values": [ -1.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
+tracks/12/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -259,7 +260,7 @@ tracks/12/keys = {
 "values": [ -1.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
+tracks/13/path = NodePath("TitleCard/Bands/Tails:anchor_left")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -271,7 +272,7 @@ tracks/13/keys = {
 "values": [ -1.0 ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("TitleCard/Bands/Tails:anchor_left")
+tracks/14/path = NodePath("TitleCard:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -280,7 +281,19 @@ tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -1.0 ]
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("TitleCard:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -429,19 +442,19 @@ tracks/10/keys = {
 } ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("TitleCard:visible")
+tracks/11/path = NodePath("TitleCard/Bands/Tails:anchor_left")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0, 1.65 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
+"times": PoolRealArray( 0, 1.1, 1.35 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("TitleCard/Bands/Tails:anchor_left")
+tracks/12/path = NodePath("TitleCard/Bands/Tails:anchor_right")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -453,19 +466,19 @@ tracks/12/keys = {
 "values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("TitleCard/Bands/Tails:anchor_right")
+tracks/13/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0, 1.1, 1.35 ),
+"times": PoolRealArray( 0, 1.15, 1.4 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
-"values": [ -1.0, -1.0, 1.0 ]
+"values": [ 1.0, 1.0, -1.0 ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
+tracks/14/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -477,19 +490,19 @@ tracks/14/keys = {
 "values": [ 1.0, 1.0, -1.0 ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
+tracks/15/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/keys = {
-"times": PoolRealArray( 0, 1.15, 1.4 ),
+"times": PoolRealArray( 0, 1.2, 1.45 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
-"values": [ 1.0, 1.0, -1.0 ]
+"values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/16/type = "value"
-tracks/16/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
+tracks/16/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/imported = false
@@ -501,16 +514,16 @@ tracks/16/keys = {
 "values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/17/type = "value"
-tracks/17/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
+tracks/17/path = NodePath("TitleCard:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
 tracks/17/enabled = true
 tracks/17/keys = {
-"times": PoolRealArray( 0, 1.2, 1.45 ),
-"transitions": PoolRealArray( 1, -2, 1 ),
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -1.0, -1.0, 1.0 ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -656,88 +669,88 @@ tracks/10/keys = {
 } ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("TitleCard:visible")
+tracks/11/path = NodePath("TitleCard/Bands/Tails:anchor_right")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("TitleCard/Bands/Tails:anchor_right")
+tracks/12/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
+"times": PoolRealArray( 0, 0.35, 0.65 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
-"values": [ -1.0, -1.0, 1.0 ]
+"values": [ 1.0, 1.0, -1.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("TitleCard/Bands/Sonic:anchor_right")
+tracks/13/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0, 0.35, 0.65 ),
+"times": PoolRealArray( 0, 0.4, 0.7 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
-"values": [ 1.0, 1.0, -1.0 ]
+"values": [ -1.0, -1.0, 1.0 ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("TitleCard/Bands/Knuckles:anchor_right")
+tracks/14/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0, 0.4, 0.7 ),
-"transitions": PoolRealArray( 1, -2, 1 ),
-"update": 0,
-"values": [ -1.0, -1.0, 1.0 ]
-}
-tracks/15/type = "value"
-tracks/15/path = NodePath("TitleCard/Bands/Sonic:anchor_left")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/keys = {
 "times": PoolRealArray( 0, 0.35, 0.65 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
 "values": [ 1.0, 1.0, -1.0 ]
 }
-tracks/16/type = "value"
-tracks/16/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/keys = {
+tracks/15/type = "value"
+tracks/15/path = NodePath("TitleCard/Bands/Knuckles:anchor_left")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
 "times": PoolRealArray( 0, 0.4, 0.7 ),
 "transitions": PoolRealArray( 1, -2, 1 ),
 "update": 0,
 "values": [ -1.0, -1.0, 1.0 ]
 }
+tracks/16/type = "value"
+tracks/16/path = NodePath("TitleCard/Bands/Tails:anchor_left")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ -1.0, -1.0, 1.0 ]
+}
 tracks/17/type = "value"
-tracks/17/path = NodePath("TitleCard/Bands/Tails:anchor_left")
+tracks/17/path = NodePath("TitleCard:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
 tracks/17/enabled = true
 tracks/17/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, -2, 1 ),
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -1.0, -1.0, 1.0 ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="DynamicFont" id=11]
@@ -989,6 +1002,18 @@ tracks/19/keys = {
 "update": 0,
 "values": [ 6.0, 6.0, 0.0 ]
 }
+tracks/20/type = "value"
+tracks/20/path = NodePath(".:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -1232,6 +1257,18 @@ tracks/19/keys = {
 "update": 0,
 "values": [ 6.0 ]
 }
+tracks/20/type = "value"
+tracks/20/path = NodePath(".:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -1255,6 +1292,7 @@ margin_bottom = 40.0
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="PauseButton"]
 modulate = Color( 1, 1, 1, 0.784314 )
+position = Vector2( 5, 5 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 5 )
 shape = SubResource( 10 )
@@ -1283,35 +1321,36 @@ __meta__ = {
 }
 
 [node name="Control2" type="Control" parent="Separate"]
-margin_right = 480.0
-margin_bottom = 1.0
+margin_right = 424.0
+margin_bottom = 5.0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.3
 
 [node name="STRCounters" type="HBoxContainer" parent="Separate"]
-margin_top = 5.0
-margin_right = 480.0
-margin_bottom = 46.0
+margin_top = 9.0
+margin_right = 424.0
+margin_bottom = 50.0
 size_flags_vertical = 3
+custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Control2" type="Control" parent="Separate/STRCounters"]
-margin_right = 2.0
+margin_right = 9.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.5
 
 [node name="STR" type="VBoxContainer" parent="Separate/STRCounters"]
-margin_left = 6.0
-margin_right = 48.0
+margin_left = 9.0
+margin_right = 56.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 2.57
 
 [node name="ScoreIndicator" type="Control" parent="Separate/STRCounters/STR"]
-margin_right = 42.0
+margin_right = 47.0
 margin_bottom = 11.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -1324,7 +1363,7 @@ region_rect = Rect2( 0, 0, 41, 14 )
 
 [node name="TimerIndicator" type="Control" parent="Separate/STRCounters/STR"]
 margin_top = 15.0
-margin_right = 42.0
+margin_right = 47.0
 margin_bottom = 26.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -1337,7 +1376,7 @@ region_rect = Rect2( 0, 14, 33, 14 )
 
 [node name="RingIndicator" type="Control" parent="Separate/STRCounters/STR"]
 margin_top = 30.0
-margin_right = 42.0
+margin_right = 47.0
 margin_bottom = 41.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -1349,14 +1388,14 @@ region_enabled = true
 region_rect = Rect2( 0, 28, 41, 14 )
 
 [node name="Count" type="VBoxContainer" parent="Separate/STRCounters"]
-margin_left = 52.0
-margin_right = 94.0
+margin_left = 56.0
+margin_right = 93.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="ScoreCounter" type="Label" parent="Separate/STRCounters/Count"]
-margin_right = 42.0
+margin_right = 37.0
 margin_bottom = 11.0
 size_flags_vertical = 3
 custom_colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
@@ -1373,7 +1412,7 @@ __meta__ = {
 
 [node name="TimeCounter" type="Label" parent="Separate/STRCounters/Count"]
 margin_top = 15.0
-margin_right = 42.0
+margin_right = 37.0
 margin_bottom = 26.0
 size_flags_vertical = 2
 custom_colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
@@ -1390,7 +1429,7 @@ __meta__ = {
 
 [node name="RingCounter" type="Label" parent="Separate/STRCounters/Count"]
 margin_top = 30.0
-margin_right = 42.0
+margin_right = 37.0
 margin_bottom = 41.0
 size_flags_vertical = 2
 custom_colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
@@ -1406,30 +1445,30 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Separate/STRCounters"]
-margin_left = 98.0
-margin_right = 480.0
+margin_left = 93.0
+margin_right = 424.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 18.0
 
 [node name="Control" type="Control" parent="Separate"]
-margin_top = 50.0
-margin_right = 480.0
-margin_bottom = 125.0
+margin_top = 54.0
+margin_right = 424.0
+margin_bottom = 117.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.79
 
 [node name="AspectRatioContainer" type="MarginContainer" parent="Separate"]
-margin_top = 129.0
-margin_right = 480.0
-margin_bottom = 270.0
+margin_top = 121.0
+margin_right = 424.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_vertical = 3
 size_flags_stretch_ratio = 7.11
 
 [node name="TouchScreenController" type="HBoxContainer" parent="Separate/AspectRatioContainer"]
-margin_right = 480.0
-margin_bottom = 141.0
+margin_right = 424.0
+margin_bottom = 119.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_horizontal = 5
 size_flags_vertical = 3
@@ -1439,8 +1478,8 @@ __meta__ = {
 }
 
 [node name="DPAD" type="Control" parent="Separate/AspectRatioContainer/TouchScreenController"]
-margin_right = 238.0
-margin_bottom = 141.0
+margin_right = 210.0
+margin_bottom = 119.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1448,24 +1487,25 @@ __meta__ = {
 
 [node name="d-pad" parent="Separate/AspectRatioContainer/TouchScreenController/DPAD" instance=ExtResource( 13 )]
 modulate = Color( 1, 1, 1, 0.784314 )
-position = Vector2( 81, 71 )
+position = Vector2( 81, 49 )
 scale = Vector2( 2, 2 )
 
 [node name="ACTION" type="Control" parent="Separate/AspectRatioContainer/TouchScreenController"]
-margin_left = 480.0
-margin_right = 480.0
-margin_bottom = 141.0
+margin_left = 424.0
+margin_right = 424.0
+margin_bottom = 119.0
 size_flags_horizontal = 10
 
 [node name="jump_button" type="TouchScreenButton" parent="Separate/AspectRatioContainer/TouchScreenController/ACTION"]
 modulate = Color( 1, 1, 1, 0.784314 )
-position = Vector2( -92, 65 )
+position = Vector2( -92, 28 )
 normal = ExtResource( 16 )
 pressed = ExtResource( 15 )
 action = "ui_jump_i0"
 visibility_mode = 1
 
 [node name="Transition" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -1477,7 +1517,7 @@ __meta__ = {
 }
 
 [node name="TitleCard" type="Control" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -1493,8 +1533,8 @@ __meta__ = {
 show_behind_parent = true
 anchor_left = -1.0
 anchor_right = -1.0
-margin_right = 480.0
-margin_bottom = 90.0
+margin_right = 424.0
+margin_bottom = 80.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -1507,9 +1547,9 @@ __meta__ = {
 show_behind_parent = true
 anchor_left = -1.0
 anchor_right = -1.0
-margin_top = 90.0
-margin_right = 480.0
-margin_bottom = 180.0
+margin_top = 80.0
+margin_right = 424.0
+margin_bottom = 160.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -1522,9 +1562,9 @@ __meta__ = {
 show_behind_parent = true
 anchor_left = -1.0
 anchor_right = -1.0
-margin_top = 180.0
-margin_right = 480.0
-margin_bottom = 270.0
+margin_top = 160.0
+margin_right = 424.0
+margin_bottom = 240.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
@@ -1534,29 +1574,25 @@ __meta__ = {
 }
 
 [node name="Sort" type="VBoxContainer" parent="TitleCard"]
-margin_top = -1.0
-margin_right = 480.0
-margin_bottom = 270.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Up" type="ColorRect" parent="TitleCard/Sort"]
 anchor_top = -0.2
 anchor_bottom = -0.2
-margin_right = 480.0
-margin_bottom = 22.0
+margin_right = 424.0
+margin_bottom = 20.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 color = Color( 0.0731, 0.412155, 0.43, 1 )
 
 [node name="NormalBg" type="HBoxContainer" parent="TitleCard/Sort"]
-margin_top = 22.0
-margin_right = 480.0
-margin_bottom = 248.0
+margin_top = 20.0
+margin_right = 424.0
+margin_bottom = 219.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = -1
@@ -1567,14 +1603,14 @@ __meta__ = {
 [node name="Bg2" type="ColorRect" parent="TitleCard/Sort/NormalBg"]
 anchor_left = -0.25
 anchor_right = -0.25
-margin_right = 96.0
-margin_bottom = 226.0
+margin_right = 85.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 color = Color( 0.054902, 0.309804, 0.32549, 1 )
 
 [node name="Triangle" type="Node2D" parent="TitleCard/Sort/NormalBg/Bg2"]
-position = Vector2( 96, 0 )
+position = Vector2( 85, 0 )
 script = SubResource( 2 )
 editor_process = true
 
@@ -1582,9 +1618,9 @@ editor_process = true
 show_behind_parent = true
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = 95.0
-margin_right = 480.0
-margin_bottom = 226.0
+margin_left = 84.0
+margin_right = 424.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 color = Color( 0.04, 0.51, 0.52, 0.25 )
 
@@ -1602,7 +1638,7 @@ __meta__ = {
 }
 
 [node name="ZoneName" type="Label" parent="TitleCard/Sort/NormalBg/Bg/Text"]
-margin_right = 348.0
+margin_right = 307.0
 margin_bottom = 40.0
 custom_fonts/font = SubResource( 4 )
 text = "Test Zone"
@@ -1613,7 +1649,7 @@ __meta__ = {
 
 [node name="ActContainer" type="HBoxContainer" parent="TitleCard/Sort/NormalBg/Bg/Text"]
 margin_top = 44.0
-margin_right = 348.0
+margin_right = 307.0
 margin_bottom = 75.0
 
 [node name="ActLabel" type="Label" parent="TitleCard/Sort/NormalBg/Bg/Text/ActContainer"]
@@ -1645,9 +1681,9 @@ editor_process = true
 [node name="Down" type="ColorRect" parent="TitleCard/Sort"]
 anchor_top = 0.2
 anchor_bottom = 0.2
-margin_top = 248.0
-margin_right = 480.0
-margin_bottom = 271.0
+margin_top = 219.0
+margin_right = 424.0
+margin_bottom = 240.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 color = Color( 0.0731, 0.412155, 0.43, 1 )
@@ -1662,6 +1698,7 @@ anims/show = SubResource( 8 )
 items = [ "Debug menu", null, 0, false, false, 0, 0, null, "", true, "Item transformation", null, 1, false, false, 1, 0, null, "", false, "Free move", null, 1, false, false, 2, 0, null, "", false, "Reset", null, 0, false, false, 3, 0, null, "", false, "Next act", null, 0, false, false, 4, 0, null, "", false ]
 
 [node name="Victory" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -1751,7 +1788,7 @@ __meta__ = {
 
 [node name="Right" type="VBoxContainer" parent="Victory/HBoxContainer"]
 margin_left = 100.0
-margin_right = 196.0
+margin_right = 173.0
 margin_bottom = 56.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -1762,7 +1799,7 @@ __meta__ = {
 [node name="Score" type="Label" parent="Victory/HBoxContainer/Right"]
 anchor_left = 2.6
 anchor_right = 2.6
-margin_right = 96.0
+margin_right = 73.0
 margin_bottom = 11.0
 custom_colors/font_color = Color( 0.941176, 0.941176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1779,7 +1816,7 @@ __meta__ = {
 anchor_left = 2.6
 anchor_right = 2.6
 margin_top = 15.0
-margin_right = 96.0
+margin_right = 73.0
 margin_bottom = 26.0
 custom_colors/font_color = Color( 0.941176, 0.941176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1796,7 +1833,7 @@ __meta__ = {
 anchor_left = 2.6
 anchor_right = 2.6
 margin_top = 30.0
-margin_right = 96.0
+margin_right = 73.0
 margin_bottom = 41.0
 custom_colors/font_color = Color( 0.941176, 0.941176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1813,7 +1850,7 @@ __meta__ = {
 anchor_left = 2.6
 anchor_right = 2.6
 margin_top = 45.0
-margin_right = 96.0
+margin_right = 73.0
 margin_bottom = 56.0
 custom_colors/font_color = Color( 0.941176, 0.941176, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )

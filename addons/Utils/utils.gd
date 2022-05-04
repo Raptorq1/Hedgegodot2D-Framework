@@ -36,7 +36,7 @@ class Math:
 			to_return += intd
 		
 		return to_return
-
+	
 	# Convert radians to directions:
 	# directions are the possible angles can be returned in radians
 	static func rad2slice(val:float, directions:int, round_to:int = 0):
@@ -56,7 +56,10 @@ class Math:
 		return Vector2(cos(angle), sin(angle))* radius
 
 	static func is_between(val: float, minor:float, major:float) -> bool:
-		return val > minor && val < major
+		return val > minor and val < major
+	
+	static func is_between_ulmost(val: float, minor:float, major:float) -> bool:
+		return val >= minor and val <= major
 	
 	static func invertXY(vec:Vector2) -> Vector2:
 		return Vector2(vec.y, vec.x)

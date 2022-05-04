@@ -8,5 +8,5 @@ func spawnBlock(pos:Vector2, speed:Vector2, body):
 	block.speed = speed;
 	block.set_as_toplevel(true)
 	block.global_position = global_position + pos;
-	print(global_position)
+	#print(global_position)
 	get_tree().get_current_scene().add_child(block)

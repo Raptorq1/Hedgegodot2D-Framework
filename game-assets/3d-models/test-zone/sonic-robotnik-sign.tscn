@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game-assets/3d-models/test-zone/Material.material" type="Material" id=1]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/decoration-scripts/sonic-robotnik-sign.gd" type="Script" id=2]
@@ -19,19 +19,20 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
+[sub_resource type="Environment" id=2]
+
 [node name="sonic-robotnik-sign" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Sign" type="MeshInstance" parent="."]
+portal_mode = 4
+include_in_bound = false
+cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.446709, 0.187351, -0.874843, -0.759387, -0.596419, 0.26003, -0.473056, 0.780502, 0.408698, 2.30161, 0, 0 )
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, -4, 0, 0 )
+environment = SubResource( 2 )
 projection = 1
 size = 2.01

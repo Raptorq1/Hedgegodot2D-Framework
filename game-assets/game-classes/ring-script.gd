@@ -59,12 +59,12 @@ func is_class(class_:String):
 
 func _on_Area_area_entered(area: Area2D) -> void:
 	if area and area.get_owner().is_class('Rocket'):
-		if area.get_owner().can_ascend == true && area.get_owner().player:
+		if area.get_owner().rocket.is_physics_processing() and area.get_owner().player:
 			var player = area.get_owner().player
 			_catch(player)
 
 func _catch(body: Node) -> void:
-	get_tree().get_current_scene().rings += points;
+	body.rings += points;
 	var ring_sparkle_instance:Node2D = ring_sparkle_scene.instance();
 	var player:= body
 	var sound:AudioPlayer = player.get_node("AudioPlayer");

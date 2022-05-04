@@ -207,5 +207,3 @@ anims/RESET = SubResource( 9 )
 anims/falling = SubResource( 20 )
 anims/jumping = SubResource( 10 )
 script = ExtResource( 3 )
-
-[connection signal="animation_started" from="Container/Sprite/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

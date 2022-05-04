@@ -1,5 +1,5 @@
 extends Badnik
-
+const scene_splat_blot:PackedScene = preload("res://zones/test-zone-objects/badnik-objects/splat-ink-blot.tscn")
 onready var animator : AnimationPlayer = $Container/Sprite/AnimationPlayer
 onready var container : Node2D = $Container
 var moving : bool = false
@@ -25,6 +25,7 @@ func _physics_process(delta):
 		else:
 			animator.animate("falling")
 	else:
+		spawn_blot()
 		if was_side_switched:
 			if next_wait_step:
 				next_wait_step.resume()
@@ -46,6 +47,13 @@ func wait_to_jump():
 	set_physics_process(false)
 	yield(get_tree().create_timer(0.1),"timeout")
 	set_physics_process(true)
+
+func spawn_blot():
+	var splat_blot : Node2D = scene_splat_blot.instance()
+	splat_blot.set_as_toplevel(true)
+	get_parent().add_child(splat_blot)
+	splat_blot.global_position.x = global_position.x
+	splat_blot.global_position.y = global_position.y + 15
 
 func wait(side = false):
 	yield()

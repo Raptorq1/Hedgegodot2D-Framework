@@ -33,13 +33,15 @@ func wait_shoot(host, times):
 	#print(times)
 	if times > 0:
 		host.laser_preview.visible = true
-		host.charge_sfx.play()
+		host.target_sfx.play()
+		var hp_fract = host.hp /25
 		yield(get_tree().create_timer(0.7), "timeout")
 		follow_player = false
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.5 - hp_fract), "timeout")
 		host.shoot  = true
+		host.target_sfx.stop()
 		host.laser_preview.visible = false
-		yield(get_tree().create_timer(1.25), "timeout")
+		yield(get_tree().create_timer(1.25-hp_fract), "timeout")
 		host.shoot = false
 		follow_player = true
 		get_tree().create_timer(0.5).connect("timeout", self, 'wait_shoot', [host, times - 1])

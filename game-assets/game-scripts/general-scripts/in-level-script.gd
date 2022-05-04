@@ -4,7 +4,6 @@ var count:float = 0;
 var seconds:float = 0;
 var milliseconds:float;
 var minutes:float;
-var rings:int = 100 setget set_ring;
 var time:String;
 onready var act_container = $ActContainer
 onready var HUD = get_node_or_null("./HUD")
@@ -17,21 +16,19 @@ export var next_level : PackedScene
 onready var act_clear_music : AudioStreamPlayer = $ActClear
 onready var act_score_total : AudioStreamPlayer = $ScoreTotal
 onready var act_score_add : AudioStreamPlayer = $ScoreAdd
+onready var ring_counter = HUD_count.get_node('RingCounter')
 
 func _ready():
 	players.set_owner(self)
-	set_ring(rings)
 	if show_title_card:
 		HUD.show_title_card()
 	else:
 		HUD.transition.color.a = 0.0
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
-func set_ring(value:int):
-	rings = value;
-	var ring_counter = HUD_count.get_node_or_null('RingCounter')
+func update_ring_count(value:int):
 	if (ring_counter != null):
-		ring_counter.text = String(rings);
+		ring_counter.text = String(value);
 
 
 func get_global_mouse_position() -> Vector2:

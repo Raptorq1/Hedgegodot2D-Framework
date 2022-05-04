@@ -33,8 +33,12 @@ func animation_step(host, animator, delta):
 	else:
 		if host.target_h:
 			anim_name = "FanH"
+			host.up_blow.emitting = false
+			host.side_blow.emitting = true
 		else:
 			anim_name = "FanV"
+			host.up_blow.emitting = true
+			host.side_blow.emitting = false
 	
 	animator.animate(anim_name)
 
@@ -50,3 +54,7 @@ func _on_animation_finished(host, anim_name: String):
 		get_tree().create_timer(5.0).connect("timeout", host, "check_for_target")
 		finish("Wait")
 		animate_again()
+
+func exit(host, next_state):
+	host.up_blow.emitting = false
+	host.side_blow.emitting = false

@@ -40,7 +40,7 @@ height = 8.0
 [node name="Ring" type="RigidBody2D" groups=["Rings"]]
 position = Vector2( 126, 75 )
 collision_layer = 16
-collision_mask = 16
+collision_mask = 8
 input_pickable = true
 mode = 2
 mass = 0.00102041
@@ -55,11 +55,12 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -8, -8 )
 frames = SubResource( 1 )
-frame = 7
+frame = 6
 playing = true
 
 [node name="Area" type="Area2D" parent="."]
 position = Vector2( -8, -8 )
+collision_layer = 0
 monitorable = false
 
 [node name="Collide" type="CollisionShape2D" parent="Area"]

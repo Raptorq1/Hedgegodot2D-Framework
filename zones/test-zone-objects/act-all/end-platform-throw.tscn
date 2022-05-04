@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/gimmicks-scripts/end-platform-throw.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/endcliff-thrower/thrower-sprite.png" type="Texture" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 8 )
 
 [node name="EndPlatformThrow" type="Area2D"]
 modulate = Color( 0, 0.933333, 0.266667, 1 )
@@ -14,8 +11,8 @@ script = ExtResource( 1 )
 position = Vector2( 32, -16 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 16, -8 )
-shape = SubResource( 1 )
+polygon = PoolVector2Array( -16, 8, 16, -4, 32, -11, 64, -11, 62, -7, 32, 24, -16, 24 )
 
 [connection signal="body_entered" from="." to="." method="_on_EndPlatformThrow_body_entered"]

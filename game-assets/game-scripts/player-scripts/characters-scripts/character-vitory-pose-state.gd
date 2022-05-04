@@ -14,11 +14,10 @@ func enter(host, prev_state, state = null):
 		jumped = true
 
 func step(host, delta, state=null):
-	var delta_final = delta * 70
 	if !host.is_grounded:
-		host.speed.y += host.grv * (delta * 60)
+		host.speed.y += host.grv
 		if host.speed.y < 0 and host.speed.y > -240:
-			host.speed.x -= (host.speed.x/0.125)/435 * delta_final
+			host.speed.x -= (host.speed.x/7.5)/15360
 	else:
 		if jumped:
 			grounded = true

@@ -9,10 +9,11 @@ func _ready():
 func _physics_process(delta):
 	if ray_cast.is_colliding() and linear_velocity.y >= 0:
 		sleeping = true
+		var parent = get_parent()
+		parent.land_sfx.play()
 		set_physics_process(false)
-		get_parent().launched = false
-		get_parent().start()
-		print("nnfoi")
+		parent.launched = false
+		parent.start()
 
 func jump():
 	linear_velocity.y = -250

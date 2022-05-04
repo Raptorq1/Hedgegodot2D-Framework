@@ -4,14 +4,17 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var charging: bool = false
 func enter(host, prev_state):
 	rng.randomize()
+	host.stand_sfx.play()
 	get_tree().create_timer(1.0).connect("timeout", self, "start_charge", [host])
 
 func start_charge(host):
 	charging = true
 	yield(get_tree().create_timer(0.5), "timeout")
+	host.shoot_charge_sfx.play()
 	host.beam_charge.visible = true
 	host.beam_charge.play("default")
 	yield(get_tree().create_timer(0.5), "timeout")
+	host.shoot_sfx.play()
 	shoot(host)
 
 func shoot(host):

@@ -17,7 +17,8 @@ func _process(delta: float) -> void:
 		while get_point_count() > max_length:
 			remove_point(0)
 	else:
-		remove_point(0)
+		if get_point_count() > 0:
+			remove_point(0)
 	if get_point_count() == 0:
 		set_process(false)
 

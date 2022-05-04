@@ -10,7 +10,7 @@ func enter(host, prev_state):
 	host.is_pushing = false
 	#host.spring_loaded = false
 	idle_anim = 'Idle'
-	host.snap_margin = host.snaps
+	host.reset_snap()
 	host.suspended_jump = false
 	#print(host.get_collision_mask_bit(8))
 	
@@ -18,27 +18,27 @@ func enter(host, prev_state):
 func step(host, delta):
 	var gsp_dir = sign(host.gsp)
 	var abs_gsp = abs(host.gsp)
-	var delta_final = delta * 75
 	
 	if abs_gsp == 0 && host.direction.x == 0:
 		finish("Idle")
 		return
 	
-	if !host.is_grounded or host.was_damaged or host.is_floating:
+	if !host.is_grounded or host.is_floating:
 		finish("OnAir")
 		return
 	
 	if !host.is_ray_colliding or host.fall_from_ground():
 		host.is_grounded = false
-		host.snap_margin = 0
+		host.erase_snap()
 		finish("OnAir")
 		return
 	
 	var ground_angle = host.ground_angle();
 	
 	slope = host.slp
-	var slope_to_subtract = slope * sin(ground_angle) * delta_final
+	var slope_to_subtract = slope * sin(ground_angle)
 	host.gsp -= slope_to_subtract
+	#print(host.gsp, ' ', slope_to_subtract, ' ', ground_angle, ' ', slope)
 	abs_gsp = abs(host.gsp)
 	gsp_dir = sign(host.gsp)
 	
@@ -46,15 +46,15 @@ func step(host, delta):
 		if host.direction.x == 0:
 			#if abs(slope_to_subtract) < 1.0:
 				is_braking = false
-				host.gsp -= min(abs_gsp, host.frc) * gsp_dir * delta_final
+				host.gsp -= min(abs_gsp, host.frc) * gsp_dir
 				abs_gsp = abs(host.gsp)
-				if abs_gsp < 1.1:
+				if abs_gsp < 0.1:
 					finish("Idle")
 		else:
 			if host.direction.x == -gsp_dir:
 				if abs_gsp > 0 :
 					var braking_dec : float = host.dec
-					host.gsp += braking_dec * host.direction.x * delta_final
+					host.gsp += braking_dec * host.direction.x
 				if abs_gsp >= 380:
 					if !is_braking:
 						brake_sign = gsp_dir
@@ -62,7 +62,7 @@ func step(host, delta):
 					is_braking = true
 			
 			if !is_braking && abs_gsp < host.top:
-					host.gsp += host.acc * host.direction.x * delta_final
+					host.gsp += host.acc * host.direction.x
 	
 	if (host.is_wall_right && host.gsp > 0) || (host.is_wall_left && host.gsp < 0):
 		host.is_pushing = true
@@ -103,34 +103,33 @@ func animation_step(host, animator, delta):
 	var play_once = false
 	if abs_gsp > .1 and !is_braking:
 		idle_anim = 'Idle'
-		var joggin = 250
-		var runnin = 380
-		var fasterrun = 960
-		if abs_gsp < joggin:
-			anim_name = 'Walking'
-		elif abs_gsp >= joggin and abs_gsp < runnin:
+		var joggin = 280
+		var runnin = 420
+		var faster_run = 960
+		
+		anim_name = 'Walking'
+		if abs_gsp >= joggin and abs_gsp < runnin:
 			anim_name = "Jogging"
-		elif abs_gsp >= runnin and abs_gsp < fasterrun:
+		elif abs_gsp >= runnin and abs_gsp < faster_run:
 			anim_name = "Running"
-		else:
+		elif abs_gsp > faster_run:
 			anim_name = "SuperPeelOut"
 		var host_char:Node2D = host.character
-		var host_rotation = host.rotation_degrees
-		var abs_crot = abs(host_rotation)
 		#var inv_transform : Transform2D= host.transform.inverse()
 		
-		host_char.rotation = lerp_angle(host_char.rotation, -host.ground_angle(), delta * 20)
 		#print(host_char.global_rotation)
-		if abs(host.rotation_degrees) < 20:
-			host_char.rotation = -host.rotation
-		anim_speed = max(-(8.0 / 60.0 - (abs_gsp / 120.0)), 1.6)
+		if abs(host.rotation_degrees) < 30:
+			host_char.rotation = lerp_angle(host_char.rotation, 0, delta * 20)
+		else:
+			host_char.rotation = lerp_angle(host_char.rotation, -host.ground_angle(), delta * 20)
+		anim_speed = max(-(8.0 / 60.0 - (abs_gsp / 120.0)), 1.6)+0.4
 		if gsp_dir != 0:
 			if abs_gsp > 500:
 				host_char.scale.x = gsp_dir
 			else:
 				host_char.scale.x = host.direction.x if host.direction.x != 0 else host_char.scale.x
 	elif is_braking:
-		if anim_name != 'BrakeLoop' && anim_name != 'PostBrakReturn':
+		if anim_name != 'BrakeLoop' and anim_name != 'PostBrakReturn':
 			anim_name = 'Braking'
 		anim_speed = 2.0
 		play_once = true;

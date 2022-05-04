@@ -3,9 +3,10 @@ extends Node2D
 var actived : bool setget set_actived
 var launched : bool = false
 onready var charge_sfx : AudioStreamPlayer2D = $ChargeSFX
+onready var throw_sfx : AudioStreamPlayer2D = $Throw
+onready var land_sfx : AudioStreamPlayer2D = $Land
 onready var spike_ball : RigidBody2D = $SpikeBall
 onready var platform : StaticBody2D = $Platform
-onready var floor_pos : Position2D = $FloorPosition
 
 func _ready():
 	platform.add_collision_exception_with(spike_ball)
@@ -30,4 +31,5 @@ func start():
 		yield(charge_sfx, "finished")
 		yield(get_tree().create_timer(0.5), "timeout")
 		spike_ball.jump()
+		throw_sfx.play()
 		launched = true

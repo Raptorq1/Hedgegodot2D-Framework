@@ -12,7 +12,7 @@ func step(host, delta):
 	host.character.rotation = 0
 	
 	p = min(p, 480)
-	p -= int(p / 7.5) * delta * 60
+	p -= int(p / 7.5)
 
 func exit(host, next_state):
 	host.gsp = (480 + (floor(p) / 2)) * host.character.scale.x

@@ -5,6 +5,7 @@ var player = preload('res://general-objects/players-objects/player-obj.tscn')
 class_name PlayersContainer
 onready var p_obj = $PlayersObj
 onready var spawner = $InitialSpawn
+
 func _ready():
 	yield(get_parent(), "ready")
 	for i in get_parent().global.players.size():
@@ -31,10 +32,11 @@ func _ready():
 
 func set_main_player(child : PlayerPhysics):
 	selected = child.get_position_in_parent()
-	child.activate()
 	for i in p_obj.get_children():
-		if i != child:
-			i.deactivate()
+		i.deactivate()
+		i.disconnect("rings_update", get_parent(), "update_ring_count")
+	child.activate()
+	child.connect("rings_update", get_parent(), "update_ring_count")
 
 func _unhandled_key_input(event: InputEventKey) -> void:
 	if event.is_action_released('ui_end'):

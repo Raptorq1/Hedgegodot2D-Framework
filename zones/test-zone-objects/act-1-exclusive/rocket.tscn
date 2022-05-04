@@ -347,7 +347,7 @@ extents = Vector2( 8, 20 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 10, 17 )
 
-[node name="Rocket" type="Node2D"]
+[node name="RocketContainer" type="Node2D"]
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_group_": true

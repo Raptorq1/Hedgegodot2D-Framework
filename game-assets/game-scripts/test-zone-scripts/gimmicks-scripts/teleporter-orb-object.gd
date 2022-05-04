@@ -41,7 +41,7 @@ class TeleportOrbState extends State:
 		trail_reverse.speed *= -1
 		trail_reverse.rotation_border = deg2rad(180)
 		add_child(trail_reverse)
-		host.play_specific_anim_temp("Rolling")
+		host.fsm.play_specific_anim_temp("Rolling")
 		var tween = Tween.new()
 		add_child(tween)
 		

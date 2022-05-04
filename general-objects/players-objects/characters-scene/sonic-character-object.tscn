@@ -185,7 +185,7 @@ acc = 4.6875
 dec = 30.0
 roll_dec = 7.5
 frc = 4.6875
-slp = 0.0
+slp = 7.5
 slp_roll_up = 4.6875
 slp_roll_down = 18.75
 top = 460.0
@@ -198,14 +198,14 @@ spin_dash = true
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ ExtResource( 40 ), ExtResource( 43 ), ExtResource( 31 ), ExtResource( 50 ) ],
-"loop": true,
-"name": "Down",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 43 ), ExtResource( 31 ), ExtResource( 50 ) ],
+"loop": true,
+"name": "Down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ), ExtResource( 3 ), ExtResource( 14 ), ExtResource( 33 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 5 ), ExtResource( 22 ), ExtResource( 27 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ],
@@ -1020,8 +1020,8 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=23]
-length = 1.2
 loop = true
+step = 0.0833333
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:animation")
 tracks/0/interp = 1
@@ -1029,7 +1029,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.2 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ "SuspendedMove", "SuspendedMove" ]
@@ -1041,7 +1041,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1 ),
+"times": PoolRealArray( 0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.833333 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -19, -14 ), Vector2( -20, -13 ), Vector2( -19, -13 ), Vector2( -21, -13 ), Vector2( -18, -13 ), Vector2( -19, -13 ), Vector2( -18, -14 ), Vector2( -18, -14 ) ]
@@ -1053,10 +1053,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333, 0.916667 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8 ]
+"values": [ 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath("../../../AudioPlayer")
@@ -1065,7 +1065,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.249, 0.83 ),
+"times": PoolRealArray( 0.249, 0.75 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "grab", 0.0 ],

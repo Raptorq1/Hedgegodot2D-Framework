@@ -3,26 +3,33 @@ extends State
 var slope : float
 
 func enter(host : PlayerPhysics, prev_state):
+	pass
 	host.speed = Vector2.ZERO
 	host.direction = Vector2.ZERO
 	host.gsp = 0
-	#host.character.rotation = 0
+	host.character.rotation = 0
 
 func step(host : PlayerPhysics, delta):
 	var ground_angle = host.ground_angle()
-	var delta_final = delta * 75
 	slope = -host.slp
-	host.gsp += slope * sin(ground_angle) * delta_final
-	host.gsp -= min(abs(host.gsp), host.frc) * sign(host.gsp) * delta_final
+	host.gsp += slope * sin(ground_angle)
+	host.gsp -= min(abs(host.gsp), host.frc) * sign(host.gsp)
 	if host.constant_roll:
 		finish("Rolling")
 		return
-	if abs(host.gsp) >= 1.1:
+	if abs(host.gsp) >= 0.1:
 		finish("OnGround")
 		return
 	
-	if host.ground_mode != 0 or !host.is_grounded:
+	if !host.is_ray_colliding or host.fall_from_ground() or !host.is_on_ground():
+		host.is_grounded = false
+		host.snap_margin = 0
 		finish("OnAir")
+		return
+	
+	if !host.can_fall || (abs(rad2deg(ground_angle)) <= 30 && host.rotation != 0):
+		host.snap_to_ground()
+		finish("OnGround")
 		return
 	
 	#host.speed.x = host.gsp * cos(ground_angle)

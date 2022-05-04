@@ -1,6 +1,5 @@
 extends BossArea
 tool
-
 func _on_Boss_died(node) -> void:
 	boss_defeated = true
 	get_tree().create_timer(1.0).connect("timeout", sign_obj, "start_falling")

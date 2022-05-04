@@ -23,7 +23,8 @@ func _ready() -> void:
 		else:
 			area.bosses.append(self)
 		if area && area is BossArea:
-			connect('died', area, "_on_Boss_died")
+			if !is_connected("died", area, "_on_Boss_died"):
+				connect('died', area, "_on_Boss_died")
 
 func appear() -> void: pass
 func boss_start () -> void:
@@ -60,3 +61,6 @@ func _get_configuration_warning() -> String:
 
 func _set_hp(val : int) -> void:
 	hp = max(val, 0)
+
+func get_class() -> String:return "Boss"
+func is_class(val: String) -> bool:return val == get_class() or .is_class(val)

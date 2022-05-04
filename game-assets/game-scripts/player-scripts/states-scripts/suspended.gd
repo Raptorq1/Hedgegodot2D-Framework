@@ -19,7 +19,7 @@ func step(host: PlayerPhysics, delta: float):
 		if left or right:
 			if target_pos == null:
 				target_pos = host.global_position.x + (24 * host.direction.x)
-				host.speed.x = (target_pos - host.global_position.x) * delta * 160
+				host.speed.x = (target_pos - host.global_position.x) * 3.25
 				host.side = sign(host.speed.x)
 				side = host.side
 		else:

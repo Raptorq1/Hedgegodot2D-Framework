@@ -13,13 +13,9 @@ var time:float = init_timer;
 onready var explode_audio_player = get_tree().get_root().get_node("GlobalSounds")
 var can_hurt: bool = true
 
-func uselessSetter(useless_value):
-	pass
-
-func explode(player: PlayerPhysics):
+func explode(player):
 	explode_audio_player.play('Destroy');
 	if player.fsm.current_state == "OnAir":
-		var angle = rotation
 		if player.speed.y < 0:
 			player.speed.y *= 0.75
 		else:
@@ -40,7 +36,6 @@ func get_class():
 func is_class(class_name_value:String):
 	return class_name_value == get_class()
 
-func set_to_right(val : bool) : 
-	pass
+func set_to_right(_val : bool): pass
 
-func side_switch(val : bool): pass
+func side_switch(_val : bool): pass

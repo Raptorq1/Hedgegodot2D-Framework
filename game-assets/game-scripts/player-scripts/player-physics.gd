@@ -1,11 +1,14 @@
 extends KinematicBody2D
 class_name PlayerPhysics
 signal damaged
+signal rings_update(value)
 signal character_changed(previous_character, current_character)
+var rings:int = 0 setget set_rings
+var score:int = 0
 
 var player_index: int
 var respawn_point : Vector2
-
+var main_player : bool = false
 var robot : bool = false
 
 export(int) var selected_character_index setget set_selected_character
@@ -26,13 +29,11 @@ var spin_dash
 var my_spawn_point : PlayerSpawner
 onready var selected_character_node : Character
 onready var fsm : = $StateMachine
+onready var coll_handler := $CollHandler
 var char_fsm
 onready var player_camera = $CameraSpace/PlayerCamera
 onready var player_vfx = $VFX
-onready var GLOBAL = get_node("/root/Global");
-
-onready var low_collider = $LowCollider
-onready var ray_collider = $RayCollider
+onready var GLOBAL = get_tree().get_root().get_node("./GlobalScript")
 
 onready var left_ground:RayCast2D = $GroundSensors/LeftGroundSensor
 onready var right_ground:RayCast2D = $GroundSensors/RightGroundSensor
@@ -43,7 +44,6 @@ onready var left_wall:RayCast2D = $LeftWallSensor
 onready var right_wall:RayCast2D = $RightWallSensor
 onready var left_wall_bottom:RayCast2D = $LeftWallSensorBottom
 onready var right_wall_bottom:RayCast2D = $RightWallSensorBottom
-onready var collision_handler : Node = $CollisionHandler
 onready var attack_area : Area2D = $AttackBox
 onready var attack_shape : CollisionShape2D = attack_area.get_node("hitbox")
 
@@ -69,10 +69,9 @@ var direction : Vector2 = Vector2.ZERO;
 var gsp : float
 var speed : Vector2
 var ground_mode : int
-var control_locked : bool setget _set_control_locked
+var control_locked : bool = false
 const control_unlock_time_normal = .5
-var control_unlock_timer : float
-onready var _control_unlock_timer_node : Timer = $ControlLockTimer
+onready var control_unlock_timer : Timer = $ControlUnlockTimer
 var can_fall : bool
 var is_ray_colliding : bool
 var is_grounded : bool
@@ -93,7 +92,7 @@ var boost_constant_roll : bool
 var up_direction : Vector2 = Vector2.UP
 var prev_position : Vector2
 var ground_ray : RayCast2D
-var can_break_wall : bool = false setget _set_can_brake_wall
+var can_break_wall : bool = false setget _set_can_break_wall
 var suspended_jump : bool = false
 var suspended_can_right : bool = true
 var suspended_can_left : bool = true
@@ -119,12 +118,11 @@ func _ready():
 		fsm._on_host_ready(self)
 		set_selected_character(selected_character_index)
 		set_collision_mask(get_collision_mask())
-		control_unlock_timer = control_unlock_time_normal
 		for i in character.get_children():
 			i.set_owner(self)
 		if player_camera:
 			player_camera.camera_ready(self)
-		collision_handler.on_host_ready(self)
+		coll_handler.on_host_ready(self)
 
 func get_rays() -> Array:
 	return [left_ground, middle_ground, right_ground, left_wall, left_wall_bottom, right_wall, right_wall_bottom]
@@ -150,7 +148,7 @@ func set_collision_mask_bit(val : int, switch : bool) -> void:
 		i.set_collision_mask_bit(val, switch)
 		
 
-func _set_can_brake_wall( val : bool ) -> void:
+func _set_can_break_wall( val : bool ) -> void:
 	can_break_wall = val
 	set_collision_mask_bit(5, can_break_wall)
 	set_collision_layer_bit(5, can_break_wall)
@@ -194,7 +192,6 @@ func physics_step(delta):
 		position.x = max(9, position.x)
 	if is_on_floor():
 		is_grounded = true
-	ground_sensors_container.global_rotation = -ground_angle()
 	ground_ray = get_ground_ray()
 	is_ray_colliding = ground_ray != null
 	if ground_ray and is_ray_colliding and is_on_floor():
@@ -209,13 +206,11 @@ func physics_step(delta):
 		ground_mode = 0
 		ground_normal = Vector2(0, -1)
 		is_grounded = false
-	#ray_collider.set_deferred('disabled', !is_grounded)
-	is_wall_left = step_wall_collision([left_wall, left_wall_bottom])
-	is_wall_right = step_wall_collision([right_wall, right_wall_bottom])
+	is_wall_left = coll_handler.is_colliding_on_wall(left_wall) or coll_handler.is_colliding_on_wall(left_wall_bottom)
+	is_wall_right = coll_handler.is_colliding_on_wall(right_wall) or coll_handler.is_colliding_on_wall(right_wall_bottom)
 	if player_camera:
 		is_wall_left = is_wall_left or global_position.x- Utils.Collision.get_width_of_shape(main_collider.shape) - player_camera.camera.limit_left <= 0
 		is_wall_right = is_wall_right or global_position.x+9 - player_camera.camera.limit_right >= 0
-	#print("left: ", is_wall_left, ", right:", is_wall_right)
 	
 
 func _process(delta : float) -> void:
@@ -224,55 +219,38 @@ func _process(delta : float) -> void:
 	character.visible = visible
 	
 	roll_anim = animation.current_animation == 'Rolling' or selected_character_node.is_rolling
-	_set_can_brake_wall(!(abs(gsp) > 270 && fsm.is_current_state("Rolling") && is_grounded))
+	_set_can_break_wall(!(abs(gsp) > 270 && fsm.is_current_state("Rolling") && is_grounded))
 	
+	# invert roll_anim
 	roll_anim = !roll_anim
 	set_collision_mask_bit(6, roll_anim)
 	set_collision_layer_bit(6, roll_anim)
-	
+	#print(control_unlock_timer)
 	var is_Y_speed_above = speed.y <= 0
-	set_collision_mask_bit(8, is_Y_speed_above && roll_anim)
-	set_collision_layer_bit(8, is_Y_speed_above && roll_anim)
+	set_collision_mask_bit(8, is_Y_speed_above and roll_anim)
+	set_collision_layer_bit(8, is_Y_speed_above and roll_anim)
+	
+	# revert
 	roll_anim = !roll_anim
-
-func _set_control_locked(val : bool) -> void:
-	control_locked = val
-	if control_locked:
-		_control_unlock_timer_node.start(control_unlock_timer)
-	else:
-		_control_unlock_timer_node.wait_time = control_unlock_time_normal
-		_control_unlock_timer_node.stop()
-
-func step_wall_collision(wall_sensors : Array) -> bool:
-	var to_return = false
-	for ws in wall_sensors:
-		var rs : RayCast2D = ws
-		var collider = rs.get_collider()
-		#print(collider)
-		if collider:
-			var one_way = Utils.Collision.is_collider_oneway(rs, collider)
-			var coll_angle = abs(floor(rs.get_collision_normal().angle()))
-			#print(angle)
-			var grounded_wall : bool = \
-				(is_equal_approx(coll_angle, PI) && (is_equal_approx(coll_angle, 0)) && is_grounded)
-			
-			var air_wall = \
-				(abs(rotation) > deg2rad(15) && fsm.current_state == 'OnAir')
-			if one_way or grounded_wall or air_wall:
-				return false
-			to_return = to_return or rs.is_colliding()
-	return to_return
 
 func fall_from_ground() -> bool:
 	if abs(gsp) < fall and ground_mode != 0:
 		var angle = abs(rad2deg(ground_angle()))
-		_set_control_locked(true)
+		lock_control()
 		
 		if angle >= 90 and angle <= 180:
 			ground_mode = 0
 			return true
 		
 	return false
+
+func lock_control(time:float = control_unlock_time_normal):
+	control_locked = true
+	control_unlock_timer.start(time)
+
+func unlock_control():
+	control_locked = false
+	control_unlock_timer.stop()
 
 func is_on_ground() -> bool:
 	var ground_ray = get_ground_ray()
@@ -292,7 +270,7 @@ func snap_to_ground() -> void:
 	var ground_ang = (ground_angle())
 	var to_radian = ground_ang
 	previous_rotation = rotation
-	if abs(to_radian) < deg2rad(22.5):
+	if abs(to_radian) < deg2rad(25):
 		rotation = 0
 	else:
 		rotation += (-to_radian - rotation)
@@ -300,14 +278,11 @@ func snap_to_ground() -> void:
 
 func ground_reacquisition() -> void:
 	var ground_angle = ground_angle();
-	var angle = abs(rad2deg(ground_angle))
 	var angle_speed : Vector2
 	angle_speed.x = cos(ground_angle) * speed.x
 	angle_speed.y = -sin(ground_angle) * speed.y
 	var converted_speed = angle_speed.x + angle_speed.y
-	print(converted_speed)
 	gsp = converted_speed
-	#print(cos(ground_angle) * angle_speed.x)
 
 func ground_angle() -> float:
 	return ground_normal.angle_to(Vector2(0, -1))
@@ -332,8 +307,7 @@ func get_ground_ray() -> RayCast2D:
 	
 	left_point = sin(rotation) * l_relative_point.x + cos(rotation) + l_relative_point.y
 	right_point = sin(rotation) * r_relative_point.x + cos(rotation) + r_relative_point.y
-	#print(left_point, ' ', right_point)
-	#print('l: %f, r: %f' % [left_point, right_point])
+
 	if left_point <= right_point:
 		return left_ground
 	else:
@@ -343,23 +317,25 @@ func damage(side:Vector2 = Vector2.ZERO, sound_to_play:String = "hurt"):
 	if invulnerable:
 		return
 	emit_signal("damaged")
-	invulnerable = true;
+	var time_invulnerable = 4.0
+	invulnerable_for_sec(time_invulnerable)
+	blink(time_invulnerable)
 	var have_rings:bool = false
 	snap_margin = 0
 	is_grounded = false
-	_set_control_locked(true)
+	lock_control()
 	was_damaged = true
 	speed.x = side.x * 220
 	speed.y = side.y * 200
-	self.side = -sign(speed.x) if speed.x != 0 else character.scale.x
-	fsm.change_state("OnAir")
+	set_side(-sign(speed.x) if speed.x != 0 else side)
+	is_grounded = false
+	fsm.change_state("Damage")
 	speed = move_and_slide_preset()
-	if main_scene:
-		var rings = main_scene.rings
-		main_scene.rings = 0;
-		if rings > 0:
-			have_rings = true
-			drop_rings(rings);
+	var rings_to_drop = rings
+	set_rings(0)
+	if rings_to_drop > 0:
+		have_rings = true
+		drop_rings(rings_to_drop);
 	if have_rings:
 		audio_player.play("ring_loss")
 		var ground_angle = ground_angle()
@@ -370,16 +346,16 @@ func damage(side:Vector2 = Vector2.ZERO, sound_to_play:String = "hurt"):
 func invulnerable_for_sec(val : float) -> void:
 	invulnerable = true
 	yield(get_tree().create_timer(val), "timeout")
-	invulnerable = false
+	make_vulnerable()
 
-func blink(sec : int):
-	for i in sec*5:
+func blink(sec : float):
+	var t: SceneTreeTimer = get_tree().create_timer(sec)
+	while t != null and t.time_left > 0:
 		modulate.a = 0.25
 		yield(get_tree().create_timer(0.075), "timeout")
 		modulate.a = 1
 		yield(get_tree().create_timer(0.075), "timeout")
 	modulate.a = 1
-	make_vulnerable()
 
 func drop_rings(rings:int = 0):
 	var n = false;
@@ -452,9 +428,9 @@ func set_selected_character(val : int) -> void:
 	if selected_character_index != val:
 		emit_signal("character_changed", previous_character, selected_character_node)
 
-func _on_ControlLockTimer_timeout() -> void:
-	_set_control_locked(false)
-	_control_unlock_timer_node.set_wait_time(control_unlock_time_normal)
+func _on_ControlUnlockTimer_timeout() -> void:
+	control_unlock_timer.set_wait_time(control_unlock_time_normal)
+	unlock_control()
 
 func move_and_slide_preset(val = null) -> Vector2:
 	var top_collide:Vector2 = Vector2(sin(rotation), -cos(rotation))
@@ -471,9 +447,11 @@ func move_and_slide_preset(val = null) -> Vector2:
 		true
 	)
 
-func play_specific_anim_temp(animation_name : String, custom_speed : float = 1.0, can_loop : bool = true) -> void:
-	specific_animation_temp = true
-	animation.animate(animation_name, custom_speed, can_loop)
+func reset_snap():
+	snap_margin = snaps
+
+func erase_snap():
+	snap_margin = 0
 
 func jump() -> String:
 	snap_margin = 0
@@ -499,9 +477,11 @@ func get_side() -> int:
 	return 1
 
 func activate():
+	main_player = true
 	player_camera.camera.current = true
 
 func deactivate():
+	main_player = false
 	player_camera.camera.current = false
 
 func set_specific_animation_temp(val : bool) -> void:
@@ -520,6 +500,10 @@ func erase_state():
 func set_is_attacking(val : bool) -> void:
 	is_attacking = val
 	attack_area.monitoring = is_attacking
+
+func set_rings(val : int):
+	rings = val
+	emit_signal("rings_update", val)
 
 func get_class() -> String:
 	return "PlayerPhysics"

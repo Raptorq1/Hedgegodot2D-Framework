@@ -123,7 +123,8 @@ func start_count_points():
 	yield(get_tree().create_timer(0.5),"timeout")
 	get_tree().create_timer(0.5).connect("timeout", level.act_container, "go_to_next_act")
 	for i in get_tree().get_nodes_in_group("Players"):
-		i.fsm.change_state("OnAir")
+		i.fsm.change_state("Idle")
+		i.unlock_control()
 
 func flash_screen(time_to_fade_out : float = 0.25, alpha : float = 1.0) -> void:
 	color_rect.color = Color('#ffffffff')

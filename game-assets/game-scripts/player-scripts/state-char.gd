@@ -25,7 +25,7 @@ func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta : fl
 
 func state_input(host : PlayerPhysics, event: InputEvent, main_state:State = null):pass
 
-func _on_animation_finished(host:PlayerPhysics, anim_name: String, state:State):
+func _on_animation_finished(host:PlayerPhysics, anim_name: String, state:State = null):
 	pass
 
 func draw(host: PlayerPhysics, state:State):

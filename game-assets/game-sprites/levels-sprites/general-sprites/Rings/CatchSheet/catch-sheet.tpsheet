@@ -1,0 +1,228 @@
+{
+	"textures": [
+		{
+			"image": "catch-sheet.png",
+			"size": {
+				"w": 60,
+				"h": 60
+			},
+			"sprites": [
+				{
+					"filename": "catch-01.png",
+					"region": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-02.png",
+					"region": {
+						"x": 15,
+						"y": 0,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-03.png",
+					"region": {
+						"x": 30,
+						"y": 0,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-04.png",
+					"region": {
+						"x": 45,
+						"y": 0,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-05.png",
+					"region": {
+						"x": 0,
+						"y": 15,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-06.png",
+					"region": {
+						"x": 15,
+						"y": 15,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-07.png",
+					"region": {
+						"x": 30,
+						"y": 15,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-08.png",
+					"region": {
+						"x": 45,
+						"y": 15,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-09.png",
+					"region": {
+						"x": 0,
+						"y": 30,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-10.png",
+					"region": {
+						"x": 15,
+						"y": 30,
+						"w": 11,
+						"h": 11
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-11.png",
+					"region": {
+						"x": 30,
+						"y": 30,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-12.png",
+					"region": {
+						"x": 45,
+						"y": 30,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-13.png",
+					"region": {
+						"x": 0,
+						"y": 45,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "catch-14.png",
+					"region": {
+						"x": 15,
+						"y": 45,
+						"w": 15,
+						"h": 15
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:419e37a9300cacbe431d61597b601d87:83cfa9312bbb90d49b95a3795ccc1d82:3e291596ed15bb9ef72126e8b5cf0e4d$"
+	}
+}

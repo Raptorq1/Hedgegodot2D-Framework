@@ -11,6 +11,10 @@ var to_right: bool = false
 var origin_point : float
 var lying : bool = true
 var boss : Boss
+onready var stand_sfx : AudioStreamPlayer = $StandingUp
+onready var shoot_charge_sfx : AudioStreamPlayer = $ShootCharge
+onready var shoot_sfx : AudioStreamPlayer = $Shoot
+onready var appear_sfx : AudioStreamPlayer = $Appear
 
 func _ready() -> void:
 	set_origin_point()

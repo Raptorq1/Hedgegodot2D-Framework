@@ -12,6 +12,8 @@ var pos_entered
 onready var eye : Area2D = $Eye
 onready var fan_sensor : Area2D = $Character/FanSensor
 onready var choose_position : Position2D = $PositionToPush
+onready var up_blow : CPUParticles2D = $Character/UpBlow
+onready var side_blow : CPUParticles2D = $Character/SideBlow
 onready var turtle_walk = [
 	$TurtleWalk, $TurtleWalk2
 ]
@@ -39,7 +41,7 @@ func set_is_pushing(val : bool):
 	fan_sensor.get_node("H").set_deferred("disabled", !target_h)
 	fan_sensor.get_node("V").set_deferred("disabled", target_h)
 
-func set_target_sighted(val : bool) :
+func set_target_sighted(val : bool):
 	target_sighted = val
 	if target_sighted:
 		emit_signal("target_sighted")
@@ -56,7 +58,7 @@ func move_and_slide_preset(val=null):
 func check_for_target():
 	if players_inside_area.empty():
 		#print("empty")
-		get_tree().create_timer(3.5).connect("timeout", self, "check_for_target")
+		get_tree().create_timer(1.5).connect("timeout", self, "check_for_target")
 		return
 	pos_entered = to_local(players_inside_area[0].position)
 	set_target_sighted(true)
