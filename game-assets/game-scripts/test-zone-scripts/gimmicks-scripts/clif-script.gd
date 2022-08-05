@@ -15,7 +15,7 @@ func breakDown():
 	timer.stop();
 	$StaticBody2D.queue_free();
 	timer = null;
-	var level_sfx : AudioPlayer = get_tree().get_current_scene().get_node_or_null('LevelSFX')
+	var level_sfx : SoundMachine = get_tree().get_current_scene().act_container.get_child(0).get_node_or_null('LevelSFX')
 	if level_sfx:
 		level_sfx.play('CliffBreaking')
 	spawn(Vector2(8, 0), 0.10);
@@ -26,7 +26,7 @@ func breakDown():
 func spawn(pos: Vector2, delay:float = 0):
 	var blockInst:Node2D = block.instance();
 	add_child(blockInst);
-	blockInst.position = pos;
+	blockInst.position = pos
 	blockInst.delay(delay);
 
 

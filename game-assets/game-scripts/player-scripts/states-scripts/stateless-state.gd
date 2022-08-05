@@ -1,5 +1,5 @@
 extends State
 
-func enter(host, prev_state):
+func state_enter(host, prev_state):
 	pass
 	

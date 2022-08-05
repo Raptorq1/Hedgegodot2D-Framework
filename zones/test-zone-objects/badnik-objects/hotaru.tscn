@@ -7,10 +7,26 @@
 [ext_resource path="res://game-assets/game-scripts/player-scripts/character-animator.gd" type="Script" id=5]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/hotaru/stop-to-shoot.gd" type="Script" id=6]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/bosses-sprites/minor-boss/mini-hotarus/charging-sprite-sheet.png" type="Texture" id=7]
-[ext_resource path="res://game-assets/audio/sfx/PowerDown.wav" type="AudioStream" id=8]
+[ext_resource path="res://game-assets/audio/sfx/power-down.wav" type="AudioStream" id=8]
 [ext_resource path="res://game-assets/audio/sfx/test-zone/act-1/bosses/minor-boss/HotaruLaser.wav" type="AudioStream" id=9]
-[ext_resource path="res://game-assets/audio/sfx/PowerUp.wav" type="AudioStream" id=10]
+[ext_resource path="res://game-assets/audio/sfx/power-up.wav" type="AudioStream" id=10]
 [ext_resource path="res://game-assets/audio/sfx/test-zone/act-1/bosses/minor-boss/HotaruFly.wav" type="AudioStream" id=11]
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 86, 36, 43 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 108, 86, 36, 43 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 144, 86, 36, 43 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 129, 36, 43 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -40,22 +56,6 @@ region = Rect2( 0, 43, 36, 43 )
 atlas = ExtResource( 1 )
 region = Rect2( 36, 43, 36, 43 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
-region = Rect2( 72, 86, 36, 43 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
-region = Rect2( 108, 86, 36, 43 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 144, 86, 36, 43 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 129, 36, 43 )
-
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
 region = Rect2( 72, 43, 36, 43 )
@@ -78,11 +78,6 @@ region = Rect2( 36, 86, 36, 43 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "JustVibing",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "StandingUp",
@@ -91,6 +86,11 @@ animations = [ {
 "frames": [ SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "Charge",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "JustVibing",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
@@ -392,7 +392,6 @@ script = ExtResource( 3 )
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 2 )
-move_and_slide = false
 initial_state = "Rounding"
 
 [node name="Rounding" type="Node" parent="FSM"]

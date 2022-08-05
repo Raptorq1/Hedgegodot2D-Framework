@@ -8,7 +8,7 @@ var time:String;
 onready var act_container = $ActContainer
 onready var HUD = get_node_or_null("./HUD")
 onready var HUD_count = HUD.get_node_or_null("./Separate/STRCounters/Count")
-onready var global : = get_tree().get_root().get_node("GlobalScript")
+onready var global : = get_tree().get_root().get_node("/root/AutoloadCharacters")
 onready var players = $Players
 export var zone_name : String
 export var show_title_card: bool = false
@@ -44,9 +44,11 @@ func _process(delta):
 	if timer_counter != null:
 		timer_counter.text = time;
 
-func _unhandled_key_input(event: InputEventKey) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_full_screen"):
 		OS.window_fullscreen = !OS.window_fullscreen
+	if event.scancode == KEY_0:
+		Engine.time_scale = 2.0 - int(!event.is_pressed())
 
 func get_current_act() -> int:
 	return act_container.current_act

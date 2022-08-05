@@ -9,14 +9,14 @@ var canFall:bool = true
 onready var distance_meter = $DistanceMeter
 
 var spawnpoint:Vector2
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	if active:
-		set_physics_process(true);
 		spawnpoint = global_position
 		distance_meter.position_d = spawnpoint
 		distance_meter.max_distance = 2000
 		distance_meter.set_active(true)
+		set_physics_process(true);
 	else:
 		queue_free()
 

@@ -1,0 +1,166 @@
+{
+  "categories": [
+    {
+      "title": "Gameplay mechanics",
+      "color": "6495ed"
+    },
+    {
+      "title": "Characters",
+      "color": "c1225f"
+    },
+    {
+      "title": "Levels",
+      "color": "0eb400"
+    },
+    {
+      "title": "Gimmicks",
+      "color": "0bcca9"
+    },
+    {
+      "title": "Enemies",
+      "color": "ee1e27"
+    },
+    {
+      "title": "Bosses",
+      "color": "ddc41d"
+    }
+  ],
+  "columns": [
+    {
+      "stages": [
+        0
+      ]
+    },
+    {
+      "stages": [
+        1
+      ]
+    },
+    {
+      "stages": [
+        2
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "title": "Todo",
+      "tasks": [
+        4,
+        3,
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12
+      ]
+    },
+    {
+      "title": "Doing",
+      "tasks": [
+        5,
+        11,
+        15
+      ]
+    },
+    {
+      "title": "Done",
+      "tasks": [
+        0,
+        1,
+        13,
+        14,
+        16
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "category": 0,
+      "title": "FireShield",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Shield System",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Lightning Shield",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Bubble Shield",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Normal Shield",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Sonic",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Tails",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Knuckles",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Amy",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Mighty",
+      "details": ""
+    },
+    {
+      "category": 1,
+      "title": "Build Ray",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "Test Zone Act 1",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "Test Zone Act 2",
+      "details": ""
+    },
+    {
+      "category": 5,
+      "title": "Hotaru High Watt (Test Zone Act 1 Boss)",
+      "details": ""
+    },
+    {
+      "category": 4,
+      "title": "Motobug",
+      "details": ""
+    },
+    {
+      "category": 4,
+      "title": "Splats",
+      "details": ""
+    },
+    {
+      "category": 4,
+      "title": "TurboTurtle",
+      "details": ""
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/general-scripts/boss-explosion.gd" type="Script" id=1]
-[ext_resource path="res://game-assets/audio/sfx/Explosion.wav" type="AudioStream" id=2]
-[ext_resource path="res://game-assets/audio/sfx/Explosion2.wav" type="AudioStream" id=3]
+[ext_resource path="res://game-assets/audio/sfx/explosion.wav" type="AudioStream" id=2]
+[ext_resource path="res://game-assets/audio/sfx/explosion-2.wav" type="AudioStream" id=3]
 
 [node name="ExplosionGenerator" type="Node2D"]
 position = Vector2( 224, 120 )

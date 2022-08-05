@@ -7,6 +7,7 @@ const splat_scene = preload("res://zones/test-zone-objects/badnik-objects/splat.
 var my_splats = []
 export(int) var max_splats = 2
 onready var container = self
+onready var splat_spawn_sfx : AudioStreamPlayer2D = $SplatSpawn
 onready var anim_splash : AnimationPlayer = $AnimatedSprite/AnimationPlayer
 
 func _ready() -> void:
@@ -43,9 +44,10 @@ func spawn_splat():
 	container.add_child(splat)
 	my_splats.append(splat)
 	splat.add_collision_exception_with(self)
-	splat.speed.y = -200
+	splat.speed.y = -500
 	splat.to_right = round(rand_range(0, 1)) as bool
 	splat.connect("exploded", self, "on_splat_killed", [splat])
+	splat_spawn_sfx.play()
 	emit_signal("splat_spawned", splat)
 	return splat
 

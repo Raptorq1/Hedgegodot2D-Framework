@@ -21,7 +21,8 @@ func _ready() -> void:
 	character.scale.x = Utils.Math.bool_sign(to_right)
 	fsm._on_host_ready(self)
 
-func physics_step(delta):
+func _physics_process(delta):
+	fsm._fsm_process(delta)
 	rot += delta * 2.5
 	character.position = Utils.Math.angle2Vec2(rot) * 2.5
 

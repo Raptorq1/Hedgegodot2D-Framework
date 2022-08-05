@@ -6,6 +6,8 @@ var rotation_border = 0.0
 export var speed : float = 2.0
 var to_follow : Node2D
 onready var container : Node2D = $Container
+onready var front : CPUParticles2D = $Container/Front
+onready var back : CPUParticles2D = $Container/Back
 
 func _ready():
 	set_process(true)

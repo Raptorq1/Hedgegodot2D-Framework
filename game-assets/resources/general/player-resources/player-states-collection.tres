@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://game-assets/game-classes/state-machine/state-collection.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )

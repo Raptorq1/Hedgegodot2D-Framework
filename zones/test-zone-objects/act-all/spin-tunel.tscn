@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/tileset/testtilesettunneldone.png" type="Texture" id=1]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="Testtilesettunneldone" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 80, 16, 96, 16, 112, 16, 112, 32, 128, 32, 128, 48, 144, 48, 144, 80, 160, 80, 160, 128, 144, 128, 144, 160, 128, 160, 128, 176, 112, 176, 112, 240, 128, 240, 128, 256, 256, 256, 256, 271, 160, 271, 144, 266, 128, 261, 121, 256, 112, 247, 107, 240, 101, 224, 102, 192, 107, 176, 112, 169, 120, 160, 128, 151, 133, 144, 141, 128, 145, 112, 145, 96, 141, 80, 133, 64, 128, 57, 121, 48, 112, 39, 103, 32, 96, 27, 80, 20, 64, 16, 0, 16, 0, 0, 80, 0 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 64, 50, 80, 57, 90, 64, 96, 70, 103, 80, 110, 96, 110, 112, 103, 128, 96, 138, 91, 144, 80, 157, 77, 160, 70, 176, 66, 191, 66, 224, 70, 240, 77, 256, 80, 261, 89, 272, 96, 279, 107, 288, 112, 291, 128, 298, 144, 302, 160, 304, 256, 304, 256, 320, 128, 320, 128, 304, 96, 304, 96, 288, 80, 288, 80, 272, 64, 272, 64, 240, 48, 240, 48, 176, 64, 176, 64, 144, 80, 144, 80, 128, 96, 128, 96, 80, 80, 80, 80, 64, 0, 64, 0, 48, 48, 48 )

@@ -10,7 +10,7 @@ export var to_right:bool = false setget set_to_right;
 export(String) var main_anim_name = "none";
 export(float) var init_timer = 1;
 var time:float = init_timer;
-onready var explode_audio_player = get_tree().get_root().get_node("GlobalSounds")
+onready var explode_audio_player = get_tree().get_root().get_node("./AutoloadSoundMachine")
 var can_hurt: bool = true
 
 func explode(player):
@@ -29,6 +29,16 @@ func explode(player):
 	else:
 		queue_free()
 	emit_signal("exploded")
+
+func _when_overlap_player(area: Area2D):
+	if area is PlayerHitBox:
+		var ph : PlayerHitBox = area
+		if (ph.only_attack and ph.can_attack) or (ph.can_attack and ph.owner.roll_anim):
+			explode(ph.get_owner())
+		else:
+			var p = ph.get_owner()
+			if can_hurt:
+				push_player(p)
 
 func get_class():
 	return "Badnik"

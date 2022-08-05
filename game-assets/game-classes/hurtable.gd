@@ -15,5 +15,5 @@ func on_player_damage(player):
 
 func push_player(player):
 	var distance = global_position.direction_to(player.global_position).sign()
-	player.damage(distance);
+	player.damage(Vector2(distance.x, -1));
 	on_player_damage(player)

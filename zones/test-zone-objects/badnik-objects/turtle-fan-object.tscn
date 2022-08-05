@@ -1,10 +1,10 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan-sprite.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan/turtle-fan-fsm.gd" type="Script" id=2]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/badniks-sprites/turtle-fan/turtle-fan-sheet.png" type="Texture" id=3]
 [ext_resource path="res://game-assets/game-scripts/player-scripts/character-animator.gd" type="Script" id=4]
-[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan/pushing.gd" type="Script" id=5]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan/blowing.gd" type="Script" id=5]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan/move.gd" type="Script" id=6]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/badniks-scripts/turtle-fan/wait.gd" type="Script" id=7]
 [ext_resource path="res://game-assets/audio/sfx/turtle-walk.wav" type="AudioStream" id=8]
@@ -13,8 +13,11 @@
 [ext_resource path="res://game-assets/audio/sfx/fan-start.ogg" type="AudioStream" id=11]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/badniks-sprites/turtle-fan/dirt-sheet.png" type="Texture" id=12]
 
-[sub_resource type="RectangleShape2D" id=35]
+[sub_resource type="RectangleShape2D" id=37]
 extents = Vector2( 211, 95 )
+
+[sub_resource type="RectangleShape2D" id=36]
+extents = Vector2( 14, 18.5 )
 
 [sub_resource type="RectangleShape2D" id=29]
 extents = Vector2( 13.5, 14 )
@@ -366,7 +369,7 @@ eye_position = Vector2( 0, 0 )
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 2 )
-initial_state = "Move"
+initial_state = "Wait"
 
 [node name="Wait" type="Node" parent="FSM"]
 script = ExtResource( 7 )
@@ -378,12 +381,31 @@ script = ExtResource( 6 )
 script = ExtResource( 5 )
 
 [node name="Eye" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
 monitorable = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eye"]
 modulate = Color( 0.313726, 1, 0, 1 )
 position = Vector2( 0, -77 )
-shape = SubResource( 35 )
+shape = SubResource( 37 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -0.5 )
+shape = SubResource( 36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 4 )
@@ -391,11 +413,16 @@ shape = SubResource( 29 )
 
 [node name="Character" type="Node2D" parent="."]
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="FanSensor" type="Area2D" parent="Character"]
 monitorable = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="V" type="CollisionShape2D" parent="Character/FanSensor"]
 position = Vector2( 0, -168 )
@@ -497,6 +524,7 @@ __meta__ = {
 [connection signal="target_sighted" from="." to="FSM" method="_on_TurtleFan_target_sighted"]
 [connection signal="body_entered" from="Eye" to="." method="_on_Eye_body_entered"]
 [connection signal="body_exited" from="Eye" to="." method="_on_Eye_body_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_when_overlap_player"]
 [connection signal="body_entered" from="Character/FanSensor" to="." method="_on_FanSensor_body_entered"]
 [connection signal="body_exited" from="Character/FanSensor" to="." method="_on_FanSensor_body_exited"]
 [connection signal="animation_finished" from="Character/AnimatedSprite/CharacterAnimator" to="FSM" method="_on_CharacterAnimator_animation_finished"]

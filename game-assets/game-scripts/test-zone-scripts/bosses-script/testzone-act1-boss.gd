@@ -22,9 +22,11 @@ onready var flyup_sfx:AudioStreamPlayer = $FlyUp
 onready var timer_charge : Timer = $ChargeTimer
 onready var timer_shoot : Timer = $ShootTimer
 onready var laser_hitbox: Area2D = $Character/Laser/Area2D
+onready var tween : Tween = $Tween
 var instanced_hotarus : Array = []
 var initial_hp = hp
-export(Material) var damage_material = preload("res://game-assets/materials/damage-material.tres")
+export(Material) var damage_material = preload("res://game-assets/resources/general/materials/bosses-damage-material.tres")
+export(Material) var shooting_material = preload("res://game-assets/resources/level-resources/materials/test-zone/act1/boss-shoot-material.tres")
 var camera_shake : SCREEN_SHAKER
 var rot : float = 0.0
 var charging = false setget set_charge
@@ -32,12 +34,17 @@ var shoot : bool = false setget set_shoot
 
 func _ready() -> void:
 	._ready()
-	fsm._on_host_ready(self)
+	set_physics_process(false)
+	set_process(false)
 
-func physics_step(delta):
+func _physics_process(delta: float) -> void:
+	if fsm.is_host_ready(): fsm._fsm_physics_process(delta)
 	rot += delta * 5
 	character.position = Utils.Math.angle2Vec2(rot) * 5
 	damage_only = charging or shoot
+
+func _process(delta):
+	if fsm.is_host_ready(): fsm._fsm_process(delta)
 
 func give_point_to_go():
 	var y_pos = [
@@ -59,12 +66,15 @@ func move_and_slide_preset():
 
 func appear():
 	position = Vector2.ZERO
+	set_process(true)
+	set_physics_process(true)
 	$Character/AppearPlayer.animate("Appear")
-	yield($Character/AppearPlayer, "animation_finished")
-	#print("finish")
+	$Character/AppearPlayer.connect("animation_finished", self, "appear_end", [], CONNECT_ONESHOT)
+
+func appear_end(anim_name:String):
 	animator.animate('Idle')
-	fsm.set_activated(true)
 	can_take_hit = true
+	fsm._on_host_ready(self)
 
 func set_charge(val : bool):
 	charging = val
@@ -94,7 +104,7 @@ func set_shoot(val : bool):
 			i.queue_free()
 		laser_sfx.stop()
 		timer_shoot.stop()
-		modulate.r = 1.0
+		character.material = null
 	laser_hitbox.set_deferred("monitoring", shoot)
 	
 
@@ -144,7 +154,7 @@ func on_destroy():
 	can_take_hit = false
 	set_shoot(false)
 	set_charge(false)
-	fsm.set_activated(false)
+	set_physics_process(false)
 	animator.stop()
 	for i in instanced_hotarus:
 		var boss_puff = BOSS_PUFF.instance()

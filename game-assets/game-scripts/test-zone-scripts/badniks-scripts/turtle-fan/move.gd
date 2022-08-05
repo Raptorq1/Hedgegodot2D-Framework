@@ -1,14 +1,14 @@
 extends State
 
 
-func enter(host, prev_state):
+func state_enter(host, prev_state):
 	pass
 
-func step(host, delta):
+func state_physics_process(host, delta):
 	host.speed.x = host.max_speed.x * Utils.Math.bool_sign(host.to_right)
 
-func animation_step(host, animator, delta):
+func state_animation_process(host, delta, animator):
 	animator.animate("Walking")
 
-func exit(host, next_state):
+func state_exit(host, next_state):
 	host.speed.x = 0

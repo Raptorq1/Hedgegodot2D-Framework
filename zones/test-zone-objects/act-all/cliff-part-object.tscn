@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/general-scripts/breakables/breakable-block-part.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/tileset/breaked-block.png" type="Texture" id=2]
+[ext_resource path="res://game-assets/game-classes/distance-meter.gd" type="Script" id=3]
 
 [node name="ClifPart" type="Node2D"]
 script = ExtResource( 1 )
-active = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="DistanceMeter" type="Node2D" parent="."]
+script = ExtResource( 3 )

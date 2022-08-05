@@ -10,8 +10,8 @@ func _on_Damage_body_entered(body: Node) -> void:
 		#print(player.speed, player.gsp)
 		var up_direction = -Utils.Math.angle2Vec2(rotation)
 		var direction = Vector2.ZERO
-		direction.x = -player.character.scale.x * cos(player.ground_angle())
-		direction.y = -cos(player.ground_angle())
+		direction.x = -player.character.scale.x * cos(player.coll_handler.ground_angle())
+		direction.y = -cos(player.coll_handler.ground_angle())
 		direction = direction.sign()
 		if !player.is_grounded:
 			direction = global_position.direction_to(player.global_position).sign()

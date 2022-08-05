@@ -4,10 +4,10 @@ var flipping = false
 var getting_up = false
 var stand_idle : = false
 
-func enter(host, prev_state):
-	get_tree().create_timer(1.5).connect("timeout", self, "get_up", [host])
+func state_enter(host, prev_state):
+	host.get_tree().create_timer(1.5).connect("timeout", self, "get_up", [host])
 
-func step(host, delta):
+func state_physics_process(host, delta):
 	var origin_dist = host.position.x - host.origin_point
 	host.speed.x += sign(Utils.Math.bool_sign(host.to_right)) * delta * 24
 	host.speed.x = clamp(host.speed.x, -24, 24)
@@ -21,7 +21,7 @@ func step(host, delta):
 		flipping = true
 	host.position += host.speed * delta
 
-func animation_step(host, animator, delta):
+func state_animation_process(host, delta, animator):
 	var idle_name = "Idle"
 	var anim_name = "Lying"
 	var anim_speed = 1.0
@@ -46,7 +46,7 @@ func animation_step(host, animator, delta):
 	else:
 		animator.animate(idle_name + anim_name, anim_speed)
 
-func _on_animation_finished(host, anim_name):
+func state_animation_finished(host, anim_name):
 	if "Flipping" in anim_name:
 		flipping = false
 		if !host.lying:
@@ -58,10 +58,10 @@ func _on_animation_finished(host, anim_name):
 				host.lying = false
 				flipping = false
 
-func _on_animation_started(host, anim_name):
+func state_animation_started(host, anim_name):
 	if "Flipping" in anim_name and host.lying:
 		host.character.scale.x = Utils.Math.bool_sign(host.to_right)
 
 func get_up(host):
 	getting_up = true
-	get_tree().create_timer(2.0).connect("timeout", self, "finish", ["StopToShoot"])
+	host.get_tree().create_timer(2.0).connect("timeout", self, "finish", ["StopToShoot"])

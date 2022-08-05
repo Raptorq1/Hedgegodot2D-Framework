@@ -166,12 +166,14 @@ frame = 12
 
 [node name="Snow" type="AnimatedSprite" parent="Display"]
 frames = SubResource( 3 )
-frame = 14
+frame = 15
 playing = true
 
 [node name="ExplodeArea" type="Area2D" parent="."]
 modulate = Color( 0.713726, 0.129412, 0.537255, 1 )
 position = Vector2( 0, -2 )
+collision_layer = 0
+collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeArea"]
 position = Vector2( 0, 6 )

@@ -8,136 +8,73 @@ var roll_jump : bool
 var is_floating
 var override_anim : String
 var post_damage:bool
-var can_snap:float
 var was_throwed : bool = false
-var roll_on_snap_ground : bool = false
 
-func enter(host, prev_state):
+
+func state_enter(host, prev_state):
 	host.erase_snap()
-	can_snap = 0
-	#print(prev_state)
 	host.ground_sensors_container.rotation = 0
-	if host.spring_loaded || host.roll_anim:
-		host.character.rotation = 0;
-	#print(was_damaged)
-	if host.throwed:
-		was_throwed = true
-		host.throwed = false
-	#print(was_damaged)
-	is_floating = host.is_floating;
-	if !is_floating:
-		spring_loaded = host.spring_loaded
-		spring_loaded_v = host.spring_loaded_v
-		if !spring_loaded:
-			has_jumped = host.has_jumped
-			has_rolled = prev_state == "Rolling"
-			spring_loaded_v = false
-		else:
-			has_jumped = false
-			has_rolled = false
-	else:
-		spring_loaded = false;
-		has_jumped = false
-		has_rolled = false
-	
+	if host.spring_loaded or host.roll_anim:
+		host.character.rotation = 0
+	has_jumped = host.has_jumped
+	spring_loaded = host.spring_loaded
+	is_floating = host.is_floating
+	spring_loaded_v = host.spring_loaded_v
 	
 	host.has_jumped = false
-	host.spring_loaded = false;
-	host.is_floating = false;
+	host.spring_loaded = false
+	host.is_floating = false
 	host.spring_loaded_v = false
-	roll_jump = has_jumped && has_rolled
+	roll_jump = has_jumped and has_rolled
 	
-	var is_animation_roll = host.roll_anim
-	if is_animation_roll:
-		host.sprite.offset = Vector2(-15, -10)
 	host.rotation = 0
 
-func step(host: PlayerPhysics, delta):
-	var is_animation_roll = host.roll_anim
-	if is_animation_roll:
+func state_physics_process(host: PlayerPhysics, delta):
+	#print(host.roll_anim)
+	if host.roll_anim:
 		host.sprite.offset = Vector2(-15, -10)
 	host.character.rotation = lerp_angle(host.character.rotation, 0, 0.25)
-	if host.is_floating:
-		has_jumped = false
-		spring_loaded = false
-		has_rolled = false
-		is_floating = true
-		host.control_locked = false
-		
-	if host.spring_loaded or host.spring_loaded_v:
-		spring_loaded = true
-		if host.spring_loaded_v:
-			spring_loaded_v = true
-		has_jumped = false
-		has_rolled = false
-		is_floating = false
+	host.m_handler.handle_air_motion()
 	
-	#print(was_damaged)
-	#print(spring_loaded, is_floating)
+	if has_jumped:
+		var ui_jump = "ui_jump_i%d" % host.player_index
+		if Input.is_action_just_released(ui_jump): # has jumped
+			var jmp_release = -240.0
+			if host.underwater:
+				jmp_release *= 0.5
+			if host.speed.y < jmp_release: # set min jump height
+				host.speed.y = jmp_release
 	
-	if host.is_on_ceiling() && !spring_loaded:
-		if host.speed.y < 0:
-			host.speed.y = 0;
-	#print(-Vector2(0, -1).floor())
-	
-	host.speed.x = 0 if host.is_wall_left and host.speed.x < 0 else host.speed.x
-	host.speed.x = 0 if host.is_wall_right and host.speed.x > 0 else host.speed.x
-
-	var can_move = true if !host.control_locked else false
-	
-	#print(prev_frame_state)
-			
-	
-	can_snap += delta
-	#print(can_snap)
-	#print(prev_frame_state)
-	
-	
-	if host.direction.x != 0 && can_move:
-		if abs(host.speed.x) < host.top:
-			host.speed.x += host.air * host.direction.x
-	if !spring_loaded:
-		if has_jumped:
-			var ui_jump = "ui_jump_i%d" % host.player_index
-			if Input.is_action_just_released(ui_jump): # has jumped
-				var jmp_release = -240.0
-				if host.underwater:
-					jmp_release /= 2
-				if host.speed.y < jmp_release: # set min jump height
-					host.speed.y = jmp_release
-	if host.speed.y < 0 and host.speed.y > -240:
-		host.speed.x -= (host.speed.x/7.5)/15360
-	
-	host.speed.y += host.grv
 	if host.is_grounded:
-		if can_snap >= 0.25:
-	#	if host.speed.y >= -50:
-			host.spring_loaded = false
-			host.reset_snap()
-			if roll_on_snap_ground:
-				finish('Rolling')
-				return
-			finish('OnGround')
+		finish('OnGround')
+		return
 	host.side = host.direction.x if host.direction.x != 0 else host.side
 
-func exit(host, next_state):
-	can_snap = 0
-	is_floating = false;
-	host.is_floating = false;
+func state_exit(host, next_state):
+	is_floating = false
+	host.is_floating = false
 	was_throwed = false
 	host.throwed = false
+	spring_loaded = false
+	spring_loaded_v = false
+	host.spring_loaded = false
+	host.spring_loaded_v = false
 	if host.is_grounded:
 		if host.was_damaged:
 			host.control_locked = false
 			host.gsp = 0
 			host.was_damaged = false
 		else:
-			host.ground_reacquisition()
-	roll_on_snap_ground = false
+			host.coll_handler.ground_reacquisition()
+	set_state_animation_processing(true)
 
-func animation_step(host, animator, delta):
+func state_animation_process(host, delta:float, animator: CharacterAnimator):
 	var anim_name = animator.current_animation
 	var anim_speed = animator.get_playing_speed()
+	
+	if spring_loaded_v:
+		has_jumped = false
+	
 	if anim_name == 'Walking':
 		anim_speed = 3
 	
@@ -149,15 +86,12 @@ func animation_step(host, animator, delta):
 		host.character.rotation = 0
 		anim_speed = max(-((5.0 / 60.0) - (abs(host.gsp) / 120.0)), 1.0);
 	
-	if _can_animate:
-		animator.animate(anim_name, anim_speed, true)
+	animator.animate(anim_name, anim_speed, true)
 	
-	
-	
-	animate_again()
+	set_state_animation_processing(true)
 
 
-func _on_animation_finished(host, anim_name) -> void:
+func on_animation_finished(host, anim_name) -> void:
 	match anim_name:
 		'Rotating':
 			if was_throwed && !is_floating:

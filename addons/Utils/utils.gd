@@ -7,7 +7,7 @@ class Math:
 	static func bool_sign(dir:bool) -> int:
 		return - int(!dir) + int(dir)
 	
-	static func int2bin(n : int, bits: int) -> String:
+	static func int2bin(n : int, bits: int=1) -> String:
 		var to_return := ""
 		var num = n
 		for i in range(bits, -1, -1):
@@ -37,7 +37,7 @@ class Math:
 		
 		return to_return
 	
-	# Convert radians to directions:
+	# Convert radians to slices:
 	# directions are the possible angles can be returned in radians
 	static func rad2slice(val:float, directions:int, round_to:int = 0):
 		var findin = directions/2
@@ -85,11 +85,10 @@ class Nodes:
 		for c in from.get_children():
 			if c.is_class(i):
 				to_return.append(c)
-				#print(c)
 		if to_return.size() <= 0:
 			to_return = null
 		return to_return
-
+	
 	static func new_tween(me : Node) -> Tween:
 		var to_return = Tween.new()
 		me.add_child(to_return)
@@ -103,16 +102,21 @@ class Nodes:
 
 class UInput:
 	static func is_action(action:String) -> bool:
-		var to_return = false
-		to_return = Input.is_action_pressed(action) or Input.is_action_just_released(action)
-		return to_return
+		return Input.is_action_pressed(action) or Input.is_action_just_released(action)
 
 class Collision:
 	static func get_area2D_coll_overlap(collided_area:Area2D, body_rid: RID, body: Node, body_shape_index:int, local_shape_index:int):
-		var body_shape_owner_id = body.shape_find_owner(body_shape_index)
-		var body_shape_owner = body.shape_owner_get_owner(body_shape_owner_id)
-		var body_shape_2d = body.shape_owner_get_shape(body_shape_owner_id, 0)
-		var body_global_transform = body_shape_owner.global_transform
+		var body_global_transform
+		var body_shape_2d
+		if !body is TileMap:
+			var body_shape_owner_id = body.shape_find_owner(body_shape_index)
+			var body_shape_owner = body.shape_owner_get_owner(body_shape_owner_id)
+			body_shape_2d = body.shape_owner_get_shape(body_shape_owner_id, 0)
+			body_global_transform = body_shape_owner.global_transform
+		else:
+			var tm : TileMap = body
+			body_shape_2d = tm
+			body_global_transform = tm.global_transform
 		
 		var area_shape_owner_id = collided_area.shape_find_owner(local_shape_index)
 		var area_shape_owner = collided_area.shape_owner_get_owner(area_shape_owner_id)
@@ -158,6 +162,10 @@ class Collision:
 				continue
 			return ray.get_collision_normal()
 		ray.clear_exceptions()
+	
+	static func get_shape_size(shape : Shape2D):
+		return Vector2(get_width_of_shape(shape), get_height_of_shape(shape))
+
 	static func get_width_of_shape(shape:Shape2D):
 		match shape.get_class():
 			"RectangleShape2D":
@@ -183,9 +191,11 @@ class UArray:
 		for i in size:
 			to_return.push_back(value)
 		return to_return
+	
 	static func call_all_array(arr : Array, fn: String, args:Array=[]):
 		for i in arr:
 			(i as Object).callv(fn, args)
+	
 	static func pick_random_index(arr:Array):
 		if arr.empty():return
 		if arr.size() == 1: return arr[0]
@@ -205,4 +215,3 @@ class UArray:
 		for i in arr:
 			to_return.push_back(i.y)
 		return to_return
-

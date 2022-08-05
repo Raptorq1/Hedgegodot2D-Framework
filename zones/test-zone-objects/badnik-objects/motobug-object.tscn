@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/badniks-sprites/motobug/flipping-frames/flipping0003.png" type="Texture" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/badniks-sprites/motobug/moving-frames/moving0009.png" type="Texture" id=2]
@@ -24,14 +24,14 @@ animations = [ {
 "name": "Flipping",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "Moving",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Impulse",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Moving",
 "speed": 5.0
 } ]
 
@@ -156,7 +156,10 @@ tracks/2/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 16, 13.5 )
+extents = Vector2( 14, 11.5 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 15, 13 )
 
 [node name="Badnik" type="KinematicBody2D"]
 collision_layer = 8
@@ -166,9 +169,9 @@ script = ExtResource( 16 )
 [node name="Motobug" type="AnimatedSprite" parent="."]
 scale = Vector2( -1, 1 )
 frames = SubResource( 1 )
-animation = "Moving"
+animation = "Flipping"
 centered = false
-offset = Vector2( -20, -15 )
+offset = Vector2( -20, -14 )
 
 [node name="MotobugAnim" type="AnimationPlayer" parent="Motobug"]
 anims/Flipping = SubResource( 2 )
@@ -177,7 +180,17 @@ anims/Moving = SubResource( 4 )
 
 [node name="RayShape" type="CollisionShape2D" parent="."]
 modulate = Color( 0, 0.345098, 1, 1 )
-position = Vector2( -1, 0.5 )
+position = Vector2( 0, 1.5 )
 shape = SubResource( 5 )
 
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, 1 )
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 6 )
+
 [connection signal="animation_finished" from="Motobug/MotobugAnim" to="." method="_on_MotobugAnim_animation_finished"]
+[connection signal="area_entered" from="Area2D" to="." method="_when_overlap_player"]
