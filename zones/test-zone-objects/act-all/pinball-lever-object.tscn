@@ -36,6 +36,7 @@ tracks/0/keys = {
 }
 
 [node name="PinballLever" type="KinematicBody2D"]
+collision_mask = 0
 motion/sync_to_physics = true
 script = ExtResource( 2 )
 
@@ -51,12 +52,15 @@ anims/Move = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 47, 11, 50, 15, 50, 22, -3, 11, -6, -10, -3, -11, 2, -11 )
+polygon = PoolVector2Array( 47, 11, 50, 15, 50, 22, -3, 11, -6, -11, -3, -14, 5, -10 )
 one_way_collision = true
 one_way_collision_margin = 12.0
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 19, 2 )
+collision_layer = 0
+collision_mask = 512
+input_pickable = false
 monitorable = false
 __meta__ = {
 "_edit_group_": true
@@ -65,7 +69,7 @@ __meta__ = {
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
 modulate = Color( 0, 0.670588, 1, 1 )
 position = Vector2( -19, -2 )
-polygon = PoolVector2Array( 14, -8, 47, 9, 51, 13, 52, 18, -12, -3, -11, -7, -7, -11, -3, -13, 2, -13 )
+polygon = PoolVector2Array( 14, -8, 47, 9, 51, 13, 52, 18, -3, 0, -3, -7, -3, -12, -3, -14, 2, -14 )
 one_way_collision = true
 __meta__ = {
 "_edit_lock_": true

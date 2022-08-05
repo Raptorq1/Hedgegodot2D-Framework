@@ -1,0 +1,40 @@
+[gd_resource type="Resource" load_steps=18 format=2]
+
+[ext_resource path="res://game-assets/game-classes/audio-machine/sound-collection-res.gd" type="Script" id=1]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/jump.wav" type="AudioStream" id=2]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/spin.wav" type="AudioStream" id=3]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/spin-dash-charge.wav" type="AudioStream" id=4]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/spin-dash-release.wav" type="AudioStream" id=5]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/sonic-sfx/peel-out-charge.wav" type="AudioStream" id=6]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/sonic-sfx/peel-out-release.wav" type="AudioStream" id=7]
+[ext_resource path="res://game-assets/audio/sfx/brake.wav" type="AudioStream" id=8]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/sonic-sfx/insta-shield.wav" type="AudioStream" id=9]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/grab.wav" type="AudioStream" id=10]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/sonic-sfx/drop-dash-charge.wav" type="AudioStream" id=11]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/ring-catch.wav" type="AudioStream" id=12]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/hurt.wav" type="AudioStream" id=13]
+[ext_resource path="res://game-assets/audio/sfx/player-sfx/general-sfx/ring-loss.wav" type="AudioStream" id=14]
+[ext_resource path="res://game-assets/audio/sfx/shields/fire-dash.wav" type="AudioStream" id=15]
+[ext_resource path="res://game-assets/audio/sfx/shields/fire-shield-catch.wav" type="AudioStream" id=16]
+[ext_resource path="res://game-assets/audio/sfx/spring-push.wav" type="AudioStream" id=17]
+
+[resource]
+script = ExtResource( 1 )
+_sounds = {
+"brake": ExtResource( 8 ),
+"drop_dash_charge": ExtResource( 11 ),
+"fire_shield_catch": ExtResource( 16 ),
+"fire_shield_dash": ExtResource( 15 ),
+"grab": ExtResource( 10 ),
+"hurt": ExtResource( 13 ),
+"insta_shield": ExtResource( 9 ),
+"jump": ExtResource( 2 ),
+"peel_out_charge": ExtResource( 6 ),
+"peel_out_release": ExtResource( 7 ),
+"ring": ExtResource( 12 ),
+"ring_loss": ExtResource( 14 ),
+"spin": ExtResource( 3 ),
+"spin_dash_charge": ExtResource( 4 ),
+"spin_dash_release": ExtResource( 5 ),
+"spring": ExtResource( 17 )
+}

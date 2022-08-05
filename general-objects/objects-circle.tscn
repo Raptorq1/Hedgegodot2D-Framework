@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://general-objects/ring-object.tscn" type="PackedScene" id=1]
+[ext_resource path="res://general-objects/ring-physical-object.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/CircleObjectManipulator/objects-circle.gd" type="Script" id=2]
 
 [node name="CircleObjects" type="Node2D"]
@@ -15,3 +15,13 @@ blank_position = "1"
 rotate = true
 rotation_speed = 2.0
 editor_process = true
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+rect = Rect2( -76.5058, -76.5058, 153.012, 153.012 )
+pause_animations = false
+freeze_bodies = false
+pause_particles = false
+pause_animated_sprites = false
+physics_process_parent = true
+
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]

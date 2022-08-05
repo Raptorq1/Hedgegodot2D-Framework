@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://game-assets/game-classes/audio-machine/sound-collection-res.gd" type="Script" id=1]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/states/up-screen.gd" type="Script" id=2]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/states/moving-state.gd" type="Script" id=3]
+[ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/states/idle-state.gd" type="Script" id=4]
+
+[resource]
+script = ExtResource( 1 )
+_sounds = {
+"Idle": ExtResource( 4 ),
+"Moving": ExtResource( 3 ),
+"UpScreen": ExtResource( 2 )
+}

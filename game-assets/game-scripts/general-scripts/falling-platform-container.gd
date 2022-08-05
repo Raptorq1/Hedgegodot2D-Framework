@@ -31,7 +31,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 		started_count = false
 
 func _physics_process(delta):
-	print("ativado")
 	if player_count > 0:
 		kinematic_platform.position.y = lerp(kinematic_platform.position.y, 10, delta*10)
 	else:

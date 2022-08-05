@@ -9,9 +9,6 @@ const id_badnik = "motobug";
 
 var change = false
 
-func uselessSetter(useless_value):
-	pass
-
 func _ready():
 	speed.x = max_speed.x * Utils.Math.bool_sign(to_right)
 	main_anim_name = "Moving"
@@ -38,8 +35,8 @@ func _physics_process(delta):
 		4,\
 		deg2rad(46)\
 	);
-	
-	
+
+func _process(delta):
 	_animation_step(delta);
 
 func _animation_step(delta):

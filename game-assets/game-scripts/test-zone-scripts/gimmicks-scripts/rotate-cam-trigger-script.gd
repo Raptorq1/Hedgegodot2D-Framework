@@ -3,19 +3,17 @@ extends Area2D
 
 export(bool) var inverse = false;
 export var radius:float setget set_radius, get_radius;
-var collision_shape:CollisionShape2D
-
-func _prepare():
-	collision_shape = $Shape
+onready var collision_shape:CollisionShape2D = $Shape
 
 func set_radius(value:float):
 	if collision_shape:
-		var shape:CircleShape2D = collision_shape.shape
-		shape.radius = value;
+		if has_node("Shape"):
+			var shape:CircleShape2D = $Shape.shape
+			shape.radius = value;
 
 func get_radius():
-	if collision_shape:
-		return collision_shape.shape.radius
+	if has_node("Shape"):
+		return $Shape.shape.radius
 
 func _on_RotateCamTrigger_body_entered(body):
 	if body.is_class("PlayerPhysics"):

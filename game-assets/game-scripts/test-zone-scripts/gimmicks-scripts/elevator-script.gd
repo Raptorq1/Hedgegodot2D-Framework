@@ -9,9 +9,9 @@ var speed = 0.0
 
 export var chain_size : float = 16.0 setget _set_chain_size
 export var chain_length : int = 1 setget _set_chain_length
-export var grab_position_from : float = 1.0 setget _set_grab_position_from
-export var grab_position : float = 1.0 setget _set_grab_position
-export var grab_position_to : float = 1.0
+export(float, 0, 1, 0.1) var grab_position_from : float = 1.0 setget _set_grab_position_from
+export(float, 0, 1, 0.1) var grab_position : float = 1.0 setget _set_grab_position
+export(float, 0, 1, 0.1) var grab_position_to : float = 1.0
 export var animation_duration : float = 1.0
 export var can_move_right_top:bool
 export var can_move_right_bottom:bool

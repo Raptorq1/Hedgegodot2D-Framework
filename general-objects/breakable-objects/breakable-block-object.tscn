@@ -23,6 +23,8 @@ region_rect = Rect2( 0, 0, 32, 48 )
 
 [node name="BreakArea" type="Area2D" parent="."]
 position = Vector2( 0, 8 )
+collision_layer = 0
+collision_mask = 512
 gravity_vec = Vector2( 0, 0 )
 linear_damp = 0.0
 angular_damp = 0.0
@@ -34,7 +36,7 @@ shape = SubResource( 1 )
 [node name="Body" type="StaticBody2D" parent="."]
 position = Vector2( 0, 8 )
 collision_layer = 32
-collision_mask = 32
+collision_mask = 0
 __meta__ = {
 "_edit_group_": true
 }

@@ -3,10 +3,9 @@ extends State
 var times : int = TIMES_PRESET
 const TIMES_PRESET : int = 4
 
-func enter(host, prev_state):
+func state_enter(host, prev_state):
 	host.speed = Vector2.ZERO
 	wait(host)
-	times -= 1
 
 func wait(host):
 	var next_state = "Moving"
@@ -18,17 +17,17 @@ func wait(host):
 		times = TIMES_PRESET + 1
 		next_state = "UpScreen"
 	var hp_fract = host.hp /25
-	yield(get_tree().create_timer(time_to_wait-hp_fract), "timeout")
-	finish(next_state)
+	get_tree().create_timer(time_to_wait-hp_fract).connect("timeout", self, "finish", [next_state])
+	times -= 1
 
-func animation_step(host, animator, delta):
+func state_animation_process(host, delta, animator):
 	if animator.current_animation == "Appear":return
 	var anim = "Idle"
 	if host.charging:
 		anim = "flash"
-		host.modulate.r = 3.0
+		host.character.material = host.shooting_material
 	if host.shoot:
 		anim = "laserShoot"
-		host.modulate.r = 3.0
+		host.character.material = host.shooting_material
 	
 	animator.animate(anim)

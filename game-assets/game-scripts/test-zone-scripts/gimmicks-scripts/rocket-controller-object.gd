@@ -78,7 +78,7 @@ func is_class(val : String) -> bool:
 
 func _on_Rocket_exploded():
 	# Explosion Effects
-	get_tree().get_current_scene().get_node('HUD').flash_screen(0.1, 0.85)
+	get_tree().get_current_scene().get_node('HUD').vfx_handler.flash_screen(0.1, 0.85)
 	play_sounds(AudioStreamPlayer2D.new(), load('res://game-assets/audio/sfx/Explosion3.wav'), false)
 	var explosion = load('res://zones/test-zone-objects/act-1-exclusive/rocket-explosion.tscn')
 	var speeds = [
@@ -86,7 +86,7 @@ func _on_Rocket_exploded():
 		Vector3(50, -500, 150),
 		Vector3(200, -450, 0),
 		Vector3(-50, -500, -100),
-	]
+		]
 	var obj = explosion.instance()
 	obj.global_position = rocket.global_position
 	add_child(obj)

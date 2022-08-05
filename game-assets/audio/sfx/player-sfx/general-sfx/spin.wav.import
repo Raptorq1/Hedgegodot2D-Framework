@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spin.wav-e0acab84f3344be0cd52767f7176aded.sample"
+
+[deps]
+
+source_file="res://game-assets/audio/sfx/player-sfx/general-sfx/spin.wav"
+dest_files=[ "res://.import/spin.wav-e0acab84f3344be0cd52767f7176aded.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

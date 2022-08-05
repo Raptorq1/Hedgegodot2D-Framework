@@ -1,41 +1,43 @@
 extends State
+#Idle
 
 var slope : float
 
-func enter(host : PlayerPhysics, prev_state):
-	pass
+func state_enter(host : PlayerPhysics, prev_state):
 	host.speed = Vector2.ZERO
 	host.direction = Vector2.ZERO
 	host.gsp = 0
-	host.character.rotation = 0
 
-func step(host : PlayerPhysics, delta):
-	var ground_angle = host.ground_angle()
+func state_physics_process(host : PlayerPhysics, delta):
+	var ground_angle = host.coll_handler.ground_angle()
 	slope = -host.slp
 	host.gsp += slope * sin(ground_angle)
 	host.gsp -= min(abs(host.gsp), host.frc) * sign(host.gsp)
 	if host.constant_roll:
 		finish("Rolling")
 		return
-	if abs(host.gsp) >= 0.1:
+	if abs(host.gsp) > 0.1:
 		finish("OnGround")
 		return
 	
-	if !host.is_ray_colliding or host.fall_from_ground() or !host.is_on_ground():
+	#print(host.coll_handler.fall_from_ground())
+	if !host.is_ray_colliding or host.coll_handler.fall_from_ground() or !host.is_grounded:
 		host.is_grounded = false
-		host.snap_margin = 0
+		host.erase_snap()
+		#host.speed.y = 1
+		#host.move_and_slide_preset()
 		finish("OnAir")
 		return
 	
-	if !host.can_fall || (abs(rad2deg(ground_angle)) <= 30 && host.rotation != 0):
-		host.snap_to_ground()
-		finish("OnGround")
+	if !host.can_fall or (abs(rad2deg(ground_angle)) <= 30):
+		host.coll_handler.snap_to_ground()
+		host.speed = Vector2.ZERO
 		return
 	
 	#host.speed.x = host.gsp * cos(ground_angle)
 	#host.speed.y = host.gsp * -sin(ground_angle);
 
-func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta:float):
+func state_animation_process(host, delta:float, animator: CharacterAnimator):
 	animator.animate('Idle', 1.0, true)
 
 func state_input(host, event):

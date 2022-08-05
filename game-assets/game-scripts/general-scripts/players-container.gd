@@ -1,18 +1,19 @@
 extends Node
+class_name PlayersContainer
+
 onready var selected
 export(int) var main_player = 0
 var player = preload('res://general-objects/players-objects/player-obj.tscn')
-class_name PlayersContainer
 onready var p_obj = $PlayersObj
 onready var spawner = $InitialSpawn
 
 func _ready():
 	yield(get_parent(), "ready")
-	for i in get_parent().global.players.size():
-		var player_infos = get_parent().global.players[i]
+	for i in get_parent().global.characters.size():
+		var player_infos = get_parent().global.characters[i]
 		var point : Vector2 = spawner.position
 		var player_obj = player.instance()
-		player_obj.position = point
+		player_obj.position = point - spawner.rect_size * Vector2(0, .5)
 		player_obj.my_spawn_point = point
 		p_obj.add_child(player_obj)
 	

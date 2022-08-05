@@ -11,7 +11,7 @@ onready var ray_cast: RayCast2D = $RayCast2D
 onready var anim_player: AnimationPlayer = $Animation/AnimationPlayer
 onready var tween: Tween = $Tween
 onready var vic_timer : Timer = $VictoryTimer
-onready var audio_player : AudioPlayer = $AudioPlayer
+onready var audio_player : SoundMachine = $AudioPlayer
 onready var sparkles : CPUParticles2D = $Sparkles
 
 func _ready() -> void:
@@ -39,7 +39,7 @@ func _on_Area_body_shape_entered(body_id: RID, body: Node, body_shape: int, loca
 			anim_player.play('Rotating', -1, 1)
 			sparkles.emitting = true
 			was_in_air = true
-			audio_player.play('sign-post')
+			audio_player.play('sign_post')
 		else:
 			if is_physics_processing():
 				var prev_sp = speed

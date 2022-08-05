@@ -4,14 +4,14 @@ var target_pos = null
 var side = 0
 var main_anim_name = 'Suspended'
 
-func enter(host: PlayerPhysics, prev_state:String):
+func state_enter(host: PlayerPhysics, prev_state:String):
 	host.speed = Vector2.ZERO
 	host.audio_player.play('grab')
 	host.rotation = 0
 	host.character.rotation = 0
 	host.snap_margin = 0
 
-func step(host: PlayerPhysics, delta: float):
+func state_physics_process(host: PlayerPhysics, delta: float):
 	#print(target_pos)
 	if host.direction.x != 0:
 		var left = host.direction.x < 0 && host.suspended_can_left
@@ -38,13 +38,13 @@ func step(host: PlayerPhysics, delta: float):
 				side = 0
 			host.speed.x = 0
 
-func exit(host: PlayerPhysics, next_state:String):
+func state_exit(host: PlayerPhysics, next_state:String):
 	target_pos = null
 	side = 0
 	host.suspended_can_left = true
 	host.suspended_can_right = true
 
-func animation_step(host: PlayerPhysics, animator: CharacterAnimator, delta):
+func state_animation_process(host, delta:float, animator: CharacterAnimator):
 	#print(main_anim_name)
 	var playback_speed = 1.59
 	if side == 0:

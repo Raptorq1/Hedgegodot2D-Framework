@@ -26,21 +26,23 @@ func _physics_process(delta):
 		explode()
 
 func explode():
-	get_tree().create_timer(0.5).connect("timeout", player, "set_specific_animation_temp", [false])
-	emit_signal("exploded")
 	parent.traffic_animator.play("ToRed")
+	parent.animator.play("RESET")
+	parent.animator.playback_speed = 1.0
 	player.global_position = global_position
 	player.speed.x = speed * 0.5
 	player.speed.y = -player.jmp
 	player.side = scale.x
+	player.do_all()
 	player.fsm.change_state("OnAir")
-	player.specific_animation_temp = true
-	player.animation.animate("Hurt", 2.0)
-	position.x = 0
-	speed = 0
 	player.visible = true
+	player.sprite.set_visible(true)
+	get_tree().create_timer(0.1).connect("timeout", player, "play_specific_anim_until", ["Hurt", 1.0, true, player.fsm, "state_changed"], CONNECT_ONESHOT)
 	set_physics_process(false)
 	parent.animator.playback_speed = 1.0
+	emit_signal("exploded")
+	position.x = 0
+	speed = 0
 
 
 func _on_CartArea_body_entered(body : Node):
@@ -48,12 +50,14 @@ func _on_CartArea_body_entered(body : Node):
 		"PlayerPhysics":
 			if is_physics_processing() or player: return
 			player = body
-			player.erase_state()
 			parent.player_sprite.visible = true
 			player.visible = false
+			player.sprite.set_visible(false)
 			player.global_position = global_position
 			player.rotation = 0
 			grab_sfx.play()
+			player.do_nothing()
+			player.erase_state()
 			yield(get_tree().create_timer(parent.delay_start * 0.3), "timeout")
 			traffic_light_sfx.play()
 			parent.traffic_animator.play("ToGreen")

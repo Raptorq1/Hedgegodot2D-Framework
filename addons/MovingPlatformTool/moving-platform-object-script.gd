@@ -7,7 +7,8 @@ onready var path : Path2D = Utils.Nodes.get_node_by_type(self, 'Path2D')
 export var loop : bool = false setget set_loop
 export var speed : float = 1.0
 export var pause_timer : float = 1.0
-onready var platform : KinematicBody2D = Utils.Nodes.get_node_by_type(self, 'KinematicBody2D')
+export var platform_path : NodePath
+onready var platform : Node2D = get_node(platform_path)
 onready var positions = (path as Path2D).curve.get_baked_points()
 var path_follow : PathFollow2D = PathFollow2D.new()
 var remote_t : RemoteTransform2D = RemoteTransform2D.new()
@@ -56,8 +57,7 @@ func _physics_process(delta: float) -> void:
 			right = !right
 			if pause_timer > 0.0:
 				set_physics_process(false)
-				yield(get_tree().create_timer(pause_timer), "timeout")
-				set_physics_process(true)
+				get_tree().create_timer(pause_timer).connect("timeout", self, "set_physics_process", [true])
 	
 
 func _get_configuration_warning() -> String:

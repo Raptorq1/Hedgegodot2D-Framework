@@ -76,16 +76,20 @@ colors = PoolColorArray( 0.501961, 0.878431, 0.752941, 1, 1, 1, 1, 0 )
 
 [node name="VerticalTeleporter" type="Node2D"]
 script = ExtResource( 2 )
-position_to_go = -200.0
+position_to_teleport = 0.0
 
 [node name="Static" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Static"]
 position = Vector2( 0, 4 )
-polygon = PoolVector2Array( -24, -12, -18, -12, -6, -15, 6, -15, 18, -12, 24, -12, 24, 12, -24, 12 )
+polygon = PoolVector2Array( -24, -12, 24, -12, 24, 12, -24, 12 )
 
 [node name="Sensor" type="Area2D" parent="."]
 position = Vector2( 0, -4 )
+collision_layer = 0
+collision_mask = 512
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
 shape = SubResource( 1 )
@@ -98,7 +102,8 @@ hframes = 4
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )
 
-[node name="ShootPosition" type="Position2D" parent="."]
+[node name="PreTPPosition" type="Position2D" parent="."]
+visible = false
 position = Vector2( 0, -60 )
 
 [node name="charge" type="AudioStreamPlayer2D" parent="."]

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=47]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+void fragment(){
+	vec4 col = texture(TEXTURE, UV);
+	
+	COLOR.g = col.g;
+	COLOR.b = col.b;
+	COLOR.a = col.a;
+}"
+
+[resource]
+resource_name = "shoot-material"
+shader = SubResource( 47 )

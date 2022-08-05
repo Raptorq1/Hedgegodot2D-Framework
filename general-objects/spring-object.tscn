@@ -1,247 +1,52 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/general-scripts/spring-script.gd" type="Script" id=1]
-[ext_resource path="res://game-assets/game-sprites/levels-sprites/general-sprites/YellowSprings.png" type="Texture" id=2]
-[ext_resource path="res://game-assets/game-sprites/levels-sprites/general-sprites/RedSprings.png" type="Texture" id=3]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 3 )
-region = Rect2( 128, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 3 )
-region = Rect2( 160, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 3 )
-region = Rect2( 192, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
-region = Rect2( 224, 0, 32, 32 )
-
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": false,
-"name": "Push",
-"speed": 35.0
-}, {
-"frames": [ SubResource( 8 ) ],
-"loop": false,
-"name": "Normal",
-"speed": 5.0
-} ]
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
-region = Rect2( 160, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 224, 0, 32, 32 )
-
-[sub_resource type="SpriteFrames" id=18]
-animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
-"loop": false,
-"name": "Push",
-"speed": 35.0
-}, {
-"frames": [ SubResource( 17 ) ],
-"loop": false,
-"name": "Normal",
-"speed": 5.0
-} ]
-
-[sub_resource type="Animation" id=19]
-length = 0.9
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.9 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ "Push", "Push" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 4, 4, 5, 6 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.9 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=20]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Normal" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 16, 13 )
+[ext_resource path="res://game-assets/resources/general/spring/general-spring-reset-anim.tres" type="Animation" id=2]
+[ext_resource path="res://game-assets/resources/general/spring/spring-red-skin.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://game-assets/resources/general/spring/general-spring-push-anim.tres" type="Animation" id=4]
+[ext_resource path="res://game-assets/resources/general/spring/red-spring-values.res" type="Resource" id=5]
 
 [sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 15, 4 )
+extents = Vector2( 15, 2 )
 
 [sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 16, 8 )
 
-[node name="RedSpring" type="Node2D"]
+[node name="Spring" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-push_force = 700
-spring_presset = 1
+spring_values = ExtResource( 5 )
 
-[node name="Types" type="Node2D" parent="."]
+[node name="Skin" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 scale = Vector2( -1, 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Red" type="AnimatedSprite" parent="Types"]
-scale = Vector2( -1, 1 )
-z_index = 1
-frames = SubResource( 9 )
-animation = "Push"
-
-[node name="Yellow" type="AnimatedSprite" parent="Types"]
-visible = false
-scale = Vector2( -1, 1 )
-frames = SubResource( 18 )
-animation = "Push"
+frames = ExtResource( 3 )
+animation = "Normal"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/RedSpring/Types/Red")
-playback_speed = 3.0
-anims/Push = SubResource( 19 )
-anims/Stop = SubResource( 20 )
-
-[node name="ActivateArea" type="Area2D" parent="."]
-position = Vector2( 0, -28 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="ActivateTrigger" type="CollisionShape2D" parent="ActivateArea"]
-modulate = Color( 0.894118, 0.54902, 0.882353, 1 )
-shape = SubResource( 21 )
-disabled = true
+root_node = NodePath("../Skin")
+anims/Push = ExtResource( 4 )
+anims/RESET = ExtResource( 2 )
 
 [node name="JumpArea" type="Area2D" parent="."]
-position = Vector2( 0, -20 )
-collision_layer = 25
-collision_mask = 25
+position = Vector2( 0, -18 )
+collision_layer = 0
+collision_mask = 512
+input_pickable = false
+monitorable = false
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="JumpCollide" type="CollisionShape2D" parent="JumpArea"]
 modulate = Color( 1, 0.494118, 0, 1 )
-position = Vector2( 0, 4 )
 shape = SubResource( 22 )
 
 [node name="Body" type="StaticBody2D" parent="."]
 position = Vector2( 0, -8 )
-collision_layer = 25
-collision_mask = 25
+collision_mask = 0
 __meta__ = {
 "_edit_group_": true
 }
@@ -251,6 +56,4 @@ modulate = Color( 0.556863, 0.945098, 0.909804, 1 )
 shape = SubResource( 23 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="body_entered" from="ActivateArea" to="." method="_on_ActivateArea_body_entered"]
-[connection signal="body_exited" from="ActivateArea" to="." method="_on_ActivateArea_body_exited"]
 [connection signal="body_entered" from="JumpArea" to="." method="_on_JumpArea_body_entered"]

@@ -25,12 +25,12 @@ func _action(player : PlayerPhysics) -> void:
 	pass
 
 func _push_player(player : PlayerPhysics) -> void:
-	if !player.is_grounded:
-		pass
-	var direction = global_position.direction_to(player.global_position).sign()
-	var angle = rotation
-	player.speed.y -= (player.speed.y * 1.85) * cos(angle)
-	player.speed.x -= (player.speed.x * 1.85) * sin(angle)
+	if player.is_grounded:return
+	if player.fsm.current_state == "OnAir":
+		if player.speed.y < 0:
+			player.speed.y *= 0.75
+		else:
+			player.speed.y *= -1
 
 func _on_ExplodeArea_body_entered(body: Node) -> void:
 	if body is PlayerPhysics:
@@ -45,12 +45,9 @@ func _on_ExplodeArea_body_entered(body: Node) -> void:
 			for i in base_sprite.get_children():
 				i.queue_free()
 			base_sprite.frame = int(rand_range(1, 3))
-			get_node('/root/GlobalSounds').play('Destroy')
+			get_node("/root/AutoloadSoundMachine").play('Destroy')
 			_push_player(body)
-			var timer = Timer.new()
-			timer.connect('timeout', self, '_timeout_action', [timer, body])
-			add_child(timer)
-			timer.start(0.5)
+			get_tree().create_timer(0.5).connect('timeout', self, '_timeout_action', [body])
 			return
 		if body.speed.y < 0:
 			yspeed = body.speed.y if body.speed.y > -200 else -200
@@ -67,6 +64,5 @@ func _physics_process(delta: float) -> void:
 		yspeed = 0
 		set_physics_process(false)
 
-func _timeout_action(timer : Timer, body : Node) -> void:
+func _timeout_action(body : Node) -> void:
 	_action(body)
-	timer.queue_free()

@@ -38,6 +38,10 @@ func _set_radius (val : float) -> void:
 	if !editor_process:
 		process_angle = default_angle
 		_update_rings_pos()
+	if has_node("VisibilityEnabler2D"):
+		var enabler = $VisibilityEnabler2D
+		enabler.rect.size = Vector2.ONE * radius * 2.5
+		enabler.rect.position = -Vector2.ONE * (radius * 1.25)
 	update()
 
 func _set_scene_offset (val : Vector2) -> void:
@@ -79,11 +83,10 @@ func clear():
 		var obj : Node = i
 		if obj.is_connected("tree_exited", self, "object_removed"):
 			obj.disconnect("tree_exited", self, "object_removed")
-		
-	if get_child_count() > 0:
-		for i in get_children():
-			var obj : Node = i
-			obj.queue_free()
+	
+	for i in get_children():
+		if !i.is_class("VisibilityEnabler2D"):
+			i.queue_free()
 	
 	objects.clear()
 
@@ -98,7 +101,7 @@ func _spawn_objects() -> void:
 			m_angle += angle_step
 			objects.append(null)
 			continue
-		var scene_obj : Node2D = scene.instance()
+		var scene_obj : Node2D = scene.instance(PackedScene.GEN_EDIT_STATE_DISABLED)
 		var direction = Utils.Math.angle2Vec2(m_angle)
 		var pos = scene_offset + (direction * radius)
 		if !Engine.editor_hint:
@@ -152,3 +155,7 @@ func _edit_is_selected_on_click(p_point:Vector2, p_tolerance:float) -> bool:
 func set_scene(val : PackedScene):
 	scene = val
 	_spawn_objects()
+
+
+func _on_VisibilityEnabler2D_screen_exited() -> void:
+	process_angle = 0

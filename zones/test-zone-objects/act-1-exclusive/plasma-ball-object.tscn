@@ -1,16 +1,19 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/tesla-ball/plasma-lightning.png" type="Texture" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/tesla-ball/plasma-lightning-core.png" type="Texture" id=2]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/tesla-ball/plasma-glass-ball.png" type="Texture" id=3]
-[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/tesla-ball/plasma-circle.png" type="Texture" id=4]
+[ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/test-zone-gimmicks-sprites/tesla-ball/plasma-lightning-ball.png" type="Texture" id=4]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/gimmicks-scripts/tesla-ball-script.gd" type="Script" id=5]
 [ext_resource path="res://game-assets/audio/sfx/plasma-ball.wav" type="AudioStream" id=6]
 
 [sub_resource type="CircleShape2D" id=27]
 radius = 47.0
 
-[sub_resource type="CanvasItemMaterial" id=28]
+[sub_resource type="CanvasItemMaterial" id=30]
+
+[sub_resource type="CanvasItemMaterial" id=31]
+blend_mode = 1
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -113,17 +116,17 @@ blend_mode = 1
 
 [sub_resource type="Animation" id=26]
 resource_name = "main"
-length = 0.4
+length = 0.416667
 loop = true
-step = 0.0166667
+step = 0.0833333
 tracks/0/type = "value"
-tracks/0/path = NodePath("Core:frame")
+tracks/0/path = NodePath("Lightning/Core:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.0833333, 0.166667, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0, 3, 0, 3 ]
@@ -135,7 +138,7 @@ tracks/1/loop_wrap = false
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.416667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0, 15 ]
@@ -147,46 +150,50 @@ tracks/2/loop_wrap = false
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.416667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0, 15 ]
 }
 
 [node name="PlasmaBall" type="Area2D"]
+collision_layer = 0
+collision_mask = 512
 monitorable = false
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 27 )
 
 [node name="Back" type="Sprite" parent="."]
-modulate = Color( 0.117647, 0, 0.321569, 0.333333 )
+modulate = Color( 0.17, 0, 0.44, 0.5 )
+material = SubResource( 30 )
 texture = ExtResource( 4 )
 
 [node name="Lightning" type="Node2D" parent="."]
-material = SubResource( 28 )
+material = SubResource( 31 )
 
 [node name="LeftLighting" type="AnimatedSprite" parent="Lightning"]
 use_parent_material = true
 position = Vector2( -41, -40 )
 frames = SubResource( 1 )
-frame = 1
+frame = 15
 centered = false
 
 [node name="RightLightning" type="AnimatedSprite" parent="Lightning"]
 use_parent_material = true
 position = Vector2( -3, -40 )
 frames = SubResource( 1 )
-frame = 1
+frame = 15
 centered = false
 flip_h = true
 flip_v = true
 
-[node name="Core" type="AnimatedSprite" parent="."]
-use_parent_material = true
+[node name="Core" type="AnimatedSprite" parent="Lightning"]
+position = Vector2( -8, -8 )
 frames = SubResource( 22 )
-frame = 1
+centered = false
 
 [node name="GlassBall" type="Sprite" parent="."]
 material = SubResource( 23 )

@@ -1,46 +1,81 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://game-assets/3d-models/special-ring/special-ring.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game-assets/game-classes/special-ring-manager.gd" type="Script" id=2]
-[ext_resource path="res://game-assets/3d-models/special-ring/special-ring-enviroment.tres" type="Environment" id=3]
 
-[sub_resource type="ViewportTexture" id=4]
+[sub_resource type="ViewportTexture" id=10]
 
-[sub_resource type="World" id=2]
-environment = ExtResource( 3 )
+[sub_resource type="World" id=9]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 57, 81 )
 
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.346685, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.645028, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.621951 )
+colors = PoolColorArray( 1, 1, 0, 0, 1, 0.968627, 0, 1 )
+
 [node name="EmeraldRingIn2D" type="Node2D"]
+modulate = Color( 3, 3, 3, 1 )
 script = ExtResource( 2 )
 
+[node name="VisibilityEnabler2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -1, 1 )
+scale = Vector2( 4.95, 4.95 )
+
 [node name="SpecialRingSprite" type="Sprite" parent="."]
-scale = Vector2( 0.35, 0.35 )
-texture = SubResource( 4 )
+position = Vector2( 0, 1 )
+texture = SubResource( 10 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="3DVisual" type="Viewport" parent="SpecialRingSprite"]
-size = Vector2( 512, 512 )
+size = Vector2( 276, 276 )
 own_world = true
-world = SubResource( 2 )
+world = SubResource( 9 )
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 3
-shadow_atlas_quad_0 = 1
-shadow_atlas_quad_1 = 1
-shadow_atlas_quad_2 = 2
-shadow_atlas_quad_3 = 3
+usage = 3
+render_target_v_flip = true
+gui_snap_controls_to_pixels = false
+shadow_atlas_quad_0 = 0
+shadow_atlas_quad_1 = 0
+shadow_atlas_quad_2 = 0
+shadow_atlas_quad_3 = 0
 
 [node name="EmeraldRing" parent="SpecialRingSprite/3DVisual" instance=ExtResource( 1 )]
 
 [node name="Enter" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+input_pickable = false
+monitorable = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enter"]
+visible = false
 shape = SubResource( 3 )
 
-[node name="OpenTrigger" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 0.999996, 2 )
-scale = Vector2( 19, 19 )
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 128
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector2( 0, 0 )
+gravity = Vector2( 0, 0 )
+orbit_velocity = 0.6
+radial_accel = 100.0
+scale_amount = 2.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )
 
-[connection signal="screen_entered" from="OpenTrigger" to="." method="_on_OpenTrigger_screen_entered"]
-[connection signal="screen_exited" from="OpenTrigger" to="." method="_on_OpenTrigger_screen_exited"]
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]

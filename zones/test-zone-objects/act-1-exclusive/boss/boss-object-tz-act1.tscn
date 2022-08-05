@@ -1,9 +1,9 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/testzone-act1-boss.gd" type="Script" id=1]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/bosses-sprites/minor-boss/hotaru-head.png" type="Texture" id=2]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/bosses-sprites/minor-boss/hotaru-lamp.png" type="Texture" id=3]
-[ext_resource path="res://game-assets/game-scripts/general-scripts/state-machine.gd" type="Script" id=4]
+[ext_resource path="res://game-assets/game-classes/state-machine/state-machine.gd" type="Script" id=4]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/states/idle-state.gd" type="Script" id=5]
 [ext_resource path="res://game-assets/game-scripts/test-zone-scripts/bosses-script/states/moving-state.gd" type="Script" id=6]
 [ext_resource path="res://game-assets/game-sprites/levels-sprites/test-zone-assets/bosses-sprites/minor-boss/hotaru-laser.png" type="Texture" id=7]
@@ -995,8 +995,11 @@ tracks/2/keys = {
 [sub_resource type="RectangleShape2D" id=45]
 extents = Vector2( 17, 37 )
 
+[sub_resource type="RectangleShape2D" id=47]
+extents = Vector2( 17, 37 )
+
 [node name="TZAct1Boss" type="KinematicBody2D"]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 8
 motion/sync_to_physics = true
 script = ExtResource( 1 )
@@ -1004,9 +1007,6 @@ hp = 8
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 4 )
-activated = false
-move_and_slide = false
-initial_state = "Idle"
 
 [node name="Idle" type="Node" parent="FSM"]
 script = ExtResource( 5 )
@@ -1024,6 +1024,7 @@ visible = false
 use_parent_material = true
 position = Vector2( -31, -37 )
 frames = SubResource( 4 )
+frame = 1
 centered = false
 
 [node name="Lamp" type="AnimatedSprite" parent="Character"]
@@ -1046,6 +1047,8 @@ texture = ExtResource( 7 )
 centered = false
 
 [node name="Area2D" type="Area2D" parent="Character/Laser"]
+collision_layer = 0
+collision_mask = 512
 monitoring = false
 monitorable = false
 script = ExtResource( 18 )
@@ -1124,7 +1127,19 @@ one_shot = true
 visible = false
 shape = SubResource( 45 )
 
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 47 )
+
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="damage" from="." to="." method="_on_TZAct1Boss_damage"]
 [connection signal="body_entered" from="Character/Laser/Area2D" to="Character/Laser/Area2D" method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_ChargeTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_when_overlap_player"]

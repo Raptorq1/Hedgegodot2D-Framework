@@ -1,11 +1,10 @@
 extends CanvasLayer
 onready var level : LevelInfos = get_parent()
-enum Actions {
-	FLASH = 0,
-	FADE = 1
-}
 signal can_play
-onready var color_rect : ColorRect = $ColorRect
+
+const VFXH = preload("res://game-assets/game-scripts/general-scripts/hud_vfx_handler.gd")
+var vfx_handler:VFXH = VFXH.new(self)
+onready var vfx_rect : ColorRect = $VFX
 onready var transition : ColorRect = $Transition
 var action : int
 onready var zone_name : Label = $TitleCard/Sort/NormalBg/Bg/Text/ZoneName
@@ -68,6 +67,13 @@ func show_title_card():
 	get_tree().get_root().set_disable_input(true)
 	zone_name.text = level.zone_name
 	act_num.text = String(level.get_current_act())
+	wait_title_card_ends(funcref(get_tree().get_root(), "set_disable_input"))
+	
+
+func wait_title_card_ends(callback:FuncRef, args:Array = []):
+	yield($AnimationPlayer,"animation_finished")
+	get_tree().get_root().set_disable_input(false)
+	callback.call_funcv(args)
 
 func start_victory():
 	for i in get_tree().get_nodes_in_group("Players"):
@@ -125,37 +131,6 @@ func start_count_points():
 	for i in get_tree().get_nodes_in_group("Players"):
 		i.fsm.change_state("Idle")
 		i.unlock_control()
-
-func flash_screen(time_to_fade_out : float = 0.25, alpha : float = 1.0) -> void:
-	color_rect.color = Color('#ffffffff')
-	color_rect.color.a = alpha
-	var timer : Timer = Timer.new()
-	timer.connect('timeout', self, '_flash_timeout', [timer])
-	add_child(timer)
-	timer.start(time_to_fade_out)
-
-func fade_transition():
-	action = Actions.FADE
-	set_process(true)
-
-func _process(delta: float) -> void:
-	match action:
-		Actions.FLASH:
-			color_rect.color.a -= delta * 2
-			if color_rect.color.a < 0:
-				color_rect.color.a = 0
-				set_process(false)
-		Actions.FADE:
-			transition.color.a -= delta * 2
-			if transition.color.a < 0:
-				transition.color.a = 0
-				set_process(false)
-
-func _flash_timeout(timer : Timer):
-	set_process(true)
-	action = Actions.FLASH
-	timer.queue_free()
-
 
 func _on_Sign_sign_positioned() -> void:
 	start_victory()

@@ -56,11 +56,22 @@ func _get_configuration_warning() -> String:
 	if !area || !area is BossArea:
 		to_return += "The Boss class must contain BossArea class as a parent\n"
 	if hp <= 0:
-		to_return += "Hp is setted to 0, When the boss start, it will be destroyed"
+		to_return += "Hp is setted to 0, it will destroy when start"
 	return to_return
 
 func _set_hp(val : int) -> void:
 	hp = max(val, 0)
+
+func _when_overlap_player(area: Area2D):
+	if area is PlayerHitBox:
+		var ph : PlayerHitBox = area
+		if ((ph.only_attack or ph.can_attack) or (ph.can_attack and ph.owner.roll_anim)) and !damage_only:
+			if !can_take_hit: return
+			damage()
+			ph.get_owner().speed *= -0.5
+		else:
+			var p = ph.get_owner()
+			p.damage(position.direction_to(p.position))
 
 func get_class() -> String:return "Boss"
 func is_class(val: String) -> bool:return val == get_class() or .is_class(val)

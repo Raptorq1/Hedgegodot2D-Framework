@@ -27,10 +27,23 @@ var target_sighted : bool = false setget set_target_sighted
 var target_h := false
 var is_pushing := false setget set_is_pushing
 
+func _enter_tree() -> void:
+	if Engine.editor_hint:
+		editor_actions()
+		return
+	set_physics_process(false)
+
 func _ready():
-	if Engine.editor_hint: return
+	if Engine.editor_hint:
+		editor_actions()
+		return
+	set_physics_process(false)
 	fsm._on_host_ready(self)
 	check_for_target()
+
+func editor_actions():
+	set_process(false)
+	set_physics_process(false)
 
 func side_switch(val : bool):
 	to_right = val
@@ -46,8 +59,12 @@ func set_target_sighted(val : bool):
 	if target_sighted:
 		emit_signal("target_sighted")
 
-func physics_step(delta):
-	pass
+func _physics_process(delta: float) -> void:
+	fsm._fsm_physics_process(delta)
+	speed = move_and_slide_preset()
+
+func _process(delta):
+	fsm._fsm_process(delta)
 
 func play_step():
 	turtle_walk[round(rand_range(0, 1))].play()
@@ -57,7 +74,6 @@ func move_and_slide_preset(val=null):
 
 func check_for_target():
 	if players_inside_area.empty():
-		#print("empty")
 		get_tree().create_timer(1.5).connect("timeout", self, "check_for_target")
 		return
 	pos_entered = to_local(players_inside_area[0].position)

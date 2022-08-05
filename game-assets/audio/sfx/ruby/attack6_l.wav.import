@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/attack6_l.wav-d925b0e5e74156d17278e1428e8ea193.sample"
+
+[deps]
+
+source_file="res://game-assets/audio/sfx/ruby/attack6_l.wav"
+dest_files=[ "res://.import/attack6_l.wav-d925b0e5e74156d17278e1428e8ea193.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

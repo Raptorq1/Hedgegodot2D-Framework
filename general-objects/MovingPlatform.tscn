@@ -11,10 +11,12 @@ extents = Vector2( 40, 16 )
 scale = Vector2( 0.902001, 0.951601 )
 script = ExtResource( 2 )
 loop = true
+platform_path = NodePath("MovingPlatform")
 
 [node name="MovingPlatform" type="KinematicBody2D" parent="."]
 collision_layer = 25
-collision_mask = 25
+collision_mask = 0
+collision/safe_margin = 0.001
 motion/sync_to_physics = true
 __meta__ = {
 "_edit_group_": true
