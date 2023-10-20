@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game-assets/game-scripts/general-scripts/in-level-script.gd" type="Script" id=1]
+[ext_resource path="res://zones/test-zone-objects/act-1-exclusive/test-zone-act-1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game-assets/game-scripts/general-scripts/act-container.gd" type="Script" id=3]
 [ext_resource path="res://zones/test-zone-objects/act-2-exclusive/test-zone-act-2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game-assets/audio/musics/act-clear.mp3" type="AudioStream" id=5]
@@ -21,7 +22,7 @@ zone_name = "Test Zone"
 script = ExtResource( 20 )
 
 [node name="InitialSpawn" type="Position2D" parent="Players"]
-position = Vector2( 2464, -497 )
+position = Vector2( 140, 816 )
 script = ExtResource( 58 )
 
 [node name="PlayersObj" type="Node" parent="Players"]
@@ -33,10 +34,13 @@ jump_when_pass = true
 
 [node name="ActContainer" type="Node2D" parent="."]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 acts_to_load = [ ExtResource( 4 ) ]
-current_act = 2
 
-[node name="Act2" parent="ActContainer" instance=ExtResource( 4 )]
+[node name="Act1" parent="ActContainer" instance=ExtResource( 2 )]
 
 [node name="ActClear" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )

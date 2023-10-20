@@ -2739,7 +2739,7 @@ __meta__ = {
 }
 
 [node name="InvertMaskSetter" type="Area2D" parent="Level/Maps/MaskSetters"]
-modulate = Color( 0.63, 0.13, 0.94, 0.5 )
+modulate = Color( 0.627451, 0.12549, 0.941176, 0.5 )
 collision_layer = 0
 collision_mask = 512
 input_pickable = false
@@ -2774,6 +2774,7 @@ source_tilemap = NodePath("../../Maps/LevelObjectsMap")
 mapping = ExtResource( 7 )
 clear_children_before_baking = false
 spawn_at_runtime = true
+target_node = "."
 
 [node name="EndPlatformThrow" parent="Level/LevelObjectsNode" instance=ExtResource( 83 )]
 position = Vector2( 4352, 944 )
@@ -3473,6 +3474,7 @@ __meta__ = {
 
 [node name="TurtleFan" parent="Level/LevelObjectsNode/BadnikContainer5" instance=ExtResource( 95 )]
 position = Vector2( 0, -2.07593 )
+init_timer = 1
 
 [node name="ChangeSpot" parent="Level/LevelObjectsNode/BadnikContainer5" instance=ExtResource( 1 )]
 position = Vector2( -192, -8 )
@@ -3492,12 +3494,10 @@ scale = Vector2( 11.7954, 24.8999 )
 
 [node name="ScrewNutLocker" parent="Level/LevelObjectsNode/ScrewContainer" instance=ExtResource( 47 )]
 position = Vector2( 0, 24 )
-rotation = 5.07036e-06
 lock = 1
 
 [node name="ScrewNutLocker2" parent="Level/LevelObjectsNode/ScrewContainer" instance=ExtResource( 47 )]
 position = Vector2( 0.000976562, -392 )
-rotation = 5.07036e-06
 
 [node name="Body" type="Sprite" parent="Level/LevelObjectsNode/ScrewContainer"]
 position = Vector2( -15.999, -380 )
@@ -3549,8 +3549,6 @@ shape = SubResource( 184 )
 
 [node name="TZAct1Boss" parent="Level/BossArea" instance=ExtResource( 89 )]
 position = Vector2( 0, -187 )
-hp = 0
-can_take_hit = false
 
 [node name="Hotaru1" type="Position2D" parent="Level/BossArea"]
 position = Vector2( -150, -74 )

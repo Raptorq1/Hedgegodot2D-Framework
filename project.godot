@@ -723,7 +723,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/SingletonScriptsShortcut/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg", "res://addons/sprite_trail/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/CircleObjectManipulator/plugin.cfg", "res://addons/SingletonScriptsShortcut/plugin.cfg", "res://addons/json_editor/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/rect-extent/plugin.cfg", "res://addons/tile_spawner/plugin.cfg" )
 
 [importer_defaults]
 
