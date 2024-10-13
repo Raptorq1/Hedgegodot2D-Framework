@@ -24,12 +24,4 @@ jobs:
           godot-version: "4.3.0"
           use-mono: false
 
-      # Run the Godot project to check for any errors or warnings
-      - name: Run Godot 4.3 Project
-        run: |
-          godot --headless --path "path/to/your/project" --no-window --export-debug "Linux/X11"
-
-      # Optional: Run unit tests, if applicable
-      - name: Run Godot Unit Tests
-        run: |
-          godot --headless --path "path/to/your/project" --no-window --test
+      
