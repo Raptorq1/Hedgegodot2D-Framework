@@ -11,25 +11,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout code
+    # Step 1: Checkout repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-  - name: Install Godot 4
-  uses: chickensoft-games/setup-godot@v2.1.1
-  with:
-    godot-version: '4.3'
-    mono: false # Set to true if using Godot with Mono
-    #Step 3: Run migration script
+    # Step 2: Install Godot 4
+    - name: Install Godot 4
+      uses: chickensoft-games/setup-godot@v2.1.1
+      with:
+        godot-version: '4.3'
+        mono: false # Set to true if using Godot with Mono
+
+    # Step 3: Run migration script
     - name: Migrate project to Godot 4
       run: |
-        ./godot --headless --editor --path . --script scripts/migrate_to_godot4.gd
+        godot --headless --editor --path . --script scripts/migrate_to_godot4.gd
       env:
         GODOT_LICENSE: ${{ secrets.GODOT_LICENSE }}
 
     # Step 4: Test the migrated project
     - name: Open the project in Godot 4 for testing
       run: |
-        ./godot --headless --editor --path .
+        godot --headless --editor --path .
       env:
         GODOT_LICENSE: ${{ secrets.GODOT_LICENSE }}
