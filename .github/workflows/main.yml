@@ -1,4 +1,4 @@
-name: Convert Godot 3.6 Project to Godot 4
+name: Convert Godot 3.6 to 4.x
 
 on:
   workflow_dispatch:
@@ -11,22 +11,19 @@ jobs:
     - name: Checkout project
       uses: actions/checkout@v3
 
-    - name: Download Godot 4.2.2
-      run: |
-        curl -L -o godot.zip https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_linux.x86_64.zip
-        unzip godot.zip -d godot
-        mv godot/Godot_v4.2.2-stable_linux.x86_64 godot/godot
-        chmod +x godot/godot
+    - name: Set up Godot 4
+      uses: firebelley/godot-action@v2
+      with:
+        version: 4.2.2
+        use-mono: false
 
-    - name: Convert the project using Godot 4
-      run: |
-        echo "Starting Godot 4 conversion..."
-        godot/godot --headless --editor --quit || true
+    - name: Run Godot to auto-convert project
+      run: godot --headless --editor --quit
 
-    - name: Commit converted project files
+    - name: Commit converted project
       run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "github-actions@github.com"
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
         git add -A
-        git diff --cached --exit-code || git commit -m "Auto-converted project from Godot 3.6 to Godot 4"
+        git diff --cached --exit-code || git commit -m "Convert project from Godot 3.6 to 4.2.2"
         git push
