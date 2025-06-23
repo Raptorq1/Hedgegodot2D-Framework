@@ -1,0 +1,30 @@
+name: Convert Godot 3 to 4
+
+on:
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout your project
+      uses: actions/checkout@v3
+
+    - name: Install Godot 4
+      run: |
+        wget https://downloads.tuxfamily.org/godotengine/4.2.2/mono/Godot_v4.2.2-stable_mono_linux_x86_64.zip
+        unzip Godot_v4.2.2-stable_mono_linux_x86_64.zip -d godot4
+        chmod +x godot4/Godot_v4.2.2-stable_mono_linux_x86_64
+
+    - name: Run Godot 4 to upgrade project
+      run: |
+        ./godot4/Godot_v4.2.2-stable_mono_linux_x86_64 --headless --editor --quit
+
+    - name: Commit upgraded project
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add -A
+        git commit -m "Convert Godot 3.x project to Godot 4.x"
+        git push
