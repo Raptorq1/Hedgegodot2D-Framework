@@ -1,4 +1,4 @@
-name: Convert Godot 3 to 4
+name: Convert Godot 3.6 Project to Godot 4
 
 on:
   workflow_dispatch:
@@ -8,23 +8,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout your project
+    - name: Checkout project
       uses: actions/checkout@v3
 
-    - name: Install Godot 4
+    - name: Download Godot 4.2.2
       run: |
-        wget https://downloads.tuxfamily.org/godotengine/4.2.2/mono/Godot_v4.2.2-stable_mono_linux_x86_64.zip
-        unzip Godot_v4.2.2-stable_mono_linux_x86_64.zip -d godot4
-        chmod +x godot4/Godot_v4.2.2-stable_mono_linux_x86_64
+        curl -L -o godot.zip https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_linux.x86_64.zip
+        unzip godot.zip -d godot
+        mv godot/Godot_v4.2.2-stable_linux.x86_64 godot/godot
+        chmod +x godot/godot
 
-    - name: Run Godot 4 to upgrade project
+    - name: Convert the project using Godot 4
       run: |
-        ./godot4/Godot_v4.2.2-stable_mono_linux_x86_64 --headless --editor --quit
+        echo "Starting Godot 4 conversion..."
+        godot/godot --headless --editor --quit || true
 
-    - name: Commit upgraded project
+    - name: Commit converted project files
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
         git add -A
-        git commit -m "Convert Godot 3.x project to Godot 4.x"
+        git diff --cached --exit-code || git commit -m "Auto-converted project from Godot 3.6 to Godot 4"
         git push
